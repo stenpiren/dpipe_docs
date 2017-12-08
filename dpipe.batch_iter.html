@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>dpipe.batch_iter package &mdash; dpipe  documentation</title>
+  <title>Batch iterators &mdash; dpipe  documentation</title>
   
 
   
@@ -37,7 +37,7 @@
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="dpipe  documentation" href="index.html"/>
         <link rel="up" title="dpipe package" href="dpipe.html"/>
-        <link rel="next" title="dpipe.batch_predict package" href="dpipe.batch_predict.html"/>
+        <link rel="next" title="Batch predictors" href="dpipe.batch_predict.html"/>
         <link rel="prev" title="dpipe package" href="dpipe.html"/> 
 
   
@@ -91,22 +91,20 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="dpipe.html">dpipe package</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="dpipe.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">dpipe.batch_iter package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Batch iterators</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.batch_iter.pipeline">Pipeline</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.batch_iter.patch_3d">dpipe.batch_iter.patch_3d module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.batch_iter.patch_3d_sep">dpipe.batch_iter.patch_3d_sep module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.batch_iter.pipeline">dpipe.batch_iter.pipeline module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.batch_iter.simple">dpipe.batch_iter.simple module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.batch_iter.slices">dpipe.batch_iter.slices module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.batch_iter">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="dpipe.batch_predict.html">dpipe.batch_predict package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.batch_predict.html">Batch predictors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.config.html">dpipe.config package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.dataset.html">Datasets</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.experiment.html">dpipe.experiment package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.medim.html">dpipe.medim package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dpipe.model_core.html">dpipe.model_core package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.model_core.html">Model Core</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.split.html">dpipe.split package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.tf.html">dpipe.tf package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.torch.html">dpipe.torch package</a></li>
@@ -114,12 +112,11 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.commands">Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.batch_iter_factory">dpipe.batch_iter_factory module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.commands">dpipe.commands module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.io">dpipe.io module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.model">dpipe.model module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.transformers">dpipe.transformers module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -168,7 +165,7 @@
         
           <li><a href="dpipe.html">dpipe package</a> &raquo;</li>
         
-      <li>dpipe.batch_iter package</li>
+      <li>Batch iterators</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -187,10 +184,36 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="dpipe-batch-iter-package">
-<h1>dpipe.batch_iter package<a class="headerlink" href="#dpipe-batch-iter-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="batch-iterators">
+<h1>Batch iterators<a class="headerlink" href="#batch-iterators" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-dpipe.batch_iter.pipeline">
+<span id="pipeline"></span><h2>Pipeline<a class="headerlink" href="#module-dpipe.batch_iter.pipeline" title="Permalink to this headline">¶</a></h2>
+<p>Contains several wrappers around the <cite>pdp</cite> library</p>
+<dl class="function">
+<dt id="dpipe.batch_iter.pipeline.combine_batches_">
+<code class="descclassname">dpipe.batch_iter.pipeline.</code><code class="descname">combine_batches_</code><span class="sig-paren">(</span><em>inputs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_iter/pipeline.html#combine_batches_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_iter.pipeline.combine_batches_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dpipe.batch_iter.pipeline.one2many">
+<code class="descclassname">dpipe.batch_iter.pipeline.</code><code class="descname">one2many</code><span class="sig-paren">(</span><em>f</em>, <em>pack=False</em>, <em>n_workers=1</em>, <em>buffer_size=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_iter/pipeline.html#one2many"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_iter.pipeline.one2many" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dpipe.batch_iter.pipeline.one2one">
+<code class="descclassname">dpipe.batch_iter.pipeline.</code><code class="descname">one2one</code><span class="sig-paren">(</span><em>f</em>, <em>pack=False</em>, <em>n_workers=1</em>, <em>buffer_size=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_iter/pipeline.html#one2one"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_iter.pipeline.one2one" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dpipe.batch_iter.pipeline.pipeline">
+<code class="descclassname">dpipe.batch_iter.pipeline.</code><code class="descname">pipeline</code><span class="sig-paren">(</span><em>transformers: typing.Sequence</em>, <em>batch_size: int = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_iter/pipeline.html#pipeline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_iter.pipeline.pipeline" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dpipe.batch_iter.pipeline.unravel_transformers">
+<code class="descclassname">dpipe.batch_iter.pipeline.</code><code class="descname">unravel_transformers</code><span class="sig-paren">(</span><em>sequence</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_iter/pipeline.html#unravel_transformers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_iter.pipeline.unravel_transformers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 <div class="section" id="module-dpipe.batch_iter.patch_3d">
 <span id="dpipe-batch-iter-patch-3d-module"></span><h2>dpipe.batch_iter.patch_3d module<a class="headerlink" href="#module-dpipe.batch_iter.patch_3d" title="Permalink to this headline">¶</a></h2>
@@ -275,50 +298,31 @@
 <dd></dd></dl>
 
 </div>
-<div class="section" id="module-dpipe.batch_iter.pipeline">
-<span id="dpipe-batch-iter-pipeline-module"></span><h2>dpipe.batch_iter.pipeline module<a class="headerlink" href="#module-dpipe.batch_iter.pipeline" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="dpipe.batch_iter.pipeline.combine_batches_">
-<code class="descclassname">dpipe.batch_iter.pipeline.</code><code class="descname">combine_batches_</code><span class="sig-paren">(</span><em>inputs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_iter/pipeline.html#combine_batches_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_iter.pipeline.combine_batches_" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="dpipe.batch_iter.pipeline.many2one">
-<code class="descclassname">dpipe.batch_iter.pipeline.</code><code class="descname">many2one</code><span class="sig-paren">(</span><em>chunk_size</em>, <em>buffer_size=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_iter/pipeline.html#many2one"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_iter.pipeline.many2one" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="dpipe.batch_iter.pipeline.one2many">
-<code class="descclassname">dpipe.batch_iter.pipeline.</code><code class="descname">one2many</code><span class="sig-paren">(</span><em>f</em>, <em>pack=False</em>, <em>n_workers=1</em>, <em>buffer_size=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_iter/pipeline.html#one2many"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_iter.pipeline.one2many" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="dpipe.batch_iter.pipeline.one2one">
-<code class="descclassname">dpipe.batch_iter.pipeline.</code><code class="descname">one2one</code><span class="sig-paren">(</span><em>f</em>, <em>pack=False</em>, <em>n_workers=1</em>, <em>buffer_size=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_iter/pipeline.html#one2one"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_iter.pipeline.one2one" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="dpipe.batch_iter.pipeline.pipeline">
-<code class="descclassname">dpipe.batch_iter.pipeline.</code><code class="descname">pipeline</code><span class="sig-paren">(</span><em>transformers: typing.Sequence</em>, <em>batch_size: int = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_iter/pipeline.html#pipeline"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_iter.pipeline.pipeline" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="dpipe.batch_iter.pipeline.source">
-<code class="descclassname">dpipe.batch_iter.pipeline.</code><code class="descname">source</code><span class="sig-paren">(</span><em>iterable</em>, <em>buffer_size=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_iter/pipeline.html#source"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_iter.pipeline.source" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="dpipe.batch_iter.pipeline.unravel_transformers">
-<code class="descclassname">dpipe.batch_iter.pipeline.</code><code class="descname">unravel_transformers</code><span class="sig-paren">(</span><em>sequence</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_iter/pipeline.html#unravel_transformers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_iter.pipeline.unravel_transformers" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
 <div class="section" id="module-dpipe.batch_iter.simple">
 <span id="dpipe-batch-iter-simple-module"></span><h2>dpipe.batch_iter.simple module<a class="headerlink" href="#module-dpipe.batch_iter.simple" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="dpipe.batch_iter.simple.simple">
-<code class="descclassname">dpipe.batch_iter.simple.</code><code class="descname">simple</code><span class="sig-paren">(</span><em>ids</em>, <em>load_x</em>, <em>load_y</em>, <em>batch_size</em>, <em>*</em>, <em>shuffle=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_iter/simple.html#simple"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_iter.simple.simple" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">dpipe.batch_iter.simple.</code><code class="descname">simple</code><span class="sig-paren">(</span><em>ids: typing.Sequence</em>, <em>load_x: &lt;built-in function callable&gt;</em>, <em>load_y: &lt;built-in function callable&gt;</em>, <em>batch_size: int</em>, <em>*</em>, <em>shuffle: bool = False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_iter/simple.html#simple"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_iter.simple.simple" title="Permalink to this definition">¶</a></dt>
+<dd><p>A simple batch iterator that loads the data and packs it into batches.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ids</strong> (<em>Sequence</em>) &#8211; </li>
+<li><strong>load_x</strong> (<em>callable</em><em>(</em><em>id</em><em>)</em>) &#8211; </li>
+<li><strong>load_y</strong> (<em>callable</em><em>(</em><em>id</em><em>)</em>) &#8211; </li>
+<li><strong>batch_size</strong> (<em>int</em>) &#8211; </li>
+<li><strong>shuffle</strong> (<em>bool</em><em>, </em><em>optional</em>) &#8211; whether to shuffle the ids before yielding batches.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Yields:</th><td class="field-body"><p class="first last">batches of size <cite>batch_size</cite></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </div>
 <div class="section" id="module-dpipe.batch_iter.slices">
@@ -339,9 +343,6 @@
 <dd></dd></dl>
 
 </div>
-<div class="section" id="module-dpipe.batch_iter">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-dpipe.batch_iter" title="Permalink to this headline">¶</a></h2>
-</div>
 </div>
 
 
@@ -354,7 +355,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="dpipe.batch_predict.html" class="btn btn-neutral float-right" title="dpipe.batch_predict package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="dpipe.batch_predict.html" class="btn btn-neutral float-right" title="Batch predictors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="dpipe.html" class="btn btn-neutral" title="dpipe package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -155,7 +155,6 @@
 <span></span><span class="kn">import</span> <span class="nn">pdp</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">dpipe.config</span> <span class="k">import</span> <span class="n">register</span>
 <span class="kn">from</span> <span class="nn">dpipe.medim.preprocessing</span> <span class="k">import</span> <span class="n">pad</span>
 <span class="kn">from</span> <span class="nn">dpipe.medim.slices</span> <span class="k">import</span> <span class="n">iterate_slices</span>
 <span class="kn">from</span> <span class="nn">dpipe.medim.utils</span> <span class="k">import</span> <span class="n">load_by_ids</span>
@@ -171,8 +170,7 @@
     <span class="k">return</span> <span class="n">result</span></div>
 
 
-<div class="viewcode-block" id="slices"><a class="viewcode-back" href="../../../dpipe.batch_iter.html#dpipe.batch_iter.slices.slices">[docs]</a><span class="k">def</span> <span class="nf">slices</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="n">load_x</span><span class="p">,</span> <span class="n">load_y</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">shuffle</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">slices</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-           <span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">concatenate</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="slices"><a class="viewcode-back" href="../../../dpipe.batch_iter.html#dpipe.batch_iter.slices.slices">[docs]</a><span class="k">def</span> <span class="nf">slices</span><span class="p">(</span><span class="n">ids</span><span class="p">,</span> <span class="n">load_x</span><span class="p">,</span> <span class="n">load_y</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">shuffle</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">slices</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">concatenate</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">slicer</span><span class="p">():</span>
         <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">load_by_ids</span><span class="p">(</span><span class="n">load_x</span><span class="p">,</span> <span class="n">load_y</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">shuffle</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">x_slice</span><span class="p">,</span> <span class="n">y_slice</span> <span class="ow">in</span> <span class="n">iterate_slices</span><span class="p">(</span>

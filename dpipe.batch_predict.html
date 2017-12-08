@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>dpipe.batch_predict package &mdash; dpipe  documentation</title>
+  <title>Batch predictors &mdash; dpipe  documentation</title>
   
 
   
@@ -38,7 +38,7 @@
     <link rel="top" title="dpipe  documentation" href="index.html"/>
         <link rel="up" title="dpipe package" href="dpipe.html"/>
         <link rel="next" title="dpipe.config package" href="dpipe.config.html"/>
-        <link rel="prev" title="dpipe.batch_iter package" href="dpipe.batch_iter.html"/> 
+        <link rel="prev" title="Batch iterators" href="dpipe.batch_iter.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -91,10 +91,9 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="dpipe.html">dpipe package</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="dpipe.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="dpipe.batch_iter.html">dpipe.batch_iter package</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">dpipe.batch_predict package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.batch_predict.base">dpipe.batch_predict.base module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.batch_iter.html">Batch iterators</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Batch predictors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.batch_predict.base">The interface</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.batch_predict.patch_3d">dpipe.batch_predict.patch_3d module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.batch_predict.patch_3d_fixed">dpipe.batch_predict.patch_3d_fixed module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.batch_predict.simple">dpipe.batch_predict.simple module</a></li>
@@ -102,14 +101,13 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.batch_predict.test_patch_3d">dpipe.batch_predict.test_patch_3d module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.batch_predict.test_patch_3d_fixed">dpipe.batch_predict.test_patch_3d_fixed module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.batch_predict.utils">dpipe.batch_predict.utils module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.batch_predict">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.config.html">dpipe.config package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.dataset.html">Datasets</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.experiment.html">dpipe.experiment package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.medim.html">dpipe.medim package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dpipe.model_core.html">dpipe.model_core package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.model_core.html">Model Core</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.split.html">dpipe.split package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.tf.html">dpipe.tf package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.torch.html">dpipe.torch package</a></li>
@@ -117,12 +115,11 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.commands">Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.batch_iter_factory">dpipe.batch_iter_factory module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.commands">dpipe.commands module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.io">dpipe.io module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.model">dpipe.model module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.transformers">dpipe.transformers module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -171,7 +168,7 @@
         
           <li><a href="dpipe.html">dpipe package</a> &raquo;</li>
         
-      <li>dpipe.batch_predict package</li>
+      <li>Batch predictors</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -190,13 +187,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="dpipe-batch-predict-package">
-<h1>dpipe.batch_predict package<a class="headerlink" href="#dpipe-batch-predict-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</div>
+  <div class="section" id="batch-predictors">
+<h1>Batch predictors<a class="headerlink" href="#batch-predictors" title="Permalink to this headline">¶</a></h1>
+<dl class="docutils">
+<dt>Batch predictors implement the following logic:</dt>
+<dd><ol class="first last arabic simple">
+<li>deconstruct the object into batches</li>
+<li>feed the batches into the network</li>
+<li>In case of validation - aggregate the validation loss</li>
+<li>Build the network&#8217;s prediction based on the predicted batches</li>
+</ol>
+</dd>
+</dl>
 <div class="section" id="module-dpipe.batch_predict.base">
-<span id="dpipe-batch-predict-base-module"></span><h2>dpipe.batch_predict.base module<a class="headerlink" href="#module-dpipe.batch_predict.base" title="Permalink to this headline">¶</a></h2>
+<span id="the-interface"></span><h2>The interface<a class="headerlink" href="#module-dpipe.batch_predict.base" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="dpipe.batch_predict.base.BatchPredict">
 <em class="property">class </em><code class="descclassname">dpipe.batch_predict.base.</code><code class="descname">BatchPredict</code><a class="reference internal" href="_modules/dpipe/batch_predict/base.html#BatchPredict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_predict.base.BatchPredict" title="Permalink to this definition">¶</a></dt>
@@ -553,9 +557,6 @@ and feeds them into the network.</p>
 <dd></dd></dl>
 
 </div>
-<div class="section" id="module-dpipe.batch_predict">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-dpipe.batch_predict" title="Permalink to this headline">¶</a></h2>
-</div>
 </div>
 
 
@@ -571,7 +572,7 @@ and feeds them into the network.</p>
         <a href="dpipe.config.html" class="btn btn-neutral float-right" title="dpipe.config package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="dpipe.batch_iter.html" class="btn btn-neutral" title="dpipe.batch_iter package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="dpipe.batch_iter.html" class="btn btn-neutral" title="Batch iterators" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

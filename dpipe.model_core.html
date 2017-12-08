@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>dpipe.model_core package &mdash; dpipe  documentation</title>
+  <title>Model Core &mdash; dpipe  documentation</title>
   
 
   
@@ -91,28 +91,26 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="dpipe.html">dpipe package</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="dpipe.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="dpipe.batch_iter.html">dpipe.batch_iter package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dpipe.batch_predict.html">dpipe.batch_predict package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.batch_iter.html">Batch iterators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.batch_predict.html">Batch predictors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.config.html">dpipe.config package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.dataset.html">Datasets</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.experiment.html">dpipe.experiment package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.medim.html">dpipe.medim package</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">dpipe.model_core package</a><ul>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Model Core</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#subpackages">Subpackages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.model_core.base">dpipe.model_core.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.model_core.base">The interface</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.model_core.deepmedic_els">dpipe.model_core.deepmedic_els module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.model_core.deepmedic_feat">dpipe.model_core.deepmedic_feat module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.model_core.deepmedic_feat_coord">dpipe.model_core.deepmedic_feat_coord module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.model_core.deepmedic_orig">dpipe.model_core.deepmedic_orig module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.model_core.enet">dpipe.model_core.enet module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.model_core.enet_mixed">dpipe.model_core.enet_mixed module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dpipe-model-core-enet-mixed-module">dpipe.model_core.enet_mixed module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.model_core.enet_torch">dpipe.model_core.enet_torch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.model_core.enet_with_dropout">dpipe.model_core.enet_with_dropout module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.model_core.res_encoder">dpipe.model_core.res_encoder module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.model_core.tnet">dpipe.model_core.tnet module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.model_core.unet">dpipe.model_core.unet module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.model_core">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.split.html">dpipe.split package</a></li>
@@ -121,13 +119,11 @@
 <li class="toctree-l3"><a class="reference internal" href="dpipe.train.html">dpipe.train package</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.commands">Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.batch_iter_factory">dpipe.batch_iter_factory module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.commands">dpipe.commands module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.io">dpipe.io module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.model">dpipe.model module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.transformers">dpipe.transformers module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -176,7 +172,7 @@
         
           <li><a href="dpipe.html">dpipe package</a> &raquo;</li>
         
-      <li>dpipe.model_core package</li>
+      <li>Model Core</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -195,8 +191,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="dpipe-model-core-package">
-<h1>dpipe.model_core package<a class="headerlink" href="#dpipe-model-core-package" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="model-core">
+<h1>Model Core<a class="headerlink" href="#model-core" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="subpackages">
 <h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
@@ -217,11 +213,8 @@
 </ul>
 </div>
 </div>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</div>
 <div class="section" id="module-dpipe.model_core.base">
-<span id="dpipe-model-core-base-module"></span><h2>dpipe.model_core.base module<a class="headerlink" href="#module-dpipe.model_core.base" title="Permalink to this headline">¶</a></h2>
+<span id="the-interface"></span><h2>The interface<a class="headerlink" href="#module-dpipe.model_core.base" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="dpipe.model_core.base.ModelCore">
 <em class="property">class </em><code class="descclassname">dpipe.model_core.base.</code><code class="descname">ModelCore</code><span class="sig-paren">(</span><em>n_chans_in: int</em>, <em>n_chans_out: int</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/model_core/base.html#ModelCore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.model_core.base.ModelCore" title="Permalink to this definition">¶</a></dt>
@@ -433,80 +426,8 @@ The leading two dimensions must be batch_size and n_chans_out:<blockquote>
 <dd></dd></dl>
 
 </div>
-<div class="section" id="module-dpipe.model_core.enet_mixed">
-<span id="dpipe-model-core-enet-mixed-module"></span><h2>dpipe.model_core.enet_mixed module<a class="headerlink" href="#module-dpipe.model_core.enet_mixed" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="dpipe.model_core.enet_mixed.ENetMixed">
-<em class="property">class </em><code class="descclassname">dpipe.model_core.enet_mixed.</code><code class="descname">ENetMixed</code><span class="sig-paren">(</span><em>n_chans_in: int</em>, <em>n_chans_out: int</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/model_core/enet_mixed.html#ENetMixed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.model_core.enet_mixed.ENetMixed" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#dpipe.model_core.base.ModelCore" title="dpipe.model_core.base.ModelCore"><code class="xref py py-class docutils literal"><span class="pre">dpipe.model_core.base.ModelCore</span></code></a></p>
-<dl class="method">
-<dt id="dpipe.model_core.enet_mixed.ENetMixed.build">
-<code class="descname">build</code><span class="sig-paren">(</span><em>training_ph</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/model_core/enet_mixed.html#ENetMixed.build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.model_core.enet_mixed.ENetMixed.build" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dpipe.model_core.enet_mixed.ENetMixed.predict_object">
-<code class="descname">predict_object</code><span class="sig-paren">(</span><em>x</em>, <em>do_inf_step</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/model_core/enet_mixed.html#ENetMixed.predict_object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.model_core.enet_mixed.ENetMixed.predict_object" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dpipe.model_core.enet_mixed.ENetMixed.validate_object">
-<code class="descname">validate_object</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>do_val_step</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/model_core/enet_mixed.html#ENetMixed.validate_object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.model_core.enet_mixed.ENetMixed.validate_object" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="dpipe.model_core.enet_mixed.ENetPatch">
-<em class="property">class </em><code class="descclassname">dpipe.model_core.enet_mixed.</code><code class="descname">ENetPatch</code><span class="sig-paren">(</span><em>*</em>, <em>n_chans_in</em>, <em>n_chans_out</em>, <em>n_parts</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/model_core/enet_mixed.html#ENetPatch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.model_core.enet_mixed.ENetPatch" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#dpipe.model_core.base.ModelCore" title="dpipe.model_core.base.ModelCore"><code class="xref py py-class docutils literal"><span class="pre">dpipe.model_core.base.ModelCore</span></code></a></p>
-<dl class="method">
-<dt id="dpipe.model_core.enet_mixed.ENetPatch.build">
-<code class="descname">build</code><span class="sig-paren">(</span><em>training_ph</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/model_core/enet_mixed.html#ENetPatch.build"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.model_core.enet_mixed.ENetPatch.build" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dpipe.model_core.enet_mixed.ENetPatch.predict_object">
-<code class="descname">predict_object</code><span class="sig-paren">(</span><em>x</em>, <em>do_inf_step</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/model_core/enet_mixed.html#ENetPatch.predict_object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.model_core.enet_mixed.ENetPatch.predict_object" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dpipe.model_core.enet_mixed.ENetPatch.validate_object">
-<code class="descname">validate_object</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>do_val_step</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/model_core/enet_mixed.html#ENetPatch.validate_object"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.model_core.enet_mixed.ENetPatch.validate_object" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="dpipe.model_core.enet_mixed.build_model">
-<code class="descclassname">dpipe.model_core.enet_mixed.</code><code class="descname">build_model</code><span class="sig-paren">(</span><em>inputs</em>, <em>classes</em>, <em>name</em>, <em>training</em>, <em>init_channels</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/model_core/enet_mixed.html#build_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.model_core.enet_mixed.build_model" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="dpipe.model_core.enet_mixed.build_model2">
-<code class="descclassname">dpipe.model_core.enet_mixed.</code><code class="descname">build_model2</code><span class="sig-paren">(</span><em>inputs</em>, <em>classes</em>, <em>name</em>, <em>training</em>, <em>init_channels</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/model_core/enet_mixed.html#build_model2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.model_core.enet_mixed.build_model2" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="dpipe.model_core.enet_mixed.conv_block">
-<code class="descclassname">dpipe.model_core.enet_mixed.</code><code class="descname">conv_block</code><span class="sig-paren">(</span><em>inputs</em>, <em>channels</em>, <em>kernel_size</em>, <em>strides</em>, <em>training</em>, <em>padding='same'</em>, <em>activation=&lt;function relu&gt;</em>, <em>layer=&lt;function conv2d&gt;</em>, <em>name=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/model_core/enet_mixed.html#conv_block"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.model_core.enet_mixed.conv_block" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="dpipe.model_core.enet_mixed.init_block">
-<code class="descclassname">dpipe.model_core.enet_mixed.</code><code class="descname">init_block</code><span class="sig-paren">(</span><em>inputs</em>, <em>name</em>, <em>training</em>, <em>inp_channels</em>, <em>output_channels</em>, <em>kernel_size=3</em>, <em>conv_layer=&lt;function conv2d&gt;</em>, <em>pool_layer=&lt;function max_pooling2d&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/model_core/enet_mixed.html#init_block"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.model_core.enet_mixed.init_block" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="dpipe.model_core.enet_mixed.res_block">
-<code class="descclassname">dpipe.model_core.enet_mixed.</code><code class="descname">res_block</code><span class="sig-paren">(</span><em>inputs</em>, <em>name</em>, <em>output_channels</em>, <em>training</em>, <em>kernel_size=3</em>, <em>downsample=False</em>, <em>upsample=False</em>, <em>dropout_prob=0.1</em>, <em>internal_scale=4</em>, <em>conv_down=&lt;function conv2d&gt;</em>, <em>conv_up=&lt;function conv2d_transpose&gt;</em>, <em>pool_layer=&lt;function max_pooling2d&gt;</em>, <em>strides=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/model_core/enet_mixed.html#res_block"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.model_core.enet_mixed.res_block" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="dpipe.model_core.enet_mixed.stage">
-<code class="descclassname">dpipe.model_core.enet_mixed.</code><code class="descname">stage</code><span class="sig-paren">(</span><em>inputs</em>, <em>output_channels</em>, <em>num_blocks</em>, <em>name</em>, <em>training</em>, <em>downsample=False</em>, <em>upsample=False</em>, <em>conv_down=&lt;function conv2d&gt;</em>, <em>conv_up=&lt;function conv2d_transpose&gt;</em>, <em>pool_layer=&lt;function max_pooling2d&gt;</em>, <em>strides=2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/model_core/enet_mixed.html#stage"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.model_core.enet_mixed.stage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<div class="section" id="dpipe-model-core-enet-mixed-module">
+<h2>dpipe.model_core.enet_mixed module<a class="headerlink" href="#dpipe-model-core-enet-mixed-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-dpipe.model_core.enet_torch">
 <span id="dpipe-model-core-enet-torch-module"></span><h2>dpipe.model_core.enet_torch module<a class="headerlink" href="#module-dpipe.model_core.enet_torch" title="Permalink to this headline">¶</a></h2>
@@ -830,9 +751,6 @@ The leading two dimensions must be batch_size and n_chans_out:<blockquote>
 <code class="descclassname">dpipe.model_core.unet.</code><code class="descname">upsample_concat</code><span class="sig-paren">(</span><em>lower</em>, <em>upper</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/model_core/unet.html#upsample_concat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.model_core.unet.upsample_concat" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</div>
-<div class="section" id="module-dpipe.model_core">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-dpipe.model_core" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 

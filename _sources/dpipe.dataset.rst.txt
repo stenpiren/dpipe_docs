@@ -44,8 +44,6 @@ Interface realizations
 Wrappers
 --------
 
-Wrappers aim to change the dataset's behaviour.
-
 .. automodule:: dpipe.dataset.wrappers
     :members:
     :undoc-members:
