@@ -1,0 +1,641 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Datasets &mdash; dpipe  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="dpipe  documentation" href="index.html"/>
+        <link rel="up" title="dpipe package" href="dpipe.html"/>
+        <link rel="next" title="dpipe.experiment package" href="dpipe.experiment.html"/>
+        <link rel="prev" title="dpipe.config package" href="dpipe.config.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> dpipe
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="dpipe.html">dpipe package</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="dpipe.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="dpipe.batch_iter.html">dpipe.batch_iter package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.batch_predict.html">dpipe.batch_predict package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.config.html">dpipe.config package</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Datasets</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.dataset.base">Interfaces</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.dataset.from_csv">CSV-wrappers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.dataset.brats">Interface realizations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#wrappers">Wrappers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.experiment.html">dpipe.experiment package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.medim.html">dpipe.medim package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.model_core.html">dpipe.model_core package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.split.html">dpipe.split package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.tf.html">dpipe.tf package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.torch.html">dpipe.torch package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.train.html">dpipe.train package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dpipe.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.batch_iter_factory">dpipe.batch_iter_factory module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.commands">dpipe.commands module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.io">dpipe.io module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.model">dpipe.model module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.transformers">dpipe.transformers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">dpipe</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="dpipe.html">dpipe package</a> &raquo;</li>
+        
+      <li>Datasets</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/dpipe.dataset.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="datasets">
+<h1>Datasets<a class="headerlink" href="#datasets" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-dpipe.dataset.base">
+<span id="interfaces"></span><h2>Interfaces<a class="headerlink" href="#module-dpipe.dataset.base" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="dpipe.dataset.base.Dataset">
+<em class="property">class </em><code class="descclassname">dpipe.dataset.base.</code><code class="descname">Dataset</code><a class="reference internal" href="_modules/dpipe/dataset/base.html#Dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.base.Dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">abc.ABC</span></code></p>
+<dl class="attribute">
+<dt id="dpipe.dataset.base.Dataset.ids">
+<code class="descname">ids</code><a class="headerlink" href="#dpipe.dataset.base.Dataset.ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a tuple of ids of all objects in the dataset.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dpipe.dataset.base.SegmentationDataset">
+<em class="property">class </em><code class="descclassname">dpipe.dataset.base.</code><code class="descname">SegmentationDataset</code><a class="reference internal" href="_modules/dpipe/dataset/base.html#SegmentationDataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.base.SegmentationDataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dpipe.dataset.base.Dataset" title="dpipe.dataset.base.Dataset"><code class="xref py py-class docutils literal"><span class="pre">dpipe.dataset.base.Dataset</span></code></a></p>
+<p>Abstract class that describes a dataset for medical image segmentation.</p>
+<dl class="method">
+<dt id="dpipe.dataset.base.SegmentationDataset.load_image">
+<code class="descname">load_image</code><span class="sig-paren">(</span><em>identifier: str</em><span class="sig-paren">)</span> &#x2192; &lt;built-in function array&gt;<a class="reference internal" href="_modules/dpipe/dataset/base.html#SegmentationDataset.load_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.base.SegmentationDataset.load_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads a dataset entry given its identifier</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>identifier</strong> (<em>str</em>) &#8211; object&#8217;s identifier</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The entry corresponding to the identifier</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">object</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dpipe.dataset.base.SegmentationDataset.load_msegm">
+<code class="descname">load_msegm</code><span class="sig-paren">(</span><em>identifier</em><span class="sig-paren">)</span> &#x2192; &lt;built-in function array&gt;<a class="reference internal" href="_modules/dpipe/dataset/base.html#SegmentationDataset.load_msegm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.base.SegmentationDataset.load_msegm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the multimodal ground truth segmentation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>identifier</strong> (<em>str</em>) &#8211; the object&#8217;s identifier</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>segmentation</strong> &#8211; the ground truth segmentation as a bool tensor.
+Each channel must correspond to a class.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool tensor</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="dpipe.dataset.base.SegmentationDataset.load_segm">
+<code class="descname">load_segm</code><span class="sig-paren">(</span><em>identifier: str</em><span class="sig-paren">)</span> &#x2192; &lt;built-in function array&gt;<a class="reference internal" href="_modules/dpipe/dataset/base.html#SegmentationDataset.load_segm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.base.SegmentationDataset.load_segm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load the ground truth segmentation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>identifier</strong> (<em>str</em>) &#8211; the object&#8217;s identifier</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>segmentation</strong> &#8211; the ground truth segmentation as an integer tensor.
+Each value must correspond to a class.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">integer tensor</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dpipe.dataset.base.SegmentationDataset.n_chans_image">
+<code class="descname">n_chans_image</code><a class="headerlink" href="#dpipe.dataset.base.SegmentationDataset.n_chans_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of channels in the input image&#8217;s tensor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>channels</strong></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dpipe.dataset.base.SegmentationDataset.n_chans_msegm">
+<code class="descname">n_chans_msegm</code><a class="headerlink" href="#dpipe.dataset.base.SegmentationDataset.n_chans_msegm" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of channels in the multimodal segmentation tensor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>channels</strong></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="dpipe.dataset.base.SegmentationDataset.n_chans_segm">
+<code class="descname">n_chans_segm</code><a class="headerlink" href="#dpipe.dataset.base.SegmentationDataset.n_chans_segm" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of channels in the segmentation tensor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><strong>channels</strong></td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-dpipe.dataset.from_csv">
+<span id="csv-wrappers"></span><h2>CSV-wrappers<a class="headerlink" href="#module-dpipe.dataset.from_csv" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="dpipe.dataset.from_csv.CSV">
+<em class="property">class </em><code class="descclassname">dpipe.dataset.from_csv.</code><code class="descname">CSV</code><span class="sig-paren">(</span><em>path</em>, <em>filename='meta.csv'</em>, <em>index_col='id'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/dataset/from_csv.html#CSV"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.from_csv.CSV" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A small wrapper for csv files.</p>
+<dl class="method">
+<dt id="dpipe.dataset.from_csv.CSV.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>index</em>, <em>col</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/dataset/from_csv.html#CSV.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.from_csv.CSV.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="dpipe.dataset.from_csv.CSV.ids">
+<code class="descname">ids</code><a class="headerlink" href="#dpipe.dataset.from_csv.CSV.ids" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dpipe.dataset.from_csv.FromCSV">
+<em class="property">class </em><code class="descclassname">dpipe.dataset.from_csv.</code><code class="descname">FromCSV</code><span class="sig-paren">(</span><em>data_path</em>, <em>modalities</em>, <em>metadata_rpath</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/dataset/from_csv.html#FromCSV"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.from_csv.FromCSV" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A mixin for the Segmentation class. Adds support for csv files.</p>
+<dl class="attribute">
+<dt id="dpipe.dataset.from_csv.FromCSV.ids">
+<code class="descname">ids</code><a class="headerlink" href="#dpipe.dataset.from_csv.FromCSV.ids" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dpipe.dataset.from_csv.FromCSV.load_image">
+<code class="descname">load_image</code><span class="sig-paren">(</span><em>patient_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/dataset/from_csv.html#FromCSV.load_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.from_csv.FromCSV.load_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="dpipe.dataset.from_csv.FromCSV.n_chans_image">
+<code class="descname">n_chans_image</code><a class="headerlink" href="#dpipe.dataset.from_csv.FromCSV.n_chans_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dpipe.dataset.from_csv.FromCSVInt">
+<em class="property">class </em><code class="descclassname">dpipe.dataset.from_csv.</code><code class="descname">FromCSVInt</code><span class="sig-paren">(</span><em>data_path</em>, <em>modalities</em>, <em>target</em>, <em>metadata_rpath</em>, <em>segm2msegm_matrix</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/dataset/from_csv.html#FromCSVInt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.from_csv.FromCSVInt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dpipe.dataset.from_csv.FromCSV" title="dpipe.dataset.from_csv.FromCSV"><code class="xref py py-class docutils literal"><span class="pre">dpipe.dataset.from_csv.FromCSV</span></code></a>, <a class="reference internal" href="#dpipe.dataset.base.SegmentationDataset" title="dpipe.dataset.base.SegmentationDataset"><code class="xref py py-class docutils literal"><span class="pre">dpipe.dataset.base.SegmentationDataset</span></code></a></p>
+<dl class="method">
+<dt id="dpipe.dataset.from_csv.FromCSVInt.load_msegm">
+<code class="descname">load_msegm</code><span class="sig-paren">(</span><em>identifier</em><span class="sig-paren">)</span> &#x2192; &lt;built-in function array&gt;<a class="reference internal" href="_modules/dpipe/dataset/from_csv.html#FromCSVInt.load_msegm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.from_csv.FromCSVInt.load_msegm" title="Permalink to this definition">¶</a></dt>
+<dd><p>&#8220;Method returns multimodal segmentation of shape
+[n_chans_msegm, x, y, z]. We use this result to compute dice scores</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="dpipe.dataset.from_csv.FromCSVInt.load_segm">
+<code class="descname">load_segm</code><span class="sig-paren">(</span><em>identifier</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/dataset/from_csv.html#FromCSVInt.load_segm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.from_csv.FromCSVInt.load_segm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="dpipe.dataset.from_csv.FromCSVInt.n_chans_msegm">
+<code class="descname">n_chans_msegm</code><a class="headerlink" href="#dpipe.dataset.from_csv.FromCSVInt.n_chans_msegm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="dpipe.dataset.from_csv.FromCSVInt.n_chans_segm">
+<code class="descname">n_chans_segm</code><a class="headerlink" href="#dpipe.dataset.from_csv.FromCSVInt.n_chans_segm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dpipe.dataset.from_csv.FromCSVInt.segm2msegm">
+<code class="descname">segm2msegm</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span> &#x2192; &lt;built-in function array&gt;<a class="reference internal" href="_modules/dpipe/dataset/from_csv.html#FromCSVInt.segm2msegm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.from_csv.FromCSVInt.segm2msegm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="dpipe.dataset.from_csv.FromCSVInt.segm2msegm_matrix">
+<code class="descname">segm2msegm_matrix</code><a class="headerlink" href="#dpipe.dataset.from_csv.FromCSVInt.segm2msegm_matrix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dpipe.dataset.from_csv.FromCSVMultiple">
+<em class="property">class </em><code class="descclassname">dpipe.dataset.from_csv.</code><code class="descname">FromCSVMultiple</code><span class="sig-paren">(</span><em>data_path</em>, <em>modalities</em>, <em>targets</em>, <em>metadata_rpath</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/dataset/from_csv.html#FromCSVMultiple"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.from_csv.FromCSVMultiple" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dpipe.dataset.from_csv.FromCSV" title="dpipe.dataset.from_csv.FromCSV"><code class="xref py py-class docutils literal"><span class="pre">dpipe.dataset.from_csv.FromCSV</span></code></a>, <a class="reference internal" href="#dpipe.dataset.base.SegmentationDataset" title="dpipe.dataset.base.SegmentationDataset"><code class="xref py py-class docutils literal"><span class="pre">dpipe.dataset.base.SegmentationDataset</span></code></a></p>
+<dl class="method">
+<dt id="dpipe.dataset.from_csv.FromCSVMultiple.load_msegm">
+<code class="descname">load_msegm</code><span class="sig-paren">(</span><em>identifier</em><span class="sig-paren">)</span> &#x2192; &lt;built-in function array&gt;<a class="reference internal" href="_modules/dpipe/dataset/from_csv.html#FromCSVMultiple.load_msegm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.from_csv.FromCSVMultiple.load_msegm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dpipe.dataset.from_csv.FromCSVMultiple.load_segm">
+<code class="descname">load_segm</code><span class="sig-paren">(</span><em>identifier</em><span class="sig-paren">)</span> &#x2192; &lt;built-in function array&gt;<a class="reference internal" href="_modules/dpipe/dataset/from_csv.html#FromCSVMultiple.load_segm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.from_csv.FromCSVMultiple.load_segm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="dpipe.dataset.from_csv.FromCSVMultiple.n_chans_msegm">
+<code class="descname">n_chans_msegm</code><a class="headerlink" href="#dpipe.dataset.from_csv.FromCSVMultiple.n_chans_msegm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="dpipe.dataset.from_csv.FromCSVMultiple.n_chans_segm">
+<code class="descname">n_chans_segm</code><a class="headerlink" href="#dpipe.dataset.from_csv.FromCSVMultiple.n_chans_segm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-dpipe.dataset.brats">
+<span id="interface-realizations"></span><h2>Interface realizations<a class="headerlink" href="#module-dpipe.dataset.brats" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="dpipe.dataset.brats.Brats2017">
+<em class="property">class </em><code class="descclassname">dpipe.dataset.brats.</code><code class="descname">Brats2017</code><span class="sig-paren">(</span><em>data_path</em>, <em>metadata_rpath='metadata.csv'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/dataset/brats.html#Brats2017"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.brats.Brats2017" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dpipe.dataset.from_csv.FromCSVInt" title="dpipe.dataset.from_csv.FromCSVInt"><code class="xref py py-class docutils literal"><span class="pre">dpipe.dataset.from_csv.FromCSVInt</span></code></a></p>
+<dl class="method">
+<dt id="dpipe.dataset.brats.Brats2017.load_segm">
+<code class="descname">load_segm</code><span class="sig-paren">(</span><em>identifier</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/dataset/brats.html#Brats2017.load_segm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.brats.Brats2017.load_segm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-dpipe.dataset.isles"></span><span class="target" id="module-dpipe.dataset.oasis"></span><dl class="class">
+<dt id="dpipe.dataset.oasis.Oasis">
+<em class="property">class </em><code class="descclassname">dpipe.dataset.oasis.</code><code class="descname">Oasis</code><span class="sig-paren">(</span><em>data_path</em>, <em>metadata_rpath='metadata.csv'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/dataset/oasis.html#Oasis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.oasis.Oasis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dpipe.dataset.from_csv.FromCSVInt" title="dpipe.dataset.from_csv.FromCSVInt"><code class="xref py py-class docutils literal"><span class="pre">dpipe.dataset.from_csv.FromCSVInt</span></code></a></p>
+<dl class="method">
+<dt id="dpipe.dataset.oasis.Oasis.load_image">
+<code class="descname">load_image</code><span class="sig-paren">(</span><em>patient_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/dataset/oasis.html#Oasis.load_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.oasis.Oasis.load_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dpipe.dataset.oasis.Oasis.load_segm">
+<code class="descname">load_segm</code><span class="sig-paren">(</span><em>patient_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/dataset/oasis.html#Oasis.load_segm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.oasis.Oasis.load_segm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-dpipe.dataset.whitematter"></span><dl class="class">
+<dt id="dpipe.dataset.whitematter.Wmh2017">
+<em class="property">class </em><code class="descclassname">dpipe.dataset.whitematter.</code><code class="descname">Wmh2017</code><span class="sig-paren">(</span><em>data_path</em>, <em>modalities</em>, <em>target</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/dataset/whitematter.html#Wmh2017"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.whitematter.Wmh2017" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dpipe.dataset.from_csv.FromCSVInt" title="dpipe.dataset.from_csv.FromCSVInt"><code class="xref py py-class docutils literal"><span class="pre">dpipe.dataset.from_csv.FromCSVInt</span></code></a></p>
+<dl class="attribute">
+<dt id="dpipe.dataset.whitematter.Wmh2017.groups">
+<code class="descname">groups</code><a class="headerlink" href="#dpipe.dataset.whitematter.Wmh2017.groups" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dpipe.dataset.whitematter.Wmh2017.load_segm">
+<code class="descname">load_segm</code><span class="sig-paren">(</span><em>identifier</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/dataset/whitematter.html#Wmh2017.load_segm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.whitematter.Wmh2017.load_segm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="wrappers">
+<h2>Wrappers<a class="headerlink" href="#wrappers" title="Permalink to this headline">¶</a></h2>
+<p>Wrappers aim to change the dataset&#8217;s behaviour.</p>
+<span class="target" id="module-dpipe.dataset.wrappers"></span><dl class="class">
+<dt id="dpipe.dataset.wrappers.Padded">
+<em class="property">class </em><code class="descclassname">dpipe.dataset.wrappers.</code><code class="descname">Padded</code><span class="sig-paren">(</span><em>dataset: dpipe.dataset.base.SegmentationDataset</em>, <em>shape: list</em>, <em>axes: list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/dataset/wrappers.html#Padded"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.wrappers.Padded" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dpipe.dataset.wrappers.Proxy" title="dpipe.dataset.wrappers.Proxy"><code class="xref py py-class docutils literal"><span class="pre">dpipe.dataset.wrappers.Proxy</span></code></a></p>
+<dl class="method">
+<dt id="dpipe.dataset.wrappers.Padded.load_image">
+<code class="descname">load_image</code><span class="sig-paren">(</span><em>patient_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/dataset/wrappers.html#Padded.load_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.wrappers.Padded.load_image" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dpipe.dataset.wrappers.Padded.load_msegm">
+<code class="descname">load_msegm</code><span class="sig-paren">(</span><em>patient_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/dataset/wrappers.html#Padded.load_msegm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.wrappers.Padded.load_msegm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dpipe.dataset.wrappers.Padded.load_segm">
+<code class="descname">load_segm</code><span class="sig-paren">(</span><em>patient_id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/dataset/wrappers.html#Padded.load_segm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.wrappers.Padded.load_segm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dpipe.dataset.wrappers.Proxy">
+<em class="property">class </em><code class="descclassname">dpipe.dataset.wrappers.</code><code class="descname">Proxy</code><span class="sig-paren">(</span><em>shadowed</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/dataset/wrappers.html#Proxy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.wrappers.Proxy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="dpipe.dataset.wrappers.add_groups_from_df">
+<code class="descclassname">dpipe.dataset.wrappers.</code><code class="descname">add_groups_from_df</code><span class="sig-paren">(</span><em>dataset: dpipe.dataset.base.Dataset</em>, <em>group_col: str</em><span class="sig-paren">)</span> &#x2192; dpipe.dataset.base.Dataset<a class="reference internal" href="_modules/dpipe/dataset/wrappers.html#add_groups_from_df"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.wrappers.add_groups_from_df" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dpipe.dataset.wrappers.add_groups_from_ids">
+<code class="descclassname">dpipe.dataset.wrappers.</code><code class="descname">add_groups_from_ids</code><span class="sig-paren">(</span><em>dataset: dpipe.dataset.base.Dataset</em>, <em>separator: str</em><span class="sig-paren">)</span> &#x2192; dpipe.dataset.base.Dataset<a class="reference internal" href="_modules/dpipe/dataset/wrappers.html#add_groups_from_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.wrappers.add_groups_from_ids" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dpipe.dataset.wrappers.apply">
+<code class="descclassname">dpipe.dataset.wrappers.</code><code class="descname">apply</code><span class="sig-paren">(</span><em>instance</em>, <em>methods</em>, <em>function</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/dataset/wrappers.html#apply"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.wrappers.apply" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dpipe.dataset.wrappers.apply_mask">
+<code class="descclassname">dpipe.dataset.wrappers.</code><code class="descname">apply_mask</code><span class="sig-paren">(</span><em>dataset: dpipe.dataset.base.SegmentationDataset</em>, <em>mask_modality_id: int = None</em>, <em>mask_value: int = None</em><span class="sig-paren">)</span> &#x2192; dpipe.dataset.base.SegmentationDataset<a class="reference internal" href="_modules/dpipe/dataset/wrappers.html#apply_mask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.wrappers.apply_mask" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dpipe.dataset.wrappers.bbox_extraction">
+<code class="descclassname">dpipe.dataset.wrappers.</code><code class="descname">bbox_extraction</code><span class="sig-paren">(</span><em>dataset: dpipe.dataset.base.SegmentationDataset</em><span class="sig-paren">)</span> &#x2192; dpipe.dataset.base.SegmentationDataset<a class="reference internal" href="_modules/dpipe/dataset/wrappers.html#bbox_extraction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.wrappers.bbox_extraction" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dpipe.dataset.wrappers.cache_methods">
+<code class="descclassname">dpipe.dataset.wrappers.</code><code class="descname">cache_methods</code><span class="sig-paren">(</span><em>dataset: dpipe.dataset.base.Dataset, methods: typing.Sequence[str]</em><span class="sig-paren">)</span> &#x2192; dpipe.dataset.base.Dataset<a class="reference internal" href="_modules/dpipe/dataset/wrappers.html#cache_methods"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.wrappers.cache_methods" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrapper that caches the dataset&#8217;s methods.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dataset</strong> (<a class="reference internal" href="#dpipe.dataset.base.Dataset" title="dpipe.dataset.base.Dataset"><em>Dataset</em></a>) &#8211; </li>
+<li><strong>methods</strong> (<em>Sequence</em>) &#8211; a sequence of methods names to be cached</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>cached_dataset</strong> &#8211; a wrapped dataset</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#dpipe.dataset.base.Dataset" title="dpipe.dataset.base.Dataset">Dataset</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="dpipe.dataset.wrappers.cache_segmentation_dataset">
+<code class="descclassname">dpipe.dataset.wrappers.</code><code class="descname">cache_segmentation_dataset</code><span class="sig-paren">(</span><em>dataset: dpipe.dataset.base.Dataset</em><span class="sig-paren">)</span> &#x2192; dpipe.dataset.base.Dataset<a class="reference internal" href="_modules/dpipe/dataset/wrappers.html#cache_segmentation_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.wrappers.cache_segmentation_dataset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dpipe.dataset.wrappers.merge_datasets">
+<code class="descclassname">dpipe.dataset.wrappers.</code><code class="descname">merge_datasets</code><span class="sig-paren">(</span><em>datasets: typing.List[dpipe.dataset.base.SegmentationDataset]</em><span class="sig-paren">)</span> &#x2192; dpipe.dataset.base.SegmentationDataset<a class="reference internal" href="_modules/dpipe/dataset/wrappers.html#merge_datasets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.wrappers.merge_datasets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dpipe.dataset.wrappers.normalized">
+<code class="descclassname">dpipe.dataset.wrappers.</code><code class="descname">normalized</code><span class="sig-paren">(</span><em>dataset: dpipe.dataset.base.SegmentationDataset</em>, <em>mean</em>, <em>std</em>, <em>drop_percentile: int = None</em><span class="sig-paren">)</span> &#x2192; dpipe.dataset.base.SegmentationDataset<a class="reference internal" href="_modules/dpipe/dataset/wrappers.html#normalized"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.wrappers.normalized" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dpipe.dataset.wrappers.weighted">
+<code class="descclassname">dpipe.dataset.wrappers.</code><code class="descname">weighted</code><span class="sig-paren">(</span><em>dataset: dpipe.dataset.base.Dataset</em>, <em>thickness: str</em><span class="sig-paren">)</span> &#x2192; dpipe.dataset.base.Dataset<a class="reference internal" href="_modules/dpipe/dataset/wrappers.html#weighted"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.dataset.wrappers.weighted" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="dpipe.experiment.html" class="btn btn-neutral float-right" title="dpipe.experiment package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="dpipe.config.html" class="btn btn-neutral" title="dpipe.config package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Author.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
