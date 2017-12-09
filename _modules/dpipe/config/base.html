@@ -215,7 +215,10 @@
 
 <div class="viewcode-block" id="get_resource_manager"><a class="viewcode-back" href="../../../dpipe.config.html#dpipe.config.base.get_resource_manager">[docs]</a><span class="k">def</span> <span class="nf">get_resource_manager</span><span class="p">(</span><span class="n">config_path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ResourceManager</span><span class="p">:</span>
     <span class="n">link_externals</span><span class="p">()</span>
-    <span class="n">rm</span> <span class="o">=</span> <span class="n">ResourceManager</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="n">get_module</span><span class="o">=</span><span class="n">get_module</span><span class="p">,</span> <span class="n">path_map</span><span class="o">=</span><span class="n">SHORTCUTS</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">rm</span> <span class="o">=</span> <span class="n">ResourceManager</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="n">get_module</span><span class="o">=</span><span class="n">get_module</span><span class="p">,</span> <span class="n">path_map</span><span class="o">=</span><span class="n">SHORTCUTS</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="n">rm</span> <span class="o">=</span> <span class="n">ResourceManager</span><span class="p">(</span><span class="n">config_path</span><span class="p">,</span> <span class="n">get_module</span><span class="o">=</span><span class="n">get_module</span><span class="p">)</span>
     <span class="c1"># TODO: a VERY dirty hack. delete it after the release of pytorch 0.3</span>
     <span class="k">if</span> <span class="s1">&#39;torch&#39;</span> <span class="ow">in</span> <span class="n">rm</span><span class="o">.</span><span class="n">_get_whole_config</span><span class="p">():</span>
         <span class="kn">import</span> <span class="nn">torch</span>

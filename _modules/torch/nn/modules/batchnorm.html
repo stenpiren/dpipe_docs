@@ -213,6 +213,9 @@
 
 <span class="sd">    During evaluation, this running mean/variance is used for normalization.</span>
 
+<span class="sd">    Because the BatchNorm is done over the `C` dimension, computing statistics</span>
+<span class="sd">    on `(N, L)` slices, it&#39;s common terminology to call this Temporal BatchNorm</span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        num_features: num_features from an expected input of size</span>
 <span class="sd">            `batch_size x num_features [x width]`</span>
@@ -220,8 +223,8 @@
 <span class="sd">            Default: 1e-5</span>
 <span class="sd">        momentum: the value used for the running_mean and running_var</span>
 <span class="sd">            computation. Default: 0.1</span>
-<span class="sd">        affine: a boolean value that when set to true, gives the layer learnable</span>
-<span class="sd">            affine parameters.</span>
+<span class="sd">        affine: a boolean value that when set to ``True``, gives the layer learnable</span>
+<span class="sd">            affine parameters. Default: ``True``</span>
 
 <span class="sd">    Shape:</span>
 <span class="sd">        - Input: :math:`(N, C)` or :math:`(N, C, L)`</span>
@@ -260,6 +263,9 @@
 
 <span class="sd">    During evaluation, this running mean/variance is used for normalization.</span>
 
+<span class="sd">    Because the BatchNorm is done over the `C` dimension, computing statistics</span>
+<span class="sd">    on `(N, H, W)` slices, it&#39;s common terminology to call this Spatial BatchNorm</span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        num_features: num_features from an expected input of</span>
 <span class="sd">            size batch_size x num_features x height x width</span>
@@ -267,8 +273,8 @@
 <span class="sd">            Default: 1e-5</span>
 <span class="sd">        momentum: the value used for the running_mean and running_var</span>
 <span class="sd">            computation. Default: 0.1</span>
-<span class="sd">        affine: a boolean value that when set to true, gives the layer learnable</span>
-<span class="sd">            affine parameters.</span>
+<span class="sd">        affine: a boolean value that when set to ``True``, gives the layer learnable</span>
+<span class="sd">            affine parameters. Default: ``True``</span>
 
 <span class="sd">    Shape:</span>
 <span class="sd">        - Input: :math:`(N, C, H, W)`</span>
@@ -307,6 +313,10 @@
 
 <span class="sd">    During evaluation, this running mean/variance is used for normalization.</span>
 
+<span class="sd">    Because the BatchNorm is done over the `C` dimension, computing statistics</span>
+<span class="sd">    on `(N, D, H, W)` slices, it&#39;s common terminology to call this Volumetric BatchNorm</span>
+<span class="sd">    or Spatio-temporal BatchNorm</span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        num_features: num_features from an expected input of</span>
 <span class="sd">            size batch_size x num_features x depth x height x width</span>
@@ -314,8 +324,8 @@
 <span class="sd">            Default: 1e-5</span>
 <span class="sd">        momentum: the value used for the running_mean and running_var</span>
 <span class="sd">            computation. Default: 0.1</span>
-<span class="sd">        affine: a boolean value that when set to true, gives the layer learnable</span>
-<span class="sd">            affine parameters.</span>
+<span class="sd">        affine: a boolean value that when set to ``True``, gives the layer learnable</span>
+<span class="sd">            affine parameters. Default: ``True``</span>
 
 <span class="sd">    Shape:</span>
 <span class="sd">        - Input: :math:`(N, C, D, H, W)`</span>

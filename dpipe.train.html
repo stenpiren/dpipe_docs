@@ -106,20 +106,17 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.train.lr_base">dpipe.train.lr_base module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.train.lr_policy">dpipe.train.lr_policy module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.train.train">dpipe.train.train module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.train.train_segm">dpipe.train.train_segm module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.train.utils">dpipe.train.utils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.train.validator">dpipe.train.validator module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.train">Module contents</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.commands">Commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.batch_iter_factory">dpipe.batch_iter_factory module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.io">dpipe.io module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.model">dpipe.model module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.io">Input/Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.model">NN model interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.transformers">dpipe.transformers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.batch_iter_factory">dpipe.batch_iter_factory module</a></li>
 </ul>
 </li>
 </ul>
@@ -303,14 +300,6 @@
 </dd></dl>
 
 </div>
-<div class="section" id="module-dpipe.train.train_segm">
-<span id="dpipe-train-train-segm-module"></span><h2>dpipe.train.train_segm module<a class="headerlink" href="#module-dpipe.train.train_segm" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="dpipe.train.train_segm.train_segm">
-<code class="descclassname">dpipe.train.train_segm.</code><code class="descname">train_segm</code><span class="sig-paren">(</span><em>model: dpipe.model.Model</em>, <em>train_batch_iter_factory: dpipe.batch_iter_factory.BatchIterFactory</em>, <em>batch_predict: dpipe.batch_predict.base.BatchPredict</em>, <em>log_path</em>, <em>val_ids</em>, <em>dataset</em>, <em>*</em>, <em>n_epochs</em>, <em>lr_init</em>, <em>lr_dec_mul=0.5</em>, <em>patience: int</em>, <em>rtol=0</em>, <em>atol=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/train_segm.html#train_segm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.train_segm.train_segm" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
 <div class="section" id="module-dpipe.train.utils">
 <span id="dpipe-train-utils-module"></span><h2>dpipe.train.utils module<a class="headerlink" href="#module-dpipe.train.utils" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
@@ -329,16 +318,58 @@
 <dl class="function">
 <dt id="dpipe.train.validator.evaluate">
 <code class="descclassname">dpipe.train.validator.</code><code class="descname">evaluate</code><span class="sig-paren">(</span><em>y_true</em>, <em>y_pred</em>, <em>metrics: dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/validator.html#evaluate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.validator.evaluate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Calculates the metrics listed in the <cite>metrics</cite> dict.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>y_true</strong> (<em>ground truth</em>) &#8211; </li>
+<li><strong>y_pred</strong> (<em>predictions</em>) &#8211; </li>
+<li><strong>metrics</strong> (<em>dict</em>) &#8211; a dict, where the key is the metric&#8217;s name and the value is a
+callable with the standard sklearn signature: (y_true, y_pred) -&gt; metric</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>calculated_metrics</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">dict</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="dpipe.train.validator.validate">
-<code class="descclassname">dpipe.train.validator.</code><code class="descname">validate</code><span class="sig-paren">(</span><em>validate_fn</em>, <em>load_x</em>, <em>load_y</em>, <em>ids</em>, <em>metrics=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/validator.html#validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.validator.validate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">dpipe.train.validator.</code><code class="descname">validate</code><span class="sig-paren">(</span><em>validate_fn, load_x, load_y, ids: typing.Sequence[str], metrics: dict = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/validator.html#validate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.validator.validate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs a validation step.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>validate_fn</strong> (<em>callable</em><em>(</em><em>x_batch</em><em>, </em><em>y_batch</em><em>) </em><em>-&gt;</em><em> (</em><em>prediction</em><em>, </em><em>loss</em><em>)</em>) &#8211; </li>
+<li><strong>load_x</strong> (<em>callable</em><em>(</em><em>id</em><em>)</em>) &#8211; </li>
+<li><strong>load_y</strong> (<em>callable</em><em>(</em><em>id</em><em>)</em>) &#8211; </li>
+<li><strong>ids</strong> (<em>Sequence</em><em>[</em><em>str</em><em>]</em>) &#8211; </li>
+<li><strong>metrics</strong> (<em>dict</em>) &#8211; a dict, where the key is the metric&#8217;s name and the value is a
+callable with the standard sklearn signature: (y_true, y_pred) -&gt; metric</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
+<li><strong>losses</strong> (<em>[float]</em>) &#8211; a list of losses for each pair (x, y)</li>
+<li><strong>calculated_metrics</strong> (<em>dict</em>)</li>
+</ul>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
-</div>
-<div class="section" id="module-dpipe.train">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-dpipe.train" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 

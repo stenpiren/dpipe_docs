@@ -179,6 +179,8 @@
     <span class="k">def</span> <span class="nf">find_next_lr</span><span class="p">(</span><span class="n">loss</span><span class="p">):</span>
         <span class="k">nonlocal</span> <span class="n">lr</span><span class="p">,</span> <span class="n">check</span>
         <span class="k">if</span> <span class="n">check</span><span class="p">(</span><span class="n">loss</span><span class="p">):</span>
+            <span class="c1"># Recreate check so that we would start checking again.</span>
+            <span class="c1"># TODO rewrite it without it</span>
             <span class="n">check</span> <span class="o">=</span> <span class="n">get_check</span><span class="p">()</span>
             <span class="n">lr</span> <span class="o">=</span> <span class="n">decrease_lr</span><span class="p">(</span><span class="n">lr</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">lr</span>

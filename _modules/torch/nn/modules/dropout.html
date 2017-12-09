@@ -172,7 +172,7 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        p: probability of an element to be zeroed. Default: 0.5</span>
-<span class="sd">        inplace: If set to True, will do this operation in-place. Default: false</span>
+<span class="sd">        inplace: If set to ``True``, will do this operation in-place. Default: ``False``</span>
 
 <span class="sd">    Shape:</span>
 <span class="sd">        - Input: `Any`. Input can be of any shape</span>
@@ -201,8 +201,8 @@
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">inplace_str</span> <span class="o">=</span> <span class="s1">&#39;, inplace&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inplace</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; (&#39;</span> \
-            <span class="o">+</span> <span class="s1">&#39;p = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span> \
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> \
+            <span class="o">+</span> <span class="s1">&#39;p=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span> \
             <span class="o">+</span> <span class="n">inplace_str</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
 
 
@@ -224,7 +224,7 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        p (float, optional): probability of an element to be zeroed.</span>
-<span class="sd">        inplace (bool, optional): If set to True, will do this operation</span>
+<span class="sd">        inplace (bool, optional): If set to ``True``, will do this operation</span>
 <span class="sd">            in-place</span>
 
 <span class="sd">    Shape:</span>
@@ -254,7 +254,7 @@
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">inplace_str</span> <span class="o">=</span> <span class="s1">&#39;, inplace&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inplace</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; (&#39;</span> \
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> \
             <span class="o">+</span> <span class="s1">&#39;p=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span> \
             <span class="o">+</span> <span class="n">inplace_str</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
 
@@ -277,7 +277,7 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        p (float, optional): probability of an element to be zeroed.</span>
-<span class="sd">        inplace (bool, optional): If set to True, will do this operation</span>
+<span class="sd">        inplace (bool, optional): If set to ``True``, will do this operation</span>
 <span class="sd">            in-place</span>
 
 <span class="sd">    Shape:</span>
@@ -307,7 +307,7 @@
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">inplace_str</span> <span class="o">=</span> <span class="s1">&#39;, inplace&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">inplace</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; (&#39;</span> \
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> \
             <span class="o">+</span> <span class="s1">&#39;p=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span> \
             <span class="o">+</span> <span class="n">inplace_str</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
 
@@ -359,8 +359,8 @@
         <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">alpha_dropout</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">training</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; (&#39;</span> \
-            <span class="o">+</span> <span class="s1">&#39;p = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> \
+            <span class="o">+</span> <span class="s1">&#39;p=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
 </pre></div>
 
            </div>

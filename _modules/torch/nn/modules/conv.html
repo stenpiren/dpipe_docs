@@ -201,7 +201,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">uniform_</span><span class="p">(</span><span class="o">-</span><span class="n">stdv</span><span class="p">,</span> <span class="n">stdv</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">{name}</span><span class="s1">(</span><span class="si">{in_channels}</span><span class="s1">, </span><span class="si">{out_channels}</span><span class="s1">, kernel_size=</span><span class="si">{kernel_size}</span><span class="s1">&#39;</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">{name}</span><span class="s1"> (</span><span class="si">{in_channels}</span><span class="s1">, </span><span class="si">{out_channels}</span><span class="s1">, kernel_size=</span><span class="si">{kernel_size}</span><span class="s1">&#39;</span>
              <span class="s1">&#39;, stride=</span><span class="si">{stride}</span><span class="s1">&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">!=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,)</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">):</span>
             <span class="n">s</span> <span class="o">+=</span> <span class="s1">&#39;, padding=</span><span class="si">{padding}</span><span class="s1">&#39;</span>
@@ -234,9 +234,10 @@
 
 <span class="sd">    where :math:`\star` is the valid `cross-correlation`_ operator</span>
 
-<span class="sd">    | :attr:`stride` controls the stride for the cross-correlation.</span>
-<span class="sd">    | If :attr:`padding` is non-zero, then the input is implicitly zero-padded</span>
-<span class="sd">      on both sides for :attr:`padding` number of points.</span>
+<span class="sd">    | :attr:`stride` controls the stride for the cross-correlation, a single</span>
+<span class="sd">      number or a tuple.</span>
+<span class="sd">    | :attr:`padding` controls the amount of implicit zero-paddings on both</span>
+<span class="sd">    |  sides for :attr:`padding` number of points.</span>
 <span class="sd">    | :attr:`dilation` controls the spacing between the kernel points; also</span>
 <span class="sd">      known as the à trous algorithm. It is harder to describe, but this `link`_</span>
 <span class="sd">      has a nice visualization of what :attr:`dilation` does.</span>
@@ -257,17 +258,28 @@
 <span class="sd">         `cross-correlation`_, and not a full `cross-correlation`_.</span>
 <span class="sd">         It is up to the user to add proper padding.</span>
 
+<span class="sd">    .. note::</span>
+
+<span class="sd">         The configuration when `groups == in_channels` and `out_channels = K * in_channels`</span>
+<span class="sd">         where `K` is a positive integer is termed in literature as depthwise convolution.</span>
+
+<span class="sd">         In other words, for an input of size :math:`(N, C_{in}, L_{in})`, if you want a</span>
+<span class="sd">         depthwise convolution with a depthwise multiplier `K`,</span>
+<span class="sd">         then you use the constructor arguments</span>
+<span class="sd">         :math:`(in\_channels=C_{in}, out\_channels=C_{in} * K, ..., groups=C_{in})`</span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        in_channels (int): Number of channels in the input image</span>
 <span class="sd">        out_channels (int): Number of channels produced by the convolution</span>
 <span class="sd">        kernel_size (int or tuple): Size of the convolving kernel</span>
-<span class="sd">        stride (int or tuple, optional): Stride of the convolution</span>
+<span class="sd">        stride (int or tuple, optional): Stride of the convolution. Default: 1</span>
 <span class="sd">        padding (int or tuple, optional): Zero-padding added to both sides of</span>
-<span class="sd">            the input dilation (int or tuple, optional): Spacing between kernel</span>
-<span class="sd">            elements</span>
+<span class="sd">            the input. Default: 0</span>
+<span class="sd">        dilation (int or tuple, optional): Spacing between kernel</span>
+<span class="sd">            elements. Default: 1</span>
 <span class="sd">        groups (int, optional): Number of blocked connections from input</span>
-<span class="sd">            channels to output channels</span>
-<span class="sd">        bias (bool, optional): If True, adds a learnable bias to the output</span>
+<span class="sd">            channels to output channels. Default: 1</span>
+<span class="sd">        bias (bool, optional): If ``True``, adds a learnable bias to the output. Default: ``True``</span>
 
 <span class="sd">    Shape:</span>
 <span class="sd">        - Input: :math:`(N, C_{in}, L_{in})`</span>
@@ -325,9 +337,10 @@
 
 <span class="sd">    where :math:`\star` is the valid 2D `cross-correlation`_ operator</span>
 
-<span class="sd">    | :attr:`stride` controls the stride for the cross-correlation.</span>
-<span class="sd">    | If :attr:`padding` is non-zero, then the input is implicitly zero-padded</span>
-<span class="sd">      on both sides for :attr:`padding` number of points.</span>
+<span class="sd">    | :attr:`stride` controls the stride for the cross-correlation, a single</span>
+<span class="sd">      number or a tuple.</span>
+<span class="sd">    | :attr:`padding` controls the amount of implicit zero-paddings on both</span>
+<span class="sd">    |  sides for :attr:`padding` number of points for each dimension.</span>
 <span class="sd">    | :attr:`dilation` controls the spacing between the kernel points; also</span>
 <span class="sd">      known as the à trous algorithm. It is harder to describe, but this `link`_</span>
 <span class="sd">      has a nice visualization of what :attr:`dilation` does.</span>
@@ -354,15 +367,25 @@
 <span class="sd">         and not a full `cross-correlation`_.</span>
 <span class="sd">         It is up to the user to add proper padding.</span>
 
+<span class="sd">    .. note::</span>
+
+<span class="sd">         The configuration when `groups == in_channels` and `out_channels = K * in_channels`</span>
+<span class="sd">         where `K` is a positive integer is termed in literature as depthwise convolution.</span>
+
+<span class="sd">         In other words, for an input of size :math:`(N, C_{in}, H_{in}, W_{in})`, if you want a</span>
+<span class="sd">         depthwise convolution with a depthwise multiplier `K`,</span>
+<span class="sd">         then you use the constructor arguments</span>
+<span class="sd">         :math:`(in\_channels=C_{in}, out\_channels=C_{in} * K, ..., groups=C_{in})`</span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        in_channels (int): Number of channels in the input image</span>
 <span class="sd">        out_channels (int): Number of channels produced by the convolution</span>
 <span class="sd">        kernel_size (int or tuple): Size of the convolving kernel</span>
-<span class="sd">        stride (int or tuple, optional): Stride of the convolution</span>
-<span class="sd">        padding (int or tuple, optional): Zero-padding added to both sides of the input</span>
-<span class="sd">        dilation (int or tuple, optional): Spacing between kernel elements</span>
-<span class="sd">        groups (int, optional): Number of blocked connections from input channels to output channels</span>
-<span class="sd">        bias (bool, optional): If True, adds a learnable bias to the output</span>
+<span class="sd">        stride (int or tuple, optional): Stride of the convolution. Default: 1</span>
+<span class="sd">        padding (int or tuple, optional): Zero-padding added to both sides of the input. Default: 0</span>
+<span class="sd">        dilation (int or tuple, optional): Spacing between kernel elements. Default: 1</span>
+<span class="sd">        groups (int, optional): Number of blocked connections from input channels to output channels. Default: 1</span>
+<span class="sd">        bias (bool, optional): If ``True``, adds a learnable bias to the output. Default: ``True``</span>
 
 <span class="sd">    Shape:</span>
 <span class="sd">        - Input: :math:`(N, C_{in}, H_{in}, W_{in})`</span>
@@ -425,8 +448,8 @@
 <span class="sd">    where :math:`\star` is the valid 3D `cross-correlation`_ operator</span>
 
 <span class="sd">    | :attr:`stride` controls the stride for the cross-correlation.</span>
-<span class="sd">    | If :attr:`padding` is non-zero, then the input is implicitly zero-padded on both sides</span>
-<span class="sd">      for :attr:`padding` number of points.</span>
+<span class="sd">    | :attr:`padding` controls the amount of implicit zero-paddings on both</span>
+<span class="sd">    |  sides for :attr:`padding` number of points for each dimension.</span>
 <span class="sd">    | :attr:`dilation` controls the spacing between the kernel points; also known as the à trous algorithm.</span>
 <span class="sd">      It is harder to describe, but this `link`_ has a nice visualization of what :attr:`dilation` does.</span>
 <span class="sd">    | :attr:`groups` controls the connections between inputs and outputs. `in_channels` and `out_channels`</span>
@@ -451,15 +474,25 @@
 <span class="sd">         and not a full `cross-correlation`_.</span>
 <span class="sd">         It is up to the user to add proper padding.</span>
 
+<span class="sd">    .. note::</span>
+
+<span class="sd">         The configuration when `groups == in_channels` and `out_channels = K * in_channels`</span>
+<span class="sd">         where `K` is a positive integer is termed in literature as depthwise convolution.</span>
+
+<span class="sd">         In other words, for an input of size :math:`(N, C_{in}, D_{in}, H_{in}, W_{in})`, if you want a</span>
+<span class="sd">         depthwise convolution with a depthwise multiplier `K`,</span>
+<span class="sd">         then you use the constructor arguments</span>
+<span class="sd">         :math:`(in\_channels=C_{in}, out\_channels=C_{in} * K, ..., groups=C_{in})`</span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        in_channels (int): Number of channels in the input image</span>
 <span class="sd">        out_channels (int): Number of channels produced by the convolution</span>
 <span class="sd">        kernel_size (int or tuple): Size of the convolving kernel</span>
-<span class="sd">        stride (int or tuple, optional): Stride of the convolution</span>
-<span class="sd">        padding (int or tuple, optional): Zero-padding added to both sides of the input</span>
-<span class="sd">        dilation (int or tuple, optional): Spacing between kernel elements</span>
-<span class="sd">        groups (int, optional): Number of blocked connections from input channels to output channels</span>
-<span class="sd">        bias (bool, optional): If True, adds a learnable bias to the output</span>
+<span class="sd">        stride (int or tuple, optional): Stride of the convolution. Default: 1</span>
+<span class="sd">        padding (int or tuple, optional): Zero-padding added to all three sides of the input. Default: 0</span>
+<span class="sd">        dilation (int or tuple, optional): Spacing between kernel elements. Default: 1</span>
+<span class="sd">        groups (int, optional): Number of blocked connections from input channels to output channels. Default: 1</span>
+<span class="sd">        bias (bool, optional): If ``True``, adds a learnable bias to the output. Default: ``True``</span>
 
 <span class="sd">    Shape:</span>
 <span class="sd">        - Input: :math:`(N, C_{in}, D_{in}, H_{in}, W_{in})`</span>
@@ -546,7 +579,7 @@
 
 
 <span class="k">class</span> <span class="nc">ConvTranspose1d</span><span class="p">(</span><span class="n">_ConvTransposeMixin</span><span class="p">,</span> <span class="n">_ConvNd</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Applies a 1D transposed convolution operator over an input image</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Applies a 1D transposed convolution operator over an input image</span>
 <span class="sd">    composed of several input planes.</span>
 
 <span class="sd">    This module can be seen as the gradient of Conv1d with respect to its input.</span>
@@ -554,10 +587,11 @@
 <span class="sd">    a deconvolution (although it is not an actual deconvolution operation).</span>
 
 <span class="sd">    | :attr:`stride` controls the stride for the cross-correlation.</span>
-<span class="sd">    | If :attr:`padding` is non-zero, then the input is implicitly zero-padded on both sides</span>
-<span class="sd">      for :attr:`padding` number of points.</span>
-<span class="sd">    | If :attr:`output_padding` is non-zero, then the output is implicitly zero-padded on one side</span>
-<span class="sd">      for :attr:`output_padding` number of points.</span>
+<span class="sd">    | :attr:`padding` controls the amount of implicit zero-paddings on both</span>
+<span class="sd">    |  sides for :attr:`padding` number of points.</span>
+<span class="sd">    | :attr:`output_padding` controls the amount of implicit zero-paddings on</span>
+<span class="sd">    | both sides of the output for :attr:`output_padding` number of points.</span>
+<span class="sd">    | number of points.</span>
 <span class="sd">    | :attr:`dilation` controls the spacing between the kernel points; also known as the à trous algorithm.</span>
 <span class="sd">      It is harder to describe, but this `link`_ has a nice visualization of what :attr:`dilation` does.</span>
 <span class="sd">    | :attr:`groups` controls the connections between inputs and outputs. `in_channels` and `out_channels`</span>
@@ -580,12 +614,12 @@
 <span class="sd">        in_channels (int): Number of channels in the input image</span>
 <span class="sd">        out_channels (int): Number of channels produced by the convolution</span>
 <span class="sd">        kernel_size (int or tuple): Size of the convolving kernel</span>
-<span class="sd">        stride (int or tuple, optional): Stride of the convolution</span>
-<span class="sd">        padding (int or tuple, optional): Zero-padding added to both sides of the input</span>
-<span class="sd">        output_padding (int or tuple, optional): Zero-padding added to one side of the output</span>
-<span class="sd">        groups (int, optional): Number of blocked connections from input channels to output channels</span>
-<span class="sd">        bias (bool, optional): If True, adds a learnable bias to the output</span>
-<span class="sd">        dilation (int or tuple, optional): Spacing between kernel elements</span>
+<span class="sd">        stride (int or tuple, optional): Stride of the convolution. Default: 1</span>
+<span class="sd">        padding (int or tuple, optional): Zero-padding added to both sides of the input. Default: 0</span>
+<span class="sd">        output_padding (int or tuple, optional): Zero-padding added to one side of the output. Default: 0</span>
+<span class="sd">        groups (int, optional): Number of blocked connections from input channels to output channels. Default: 1</span>
+<span class="sd">        bias (bool, optional): If ``True``, adds a learnable bias to the output. Default: ``True``</span>
+<span class="sd">        dilation (int or tuple, optional): Spacing between kernel elements. Default: 1</span>
 
 <span class="sd">    Shape:</span>
 <span class="sd">        - Input: :math:`(N, C_{in}, L_{in})`</span>
@@ -625,10 +659,11 @@
 <span class="sd">    a deconvolution (although it is not an actual deconvolution operation).</span>
 
 <span class="sd">    | :attr:`stride` controls the stride for the cross-correlation.</span>
-<span class="sd">    | If :attr:`padding` is non-zero, then the input is implicitly zero-padded on both sides</span>
-<span class="sd">      for :attr:`padding` number of points.</span>
-<span class="sd">    | If :attr:`output_padding` is non-zero, then the output is implicitly zero-padded on one side</span>
-<span class="sd">      for :attr:`output_padding` number of points.</span>
+<span class="sd">    | :attr:`padding` controls the amount of implicit zero-paddings on both</span>
+<span class="sd">    |  sides for :attr:`padding` number of points for each dimension.</span>
+<span class="sd">    | :attr:`output_padding` controls the amount of implicit zero-paddings on</span>
+<span class="sd">    | both sides of the output for :attr:`output_padding` number of points for</span>
+<span class="sd">    | each dimension.</span>
 <span class="sd">    | :attr:`dilation` controls the spacing between the kernel points; also known as the à trous algorithm.</span>
 <span class="sd">      It is harder to describe, but this `link`_ has a nice visualization of what :attr:`dilation` does.</span>
 <span class="sd">    | :attr:`groups` controls the connections between inputs and outputs. `in_channels` and `out_channels`</span>
@@ -658,12 +693,12 @@
 <span class="sd">        in_channels (int): Number of channels in the input image</span>
 <span class="sd">        out_channels (int): Number of channels produced by the convolution</span>
 <span class="sd">        kernel_size (int or tuple): Size of the convolving kernel</span>
-<span class="sd">        stride (int or tuple, optional): Stride of the convolution</span>
-<span class="sd">        padding (int or tuple, optional): Zero-padding added to both sides of the input</span>
-<span class="sd">        output_padding (int or tuple, optional): Zero-padding added to one side of the output</span>
-<span class="sd">        groups (int, optional): Number of blocked connections from input channels to output channels</span>
-<span class="sd">        bias (bool, optional): If True, adds a learnable bias to the output</span>
-<span class="sd">        dilation (int or tuple, optional): Spacing between kernel elements</span>
+<span class="sd">        stride (int or tuple, optional): Stride of the convolution. Default: 1</span>
+<span class="sd">        padding (int or tuple, optional): Zero-padding added to both sides of the input. Default: 0</span>
+<span class="sd">        output_padding (int or tuple, optional): Zero-padding added to one side of the output. Default: 0</span>
+<span class="sd">        groups (int, optional): Number of blocked connections from input channels to output channels. Default: 1</span>
+<span class="sd">        bias (bool, optional): If ``True``, adds a learnable bias to the output. Default: ``True``</span>
+<span class="sd">        dilation (int or tuple, optional): Spacing between kernel elements. Default: 1</span>
 
 <span class="sd">    Shape:</span>
 <span class="sd">        - Input: :math:`(N, C_{in}, H_{in}, W_{in})`</span>
@@ -731,10 +766,11 @@
 <span class="sd">    a deconvolution (although it is not an actual deconvolution operation).</span>
 
 <span class="sd">    | :attr:`stride` controls the stride for the cross-correlation.</span>
-<span class="sd">    | If :attr:`padding` is non-zero, then the input is implicitly zero-padded on both sides</span>
-<span class="sd">      for :attr:`padding` number of points.</span>
-<span class="sd">    | If :attr:`output_padding` is non-zero, then the output is implicitly zero-padded on one side</span>
-<span class="sd">      for :attr:`output_padding` number of points.</span>
+<span class="sd">    | :attr:`padding` controls the amount of implicit zero-paddings on both</span>
+<span class="sd">    |  sides for :attr:`padding` number of points for each dimension.</span>
+<span class="sd">    | :attr:`output_padding` controls the amount of implicit zero-paddings on</span>
+<span class="sd">    | both sides of the output for :attr:`output_padding` number of points for</span>
+<span class="sd">    | each dimension.</span>
 <span class="sd">    | :attr:`dilation` controls the spacing between the kernel points; also known as the à trous algorithm.</span>
 <span class="sd">      It is harder to describe, but this `link`_ has a nice visualization of what :attr:`dilation` does.</span>
 <span class="sd">    | :attr:`groups` controls the connections between inputs and outputs. `in_channels` and `out_channels`</span>
@@ -764,12 +800,12 @@
 <span class="sd">        in_channels (int): Number of channels in the input image</span>
 <span class="sd">        out_channels (int): Number of channels produced by the convolution</span>
 <span class="sd">        kernel_size (int or tuple): Size of the convolving kernel</span>
-<span class="sd">        stride (int or tuple, optional): Stride of the convolution</span>
-<span class="sd">        padding (int or tuple, optional): Zero-padding added to both sides of the input</span>
-<span class="sd">        output_padding (int or tuple, optional): Zero-padding added to one side of the output</span>
-<span class="sd">        groups (int, optional): Number of blocked connections from input channels to output channels</span>
-<span class="sd">        bias (bool, optional): If True, adds a learnable bias to the output</span>
-<span class="sd">        dilation (int or tuple, optional): Spacing between kernel elements</span>
+<span class="sd">        stride (int or tuple, optional): Stride of the convolution. Default: 1</span>
+<span class="sd">        padding (int or tuple, optional): Zero-padding added to all three sides of the input. Default: 0</span>
+<span class="sd">        output_padding (int or tuple, optional): Zero-padding added to one side of the output. Default: 0</span>
+<span class="sd">        groups (int, optional): Number of blocked connections from input channels to output channels. Default: 1</span>
+<span class="sd">        bias (bool, optional): If ``True``, adds a learnable bias to the output. Default: ``True``</span>
+<span class="sd">        dilation (int or tuple, optional): Spacing between kernel elements. Default: 1</span>
 
 <span class="sd">    Shape:</span>
 <span class="sd">        - Input: :math:`(N, C_{in}, D_{in}, H_{in}, W_{in})`</span>

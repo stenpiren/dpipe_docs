@@ -104,10 +104,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-dpipe.commands">Commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-dpipe.batch_iter_factory">dpipe.batch_iter_factory module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-dpipe.io">dpipe.io module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-dpipe.model">dpipe.model module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-dpipe.io">Input/Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-dpipe.model">NN model interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-dpipe.transformers">dpipe.transformers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-dpipe.batch_iter_factory">dpipe.batch_iter_factory module</a></li>
 </ul>
 </li>
 </ul>
@@ -193,8 +193,6 @@
 <li class="toctree-l2"><a class="reference internal" href="dpipe.batch_predict.html#module-dpipe.batch_predict.patch_3d_fixed">dpipe.batch_predict.patch_3d_fixed module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.batch_predict.html#module-dpipe.batch_predict.simple">dpipe.batch_predict.simple module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.batch_predict.html#module-dpipe.batch_predict.slice">dpipe.batch_predict.slice module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.batch_predict.html#module-dpipe.batch_predict.test_patch_3d">dpipe.batch_predict.test_patch_3d module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.batch_predict.html#module-dpipe.batch_predict.test_patch_3d_fixed">dpipe.batch_predict.test_patch_3d_fixed module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.batch_predict.html#module-dpipe.batch_predict.utils">dpipe.batch_predict.utils module</a></li>
 </ul>
 </li>
@@ -236,11 +234,6 @@
 <li class="toctree-l2"><a class="reference internal" href="dpipe.medim.html#module-dpipe.medim.preprocessing">dpipe.medim.preprocessing module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.medim.html#module-dpipe.medim.shape_utils">dpipe.medim.shape_utils module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.medim.html#module-dpipe.medim.slices">dpipe.medim.slices module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.medim.html#module-dpipe.medim.test_features">dpipe.medim.test_features module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.medim.html#module-dpipe.medim.test_patch">dpipe.medim.test_patch module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.medim.html#module-dpipe.medim.test_shape_utils">dpipe.medim.test_shape_utils module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.medim.html#module-dpipe.medim.test_split">dpipe.medim.test_split module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.medim.html#module-dpipe.medim.test_utils">dpipe.medim.test_utils module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.medim.html#module-dpipe.medim.utils">dpipe.medim.utils module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.medim.html#module-dpipe.medim.visualize">dpipe.medim.visualize module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.medim.html#module-dpipe.medim">Module contents</a></li>
@@ -308,10 +301,8 @@
 <li class="toctree-l2"><a class="reference internal" href="dpipe.train.html#module-dpipe.train.lr_base">dpipe.train.lr_base module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.train.html#module-dpipe.train.lr_policy">dpipe.train.lr_policy module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.train.html#module-dpipe.train.train">dpipe.train.train module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.train.html#module-dpipe.train.train_segm">dpipe.train.train_segm module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.train.html#module-dpipe.train.utils">dpipe.train.utils module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.train.html#module-dpipe.train.validator">dpipe.train.validator module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.train.html#module-dpipe.train">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -368,58 +359,58 @@ The thresholds are calculated channelwise.</p>
 <dd></dd></dl>
 
 </div>
-<div class="section" id="module-dpipe.batch_iter_factory">
-<span id="dpipe-batch-iter-factory-module"></span><h2>dpipe.batch_iter_factory module<a class="headerlink" href="#module-dpipe.batch_iter_factory" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="dpipe.batch_iter_factory.BatchIterFactory">
-<em class="property">class </em><code class="descclassname">dpipe.batch_iter_factory.</code><code class="descname">BatchIterFactory</code><a class="reference internal" href="_modules/dpipe/batch_iter_factory.html#BatchIterFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_iter_factory.BatchIterFactory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">abc.ABC</span></code></p>
-</dd></dl>
-
-<dl class="class">
-<dt id="dpipe.batch_iter_factory.BatchIterFactoryFin">
-<em class="property">class </em><code class="descclassname">dpipe.batch_iter_factory.</code><code class="descname">BatchIterFactoryFin</code><span class="sig-paren">(</span><em>get_batch_iter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_iter_factory.html#BatchIterFactoryFin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_iter_factory.BatchIterFactoryFin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#dpipe.batch_iter_factory.BatchIterFactory" title="dpipe.batch_iter_factory.BatchIterFactory"><code class="xref py py-class docutils literal"><span class="pre">dpipe.batch_iter_factory.BatchIterFactory</span></code></a></p>
-</dd></dl>
-
-<dl class="class">
-<dt id="dpipe.batch_iter_factory.BatchIterFactoryInf">
-<em class="property">class </em><code class="descclassname">dpipe.batch_iter_factory.</code><code class="descname">BatchIterFactoryInf</code><span class="sig-paren">(</span><em>get_batch_iter</em>, <em>n_iters_per_batch</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_iter_factory.html#BatchIterFactoryInf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_iter_factory.BatchIterFactoryInf" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#dpipe.batch_iter_factory.BatchIterFactory" title="dpipe.batch_iter_factory.BatchIterFactory"><code class="xref py py-class docutils literal"><span class="pre">dpipe.batch_iter_factory.BatchIterFactory</span></code></a></p>
-</dd></dl>
-
-<dl class="function">
-<dt id="dpipe.batch_iter_factory.build_contextmanager">
-<code class="descclassname">dpipe.batch_iter_factory.</code><code class="descname">build_contextmanager</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_iter_factory.html#build_contextmanager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_iter_factory.build_contextmanager" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="dpipe.batch_iter_factory.maybe_build_contextmanager">
-<code class="descclassname">dpipe.batch_iter_factory.</code><code class="descname">maybe_build_contextmanager</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_iter_factory.html#maybe_build_contextmanager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_iter_factory.maybe_build_contextmanager" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
 <div class="section" id="module-dpipe.io">
-<span id="dpipe-io-module"></span><h2>dpipe.io module<a class="headerlink" href="#module-dpipe.io" title="Permalink to this headline">¶</a></h2>
+<span id="input-output"></span><h2>Input/Output<a class="headerlink" href="#module-dpipe.io" title="Permalink to this headline">¶</a></h2>
+<p>Basic input-output operations. Useful inside config-files.</p>
 <dl class="class">
 <dt id="dpipe.io.ConsoleArguments">
 <em class="property">class </em><code class="descclassname">dpipe.io.</code><code class="descname">ConsoleArguments</code><a class="reference internal" href="_modules/dpipe/io.html#ConsoleArguments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.io.ConsoleArguments" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>A class that simplifies the access to console arguments.</p>
 <dl class="method">
 <dt id="dpipe.io.ConsoleArguments.get">
 <code class="descname">get</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/io.html#ConsoleArguments.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.io.ConsoleArguments.get" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Get a corresponding console argument, or return <cite>default</cite> if not provided.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>kwargs</strong> &#8211; contains a single (key: value) pair, where <cite>key</cite> is the argument&#8217;s name
+and <cite>value</cite> is its default value</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">console</span> <span class="o">=</span> <span class="n">ConsoleArguments</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># return `data_path` or &#39;/some/default/path&#39;, if not provided</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">console</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">data_path</span><span class="o">=</span><span class="s1">&#39;/some/default/path&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="function">
 <dt id="dpipe.io.load_json">
-<code class="descclassname">dpipe.io.</code><code class="descname">load_json</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/io.html#load_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.io.load_json" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">dpipe.io.</code><code class="descname">load_json</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/io.html#load_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.io.load_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads the contents of a json file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<em>str</em>) &#8211; path to the file</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">json_type</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </div>
 <div class="section" id="module-dpipe.model">
-<span id="dpipe-model-module"></span><h2>dpipe.model module<a class="headerlink" href="#module-dpipe.model" title="Permalink to this headline">¶</a></h2>
+<span id="nn-model-interface"></span><h2>NN model interface<a class="headerlink" href="#module-dpipe.model" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="dpipe.model.FrozenModel">
 <em class="property">class </em><code class="descclassname">dpipe.model.</code><code class="descname">FrozenModel</code><a class="reference internal" href="_modules/dpipe/model.html#FrozenModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.model.FrozenModel" title="Permalink to this definition">¶</a></dt>
@@ -560,6 +551,37 @@ and used to calculate the loss.</td>
 <dl class="function">
 <dt id="dpipe.transformers.segm_prob2msegm">
 <code class="descclassname">dpipe.transformers.</code><code class="descname">segm_prob2msegm</code><span class="sig-paren">(</span><em>x</em>, <em>dataset</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/transformers.html#segm_prob2msegm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.transformers.segm_prob2msegm" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-dpipe.batch_iter_factory">
+<span id="dpipe-batch-iter-factory-module"></span><h2>dpipe.batch_iter_factory module<a class="headerlink" href="#module-dpipe.batch_iter_factory" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="dpipe.batch_iter_factory.BatchIterFactory">
+<em class="property">class </em><code class="descclassname">dpipe.batch_iter_factory.</code><code class="descname">BatchIterFactory</code><a class="reference internal" href="_modules/dpipe/batch_iter_factory.html#BatchIterFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_iter_factory.BatchIterFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">abc.ABC</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="dpipe.batch_iter_factory.BatchIterFactoryFin">
+<em class="property">class </em><code class="descclassname">dpipe.batch_iter_factory.</code><code class="descname">BatchIterFactoryFin</code><span class="sig-paren">(</span><em>get_batch_iter</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_iter_factory.html#BatchIterFactoryFin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_iter_factory.BatchIterFactoryFin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dpipe.batch_iter_factory.BatchIterFactory" title="dpipe.batch_iter_factory.BatchIterFactory"><code class="xref py py-class docutils literal"><span class="pre">dpipe.batch_iter_factory.BatchIterFactory</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="dpipe.batch_iter_factory.BatchIterFactoryInf">
+<em class="property">class </em><code class="descclassname">dpipe.batch_iter_factory.</code><code class="descname">BatchIterFactoryInf</code><span class="sig-paren">(</span><em>get_batch_iter</em>, <em>n_iters_per_batch</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_iter_factory.html#BatchIterFactoryInf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_iter_factory.BatchIterFactoryInf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dpipe.batch_iter_factory.BatchIterFactory" title="dpipe.batch_iter_factory.BatchIterFactory"><code class="xref py py-class docutils literal"><span class="pre">dpipe.batch_iter_factory.BatchIterFactory</span></code></a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="dpipe.batch_iter_factory.build_contextmanager">
+<code class="descclassname">dpipe.batch_iter_factory.</code><code class="descname">build_contextmanager</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_iter_factory.html#build_contextmanager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_iter_factory.build_contextmanager" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dpipe.batch_iter_factory.maybe_build_contextmanager">
+<code class="descclassname">dpipe.batch_iter_factory.</code><code class="descname">maybe_build_contextmanager</code><span class="sig-paren">(</span><em>o</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_iter_factory.html#maybe_build_contextmanager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_iter_factory.maybe_build_contextmanager" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>

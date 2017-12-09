@@ -183,7 +183,7 @@
 <span class="sd">        stride: the stride of the window. Default value is :attr:`kernel_size`</span>
 <span class="sd">        padding: implicit zero padding to be added on both sides</span>
 <span class="sd">        dilation: a parameter that controls the stride of elements in the window</span>
-<span class="sd">        return_indices: if True, will return the max indices along with the outputs.</span>
+<span class="sd">        return_indices: if ``True``, will return the max indices along with the outputs.</span>
 <span class="sd">                        Useful when Unpooling later</span>
 <span class="sd">        ceil_mode: when True, will use `ceil` instead of `floor` to compute the output shape</span>
 
@@ -219,8 +219,8 @@
                             <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; (&#39;</span> \
-            <span class="o">+</span> <span class="s1">&#39;size=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">)</span> \
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> \
+            <span class="o">+</span> <span class="s1">&#39;kernel_size=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">)</span> \
             <span class="o">+</span> <span class="s1">&#39;, stride=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">)</span> \
             <span class="o">+</span> <span class="s1">&#39;, padding=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">)</span> \
             <span class="o">+</span> <span class="s1">&#39;, dilation=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">)</span> \
@@ -258,7 +258,7 @@
 <span class="sd">        stride: the stride of the window. Default value is :attr:`kernel_size`</span>
 <span class="sd">        padding: implicit zero padding to be added on both sides</span>
 <span class="sd">        dilation: a parameter that controls the stride of elements in the window</span>
-<span class="sd">        return_indices: if True, will return the max indices along with the outputs.</span>
+<span class="sd">        return_indices: if ``True``, will return the max indices along with the outputs.</span>
 <span class="sd">                        Useful when Unpooling later</span>
 <span class="sd">        ceil_mode: when True, will use `ceil` instead of `floor` to compute the output shape</span>
 
@@ -305,8 +305,8 @@
             <span class="k">if</span> <span class="n">padh</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">padw</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
         <span class="n">dilation_str</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;, dilation=(&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">dilh</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">dilw</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
                         <span class="k">if</span> <span class="n">dilh</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">dilw</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; (&#39;</span> \
-            <span class="o">+</span> <span class="s1">&#39;size=(&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">kh</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">kw</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span> \
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> \
+            <span class="o">+</span> <span class="s1">&#39;kernel_size=(&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">kh</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">kw</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span> \
             <span class="o">+</span> <span class="s1">&#39;, stride=(&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">dh</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">dw</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span> \
             <span class="o">+</span> <span class="n">padding_str</span> <span class="o">+</span> <span class="n">dilation_str</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
 
@@ -383,8 +383,8 @@
                               <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="n">output_size</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; (&#39;</span> \
-            <span class="o">+</span> <span class="s1">&#39;size=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">)</span> \
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> \
+            <span class="o">+</span> <span class="s1">&#39;kernel_size=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">)</span> \
             <span class="o">+</span> <span class="s1">&#39;, stride=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">)</span> \
             <span class="o">+</span> <span class="s1">&#39;, padding=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
 
@@ -464,8 +464,8 @@
                               <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="n">output_size</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; (&#39;</span> \
-            <span class="o">+</span> <span class="s1">&#39;size=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">)</span> \
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> \
+            <span class="o">+</span> <span class="s1">&#39;kernel_size=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">)</span> \
             <span class="o">+</span> <span class="s1">&#39;, stride=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">)</span> \
             <span class="o">+</span> <span class="s1">&#39;, padding=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
 
@@ -525,8 +525,8 @@
                               <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="n">output_size</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; (&#39;</span> \
-            <span class="o">+</span> <span class="s1">&#39;size=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">)</span> \
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> \
+            <span class="o">+</span> <span class="s1">&#39;kernel_size=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">)</span> \
             <span class="o">+</span> <span class="s1">&#39;, stride=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">)</span> \
             <span class="o">+</span> <span class="s1">&#39;, padding=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
 
@@ -590,8 +590,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">count_include_pad</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; (&#39;</span> \
-            <span class="o">+</span> <span class="s1">&#39;size=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">)</span> \
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> \
+            <span class="o">+</span> <span class="s1">&#39;kernel_size=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">)</span> \
             <span class="o">+</span> <span class="s1">&#39;, stride=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">)</span> \
             <span class="o">+</span> <span class="s1">&#39;, padding=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">)</span> \
             <span class="o">+</span> <span class="s1">&#39;, ceil_mode=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span><span class="p">)</span> \
@@ -659,8 +659,8 @@
                             <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">count_include_pad</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; (&#39;</span> \
-            <span class="o">+</span> <span class="s1">&#39;size=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">)</span> \
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> \
+            <span class="o">+</span> <span class="s1">&#39;kernel_size=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">)</span> \
             <span class="o">+</span> <span class="s1">&#39;, stride=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">)</span> \
             <span class="o">+</span> <span class="s1">&#39;, padding=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">)</span> \
             <span class="o">+</span> <span class="s1">&#39;, ceil_mode=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span><span class="p">)</span> \
@@ -696,9 +696,9 @@
 <span class="sd">    Args:</span>
 <span class="sd">        kernel_size: the size of the window to take a max over</span>
 <span class="sd">        stride: the stride of the window. Default value is :attr:`kernel_size`</span>
-<span class="sd">        padding: implicit zero padding to be added on both sides</span>
+<span class="sd">        padding: implicit zero padding to be added on all three sides</span>
 <span class="sd">        dilation: a parameter that controls the stride of elements in the window</span>
-<span class="sd">        return_indices: if True, will return the max indices along with the outputs.</span>
+<span class="sd">        return_indices: if ``True``, will return the max indices along with the outputs.</span>
 <span class="sd">                        Useful when Unpooling later</span>
 <span class="sd">        ceil_mode: when True, will use `ceil` instead of `floor` to compute the output shape</span>
 
@@ -738,8 +738,8 @@
                             <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; (&#39;</span> \
-            <span class="o">+</span> <span class="s1">&#39;size=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">)</span> \
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> \
+            <span class="o">+</span> <span class="s1">&#39;kernel_size=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">)</span> \
             <span class="o">+</span> <span class="s1">&#39;, stride=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">)</span> \
             <span class="o">+</span> <span class="s1">&#39;, padding=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">)</span> \
             <span class="o">+</span> <span class="s1">&#39;, dilation=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dilation</span><span class="p">)</span> \
@@ -761,6 +761,9 @@
 <span class="sd">                               input(N_i, C_j, stride[0] * d + k, stride[1] * h + m, stride[2] * w + n)</span>
 <span class="sd">        \end{array}</span>
 
+<span class="sd">    | If :attr:`padding` is non-zero, then the input is implicitly zero-padded on all three sides</span>
+<span class="sd">      for :attr:`padding` number of points</span>
+
 <span class="sd">    The parameters :attr:`kernel_size`, :attr:`stride` can either be:</span>
 
 <span class="sd">        - a single ``int`` -- in which case the same value is used for the depth, height and width dimension</span>
@@ -770,13 +773,16 @@
 <span class="sd">    Args:</span>
 <span class="sd">        kernel_size: the size of the window</span>
 <span class="sd">        stride: the stride of the window. Default value is :attr:`kernel_size`</span>
+<span class="sd">        padding: implicit zero padding to be added on all three sides</span>
+<span class="sd">        ceil_mode: when True, will use `ceil` instead of `floor` to compute the output shape</span>
+<span class="sd">        count_include_pad: when True, will include the zero-padding in the averaging calculation</span>
 
 <span class="sd">    Shape:</span>
 <span class="sd">        - Input: :math:`(N, C, D_{in}, H_{in}, W_{in})`</span>
 <span class="sd">        - Output: :math:`(N, C, D_{out}, H_{out}, W_{out})` where</span>
-<span class="sd">          :math:`D_{out} = floor((D_{in}  - kernel\_size[0]) / stride[0] + 1)`</span>
-<span class="sd">          :math:`H_{out} = floor((H_{in}  - kernel\_size[1]) / stride[1] + 1)`</span>
-<span class="sd">          :math:`W_{out} = floor((W_{in}  - kernel\_size[2]) / stride[2] + 1)`</span>
+<span class="sd">          :math:`D_{out} = floor((D_{in} + 2 * padding[0] - kernel\_size[0]) / stride[0] + 1)`</span>
+<span class="sd">          :math:`H_{out} = floor((H_{in} + 2 * padding[1] - kernel\_size[1]) / stride[1] + 1)`</span>
+<span class="sd">          :math:`W_{out} = floor((W_{in} + 2 * padding[2] - kernel\_size[2]) / stride[2] + 1)`</span>
 
 <span class="sd">    Examples::</span>
 
@@ -788,22 +794,36 @@
 <span class="sd">        &gt;&gt;&gt; output = m(input)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ceil_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">count_include_pad</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">AvgPool3d</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span> <span class="o">=</span> <span class="n">kernel_size</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">stride</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">stride</span> <span class="ow">or</span> <span class="n">kernel_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">padding</span> <span class="o">=</span> <span class="n">padding</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span> <span class="o">=</span> <span class="n">ceil_mode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">count_include_pad</span> <span class="o">=</span> <span class="n">count_include_pad</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
-        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">avg_pool3d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">avg_pool3d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span>
+                            <span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">count_include_pad</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">AvgPool3d</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__setstate__</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;padding&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;ceil_mode&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;count_include_pad&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; (&#39;</span> \
-            <span class="o">+</span> <span class="s1">&#39;size=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">)</span> \
-            <span class="o">+</span> <span class="s1">&#39;, stride=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> \
+            <span class="o">+</span> <span class="s1">&#39;kernel_size=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">)</span> \
+            <span class="o">+</span> <span class="s1">&#39;, stride=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">)</span> \
+            <span class="o">+</span> <span class="s1">&#39;, padding=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">padding</span><span class="p">)</span> \
+            <span class="o">+</span> <span class="s1">&#39;, ceil_mode=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span><span class="p">)</span> \
+            <span class="o">+</span> <span class="s1">&#39;, count_include_pad=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">count_include_pad</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
 
 
 <span class="k">class</span> <span class="nc">FractionalMaxPool2d</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Applies a 2D fractional max pooling over an input signal composed of several input planes.</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Applies a 2D fractional max pooling over an input signal composed of several input planes.</span>
 
 <span class="sd">    Fractiona MaxPooling is described in detail in the paper `Fractional MaxPooling`_ by Ben Graham</span>
 
@@ -818,8 +838,8 @@
 <span class="sd">                     Can be a tuple (oH, oW) or a single number oH for a square image oH x oH</span>
 <span class="sd">        output_ratio: If one wants to have an output size as a ratio of the input size, this option can be given.</span>
 <span class="sd">                      This has to be a number or tuple in the range (0, 1)</span>
-<span class="sd">        return_indices: if True, will return the indices along with the outputs.</span>
-<span class="sd">                        Useful to pass to nn.MaxUnpool2d . Default: False</span>
+<span class="sd">        return_indices: if ``True``, will return the indices along with the outputs.</span>
+<span class="sd">                        Useful to pass to nn.MaxUnpool2d. Default: ``False``</span>
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; # pool of square window of size=3, and target output size 13x12</span>
@@ -859,8 +879,9 @@
             <span class="n">output_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">outh</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">outw</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">output_ratio</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rh</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">rw</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backend</span><span class="o">.</span><span class="n">FractionalMaxPool2d</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kw</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kh</span><span class="p">,</span> <span class="n">output_size</span><span class="p">,</span> <span class="n">output_ratio</span><span class="p">,</span>
-                                                       <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_random_samples</span><span class="p">)</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_backend</span><span class="o">.</span><span class="n">FractionalMaxPool2d</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kw</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kh</span><span class="p">,</span> <span class="n">output_size</span><span class="p">,</span> <span class="n">output_ratio</span><span class="p">,</span>
+                                                      <span class="bp">self</span><span class="o">.</span><span class="n">_random_samples</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ret</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span> <span class="k">else</span> <span class="n">ret</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
 
 <span class="k">class</span> <span class="nc">LPPool2d</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
@@ -911,17 +932,69 @@
         <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">lp_pool2d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">norm_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span>
                            <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span><span class="p">)</span>
 
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> \
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">norm_type</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span> \
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span> \
+            <span class="o">+</span> <span class="s1">&#39;stride=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span> \
+            <span class="o">+</span> <span class="s1">&#39;ceil_mode=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+
+
+<span class="k">class</span> <span class="nc">LPPool1d</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Applies a 1D power-average pooling over an input signal composed of several input</span>
+<span class="sd">    planes.</span>
+
+<span class="sd">    On each window, the function computed is: :math:`f(X) = pow(sum(pow(X, p)), 1/p)`</span>
+
+<span class="sd">        - At p = infinity, one gets Max Pooling</span>
+<span class="sd">        - At p = 1, one gets Average Pooling</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        kernel_size: a single int, the size of the window</span>
+<span class="sd">        stride: a single int, the stride of the window. Default value is :attr:`kernel_size`</span>
+<span class="sd">        ceil_mode: when True, will use `ceil` instead of `floor` to compute the output shape</span>
+
+<span class="sd">    Shape:</span>
+<span class="sd">        - Input: :math:`(N, C, L_{in})`</span>
+<span class="sd">        - Output: :math:`(N, C, L_{out})` where</span>
+<span class="sd">          :math:`L_{out} = floor((L_{in} + 2 * padding - kernel\_size) / stride + 1)`</span>
+
+<span class="sd">    Examples::</span>
+<span class="sd">        &gt;&gt;&gt; # power-2 pool of window of length 3, with stride 2.</span>
+<span class="sd">        &gt;&gt;&gt; m = nn.LPPool1d(2, 3, stride=2)</span>
+<span class="sd">        &gt;&gt;&gt; input = autograd.Variable(torch.randn(20, 16, 50))</span>
+<span class="sd">        &gt;&gt;&gt; output = m(input)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">norm_type</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ceil_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">LPPool1d</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">norm_type</span> <span class="o">=</span> <span class="n">norm_type</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span> <span class="o">=</span> <span class="n">kernel_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">stride</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span> <span class="o">=</span> <span class="n">ceil_mode</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">lp_pool1d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">norm_type</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">,</span>
+                           <span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> \
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">norm_type</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span> \
+            <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel_size</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span> \
+            <span class="o">+</span> <span class="s1">&#39;stride=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stride</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span> \
+            <span class="o">+</span> <span class="s1">&#39;ceil_mode=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ceil_mode</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+
 
 <span class="k">class</span> <span class="nc">AdaptiveMaxPool1d</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Applies a 1D adaptive max pooling over an input signal composed of several input planes.</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Applies a 1D adaptive max pooling over an input signal composed of several input planes.</span>
 
 <span class="sd">    The output size is H, for any input size.</span>
 <span class="sd">    The number of output features is equal to the number of input planes.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        output_size: the target output size H</span>
-<span class="sd">        return_indices: if True, will return the indices along with the outputs.</span>
-<span class="sd">                        Useful to pass to nn.MaxUnpool2d . Default: False</span>
+<span class="sd">        return_indices: if ``True``, will return the indices along with the outputs.</span>
+<span class="sd">                        Useful to pass to nn.MaxUnpool1d. Default: ``False``</span>
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; # target output size of 5</span>
@@ -940,12 +1013,12 @@
         <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">adaptive_max_pool1d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; (&#39;</span> \
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> \
             <span class="o">+</span> <span class="s1">&#39;output_size=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_size</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
 
 
 <span class="k">class</span> <span class="nc">AdaptiveMaxPool2d</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Applies a 2D adaptive max pooling over an input signal composed of several input planes.</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Applies a 2D adaptive max pooling over an input signal composed of several input planes.</span>
 
 <span class="sd">    The output is of size H x W, for any input size.</span>
 <span class="sd">    The number of output features is equal to the number of input planes.</span>
@@ -953,13 +1026,14 @@
 <span class="sd">    Args:</span>
 <span class="sd">        output_size: the target output size of the image of the form H x W.</span>
 <span class="sd">                     Can be a tuple (H, W) or a single number H for a square image H x H</span>
-<span class="sd">        return_indices: if True, will return the indices along with the outputs.</span>
-<span class="sd">                        Useful to pass to nn.MaxUnpool2d . Default: False</span>
+<span class="sd">        return_indices: if ``True``, will return the indices along with the outputs.</span>
+<span class="sd">                        Useful to pass to nn.MaxUnpool2d. Default: ``False``</span>
 
 <span class="sd">    Examples:</span>
 <span class="sd">        &gt;&gt;&gt; # target output size of 5x7</span>
 <span class="sd">        &gt;&gt;&gt; m = nn.AdaptiveMaxPool2d((5,7))</span>
 <span class="sd">        &gt;&gt;&gt; input = autograd.Variable(torch.randn(1, 64, 8, 9))</span>
+<span class="sd">        &gt;&gt;&gt; output = m(input)</span>
 <span class="sd">        &gt;&gt;&gt; # target output size of 7x7 (square)</span>
 <span class="sd">        &gt;&gt;&gt; m = nn.AdaptiveMaxPool2d(7)</span>
 <span class="sd">        &gt;&gt;&gt; input = autograd.Variable(torch.randn(1, 64, 10, 9))</span>
@@ -976,12 +1050,49 @@
         <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">adaptive_max_pool2d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; (&#39;</span> \
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> \
+            <span class="o">+</span> <span class="s1">&#39;output_size=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_size</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+
+
+<span class="k">class</span> <span class="nc">AdaptiveMaxPool3d</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Applies a 3D adaptive max pooling over an input signal composed of several input planes.</span>
+
+<span class="sd">    The output is of size D x H x W, for any input size.</span>
+<span class="sd">    The number of output features is equal to the number of input planes.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        output_size: the target output size of the image of the form D x H x W.</span>
+<span class="sd">                     Can be a tuple (D, H, W) or a single number D for a cube D x D x D</span>
+<span class="sd">        return_indices: if ``True``, will return the indices along with the outputs.</span>
+<span class="sd">                        Useful to pass to nn.MaxUnpool3d. Default: ``False``</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; # target output size of 5x7x9</span>
+<span class="sd">        &gt;&gt;&gt; m = nn.AdaptiveMaxPool3d((5,7,9))</span>
+<span class="sd">        &gt;&gt;&gt; input = autograd.Variable(torch.randn(1, 64, 8, 9, 10))</span>
+<span class="sd">        &gt;&gt;&gt; output = m(input)</span>
+<span class="sd">        &gt;&gt;&gt; # target output size of 7x7x7 (cube)</span>
+<span class="sd">        &gt;&gt;&gt; m = nn.AdaptiveMaxPool3d(7)</span>
+<span class="sd">        &gt;&gt;&gt; input = autograd.Variable(torch.randn(1, 64, 10, 9, 8))</span>
+<span class="sd">        &gt;&gt;&gt; output = m(input)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_size</span><span class="p">,</span> <span class="n">return_indices</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">AdaptiveMaxPool3d</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_size</span> <span class="o">=</span> <span class="n">output_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span> <span class="o">=</span> <span class="n">return_indices</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">adaptive_max_pool3d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">return_indices</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> \
             <span class="o">+</span> <span class="s1">&#39;output_size=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_size</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
 
 
 <span class="k">class</span> <span class="nc">AdaptiveAvgPool1d</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Applies a 1D adaptive average pooling over an input signal composed of several input planes.</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Applies a 1D adaptive average pooling over an input signal composed of several input planes.</span>
 
 <span class="sd">    The output size is H, for any input size.</span>
 <span class="sd">    The number of output features is equal to the number of input planes.</span>
@@ -1005,12 +1116,12 @@
         <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">adaptive_avg_pool1d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_size</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; (&#39;</span> \
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> \
             <span class="o">+</span> <span class="s1">&#39;output_size=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_size</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
 
 
 <span class="k">class</span> <span class="nc">AdaptiveAvgPool2d</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Applies a 2D adaptive average pooling over an input signal composed of several input planes.</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Applies a 2D adaptive average pooling over an input signal composed of several input planes.</span>
 
 <span class="sd">    The output is of size H x W, for any input size.</span>
 <span class="sd">    The number of output features is equal to the number of input planes.</span>
@@ -1023,6 +1134,7 @@
 <span class="sd">        &gt;&gt;&gt; # target output size of 5x7</span>
 <span class="sd">        &gt;&gt;&gt; m = nn.AdaptiveAvgPool2d((5,7))</span>
 <span class="sd">        &gt;&gt;&gt; input = autograd.Variable(torch.randn(1, 64, 8, 9))</span>
+<span class="sd">        &gt;&gt;&gt; output = m(input)</span>
 <span class="sd">        &gt;&gt;&gt; # target output size of 7x7 (square)</span>
 <span class="sd">        &gt;&gt;&gt; m = nn.AdaptiveAvgPool2d(7)</span>
 <span class="sd">        &gt;&gt;&gt; input = autograd.Variable(torch.randn(1, 64, 10, 9))</span>
@@ -1038,7 +1150,41 @@
         <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">adaptive_avg_pool2d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_size</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39; (&#39;</span> \
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> \
+            <span class="o">+</span> <span class="s1">&#39;output_size=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_size</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+
+
+<span class="k">class</span> <span class="nc">AdaptiveAvgPool3d</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Applies a 3D adaptive average pooling over an input signal composed of several input planes.</span>
+
+<span class="sd">    The output is of size D x H x W, for any input size.</span>
+<span class="sd">    The number of output features is equal to the number of input planes.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        output_size: the target output size of the form D x H x W.</span>
+<span class="sd">                     Can be a tuple (D, H, W) or a single number D for a cube D x D x D</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; # target output size of 5x7x9</span>
+<span class="sd">        &gt;&gt;&gt; m = nn.AdaptiveAvgPool3d((5,7,9))</span>
+<span class="sd">        &gt;&gt;&gt; input = autograd.Variable(torch.randn(1, 64, 8, 9, 10))</span>
+<span class="sd">        &gt;&gt;&gt; output = m(input)</span>
+<span class="sd">        &gt;&gt;&gt; # target output size of 7x7x7 (cube)</span>
+<span class="sd">        &gt;&gt;&gt; m = nn.AdaptiveAvgPool3d(7)</span>
+<span class="sd">        &gt;&gt;&gt; input = autograd.Variable(torch.randn(1, 64, 10, 9, 8))</span>
+<span class="sd">        &gt;&gt;&gt; output = m(input)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_size</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">AdaptiveAvgPool3d</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_size</span> <span class="o">=</span> <span class="n">output_size</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">adaptive_avg_pool3d</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_size</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> \
             <span class="o">+</span> <span class="s1">&#39;output_size=&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_size</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
 </pre></div>
 

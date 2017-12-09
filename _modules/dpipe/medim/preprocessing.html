@@ -152,7 +152,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for dpipe.medim.preprocessing</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Union</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Sequence</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">ndimage</span>
@@ -192,16 +192,20 @@
 
 
 <div class="viewcode-block" id="scale"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.preprocessing.scale">[docs]</a><span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">spacial_shape</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
-          <span class="n">axes</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">list</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+          <span class="n">axes</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Rescale image to `spacial_shape` along the `axes`.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    image: image to rescale</span>
-<span class="sd">    spacial_shape: final image shape</span>
-<span class="sd">    order: order of interpolation</span>
-<span class="sd">    axes: axes along which the image will be reshaped.</span>
+<span class="sd">    image: np.array</span>
+<span class="sd">        image to rescale</span>
+<span class="sd">    spacial_shape: Sequence</span>
+<span class="sd">        final image shape</span>
+<span class="sd">    order: int, optional</span>
+<span class="sd">        order of interpolation</span>
+<span class="sd">    axes: Sequence, optional</span>
+<span class="sd">        axes along which the image will be scaled.</span>
 <span class="sd">        If None - the last `len(spacial_shape)` axes are used.</span>
 
 <span class="sd">    Returns</span>
@@ -209,8 +213,7 @@
 <span class="sd">    np.array: reshaped image</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">axes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">spacial_shape</span><span class="p">)</span>
-        <span class="n">axes</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">l</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">spacial_shape</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">axes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">axes</span><span class="p">))</span>
 
     <span class="n">old_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">)[</span><span class="n">axes</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
@@ -222,25 +225,27 @@
     <span class="k">return</span> <span class="n">ndimage</span><span class="o">.</span><span class="n">zoom</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="pad"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.preprocessing.pad">[docs]</a><span class="k">def</span> <span class="nf">pad</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">spacial_shape</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
-        <span class="n">axes</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">list</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+<div class="viewcode-block" id="pad"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.preprocessing.pad">[docs]</a><span class="k">def</span> <span class="nf">pad</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">spacial_shape</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span>
+        <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Pad image to `spacial_shape` along the `axes`.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    image: image to pad</span>
-<span class="sd">    spacial_shape: final image shape</span>
-<span class="sd">    axes: axes along which the image will be padded.</span>
+<span class="sd">    image: np.array</span>
+<span class="sd">        image to pad</span>
+<span class="sd">    spacial_shape: Sequence</span>
+<span class="sd">        final image shape</span>
+<span class="sd">    axes: Sequence, optional</span>
+<span class="sd">        axes along which the image will be padded.</span>
 <span class="sd">        If None - the last `len(spacial_shape)` axes are used.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    np.array: padded image</span>
+<span class="sd">    padded_image: np.array</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">axes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">spacial_shape</span><span class="p">)</span>
-        <span class="n">axes</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">l</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">spacial_shape</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
     <span class="n">axes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">axes</span><span class="p">))</span>
 
     <span class="n">old_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">)[</span><span class="n">axes</span><span class="p">]</span>

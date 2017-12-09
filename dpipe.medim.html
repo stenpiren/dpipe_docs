@@ -108,11 +108,6 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.medim.preprocessing">dpipe.medim.preprocessing module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.medim.shape_utils">dpipe.medim.shape_utils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.medim.slices">dpipe.medim.slices module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.medim.test_features">dpipe.medim.test_features module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.medim.test_patch">dpipe.medim.test_patch module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.medim.test_shape_utils">dpipe.medim.test_shape_utils module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.medim.test_split">dpipe.medim.test_split module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.medim.test_utils">dpipe.medim.test_utils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.medim.utils">dpipe.medim.utils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.medim.visualize">dpipe.medim.visualize module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.medim">Module contents</a></li>
@@ -125,12 +120,11 @@
 <li class="toctree-l3"><a class="reference internal" href="dpipe.train.html">dpipe.train package</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.html#submodules">Submodules</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.commands">Commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.batch_iter_factory">dpipe.batch_iter_factory module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.io">dpipe.io module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.model">dpipe.model module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.io">Input/Output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.model">NN model interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.transformers">dpipe.transformers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.batch_iter_factory">dpipe.batch_iter_factory module</a></li>
 </ul>
 </li>
 </ul>
@@ -371,6 +365,12 @@ patch_size shape with intersections of size intersection_size.</p>
 <div class="section" id="module-dpipe.medim.metrics">
 <span id="dpipe-medim-metrics-module"></span><h2>dpipe.medim.metrics module<a class="headerlink" href="#module-dpipe.medim.metrics" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
+<dt id="dpipe.medim.metrics.array_metric">
+<code class="descclassname">dpipe.medim.metrics.</code><code class="descname">array_metric</code><span class="sig-paren">(</span><em>metric</em>, <em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/metrics.html#array_metric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.metrics.array_metric" title="Permalink to this definition">¶</a></dt>
+<dd><p>General function compute metric for array of objects from metric on couple of objects.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="dpipe.medim.metrics.calc_max_dices">
 <code class="descclassname">dpipe.medim.metrics.</code><code class="descname">calc_max_dices</code><span class="sig-paren">(</span><em>true_masks: typing.Sequence</em>, <em>predicted_masks: typing.Sequence</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/dpipe/medim/metrics.html#calc_max_dices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.metrics.calc_max_dices" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the dice score between the true and predicted masks.
@@ -402,7 +402,7 @@ The threshold is selected to maximize the mean dice.</p>
 
 <dl class="function">
 <dt id="dpipe.medim.metrics.dice_score">
-<code class="descclassname">dpipe.medim.metrics.</code><code class="descname">dice_score</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>empty_val: float = 1</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/dpipe/medim/metrics.html#dice_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.metrics.dice_score" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dpipe.medim.metrics.</code><code class="descname">dice_score</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>empty_val: float = 0</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/dpipe/medim/metrics.html#dice_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.metrics.dice_score" title="Permalink to this definition">¶</a></dt>
 <dd><p>Dice score between two binary masks.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -410,7 +410,7 @@ The threshold is selected to maximize the mean dice.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>x</strong><strong>,</strong><strong>y</strong> (<em>binary tensor</em>) &#8211; </li>
-<li><strong>empty_val</strong> (<em>float</em><em>, </em><em>default = 1</em>) &#8211; Default value, which is returned if the dice score
+<li><strong>empty_val</strong> &#8211; Default value, which is returned if the dice score
 is undefined (i.e. division by zero).</li>
 </ul>
 </td>
@@ -419,6 +419,32 @@ is undefined (i.e. division by zero).</li>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="dpipe.medim.metrics.dice_scores">
+<code class="descclassname">dpipe.medim.metrics.</code><code class="descname">dice_scores</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>empty_val: float = 0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/metrics.html#dice_scores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.metrics.dice_scores" title="Permalink to this definition">¶</a></dt>
+<dd><p>Channelwise dice score between arrays of binary masks.
+The first dimension of the tensors is assumed to be the channels.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>y</strong> (<em>x</em><em>,</em>) &#8211; </li>
+<li><strong>empty_val</strong> &#8211; Default value, which is returned if the dice score
+is undefined (i.e. division by zero).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>dice_scores</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">[[float]]</p>
 </td>
 </tr>
 </tbody>
@@ -449,7 +475,7 @@ is undefined (i.e. division by zero).</li>
 
 <dl class="function">
 <dt id="dpipe.medim.metrics.hausdorff">
-<code class="descclassname">dpipe.medim.metrics.</code><code class="descname">hausdorff</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>weights: float = 1</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/dpipe/medim/metrics.html#hausdorff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.metrics.hausdorff" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dpipe.medim.metrics.</code><code class="descname">hausdorff</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>weights: typing.Union[float</em>, <em>typing.Sequence] = 1</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/dpipe/medim/metrics.html#hausdorff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.metrics.hausdorff" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the Hausdorff distance between two masks.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -481,7 +507,7 @@ match the dimensionality of the arrays. If number, all the axes will have the sa
 
 <dl class="function">
 <dt id="dpipe.medim.metrics.multichannel_dice_score">
-<code class="descclassname">dpipe.medim.metrics.</code><code class="descname">multichannel_dice_score</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>empty_val: float = 1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/metrics.html#multichannel_dice_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.metrics.multichannel_dice_score" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dpipe.medim.metrics.</code><code class="descname">multichannel_dice_score</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>empty_val: float = 0</em><span class="sig-paren">)</span> &#x2192; [&lt;class 'float'&gt;]<a class="reference internal" href="_modules/dpipe/medim/metrics.html#multichannel_dice_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.metrics.multichannel_dice_score" title="Permalink to this definition">¶</a></dt>
 <dd><p>Channelwise dice score between two binary masks.
 The first dimension of the tensors is assumed to be the channels.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -490,7 +516,7 @@ The first dimension of the tensors is assumed to be the channels.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>a</strong><strong>,</strong><strong>b</strong> (<em>binary tensor</em>) &#8211; </li>
-<li><strong>empty_val</strong> (<em>float</em><em>, </em><em>default: 1</em>) &#8211; Default value, which is returned if the dice score
+<li><strong>empty_val</strong> &#8211; Default value, which is returned if the dice score
 is undefined (i.e. division by zero).</li>
 </ul>
 </td>
@@ -498,7 +524,7 @@ is undefined (i.e. division by zero).</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>dice_score</strong></p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">[float]</p>
 </td>
 </tr>
 </tbody>
@@ -614,23 +640,24 @@ Supports robust estimation with drop_percentile.</p>
 
 <dl class="function">
 <dt id="dpipe.medim.preprocessing.pad">
-<code class="descclassname">dpipe.medim.preprocessing.</code><code class="descname">pad</code><span class="sig-paren">(</span><em>image: &lt;built-in function array&gt;</em>, <em>spacial_shape: list</em>, <em>axes: typing.Union[NoneType</em>, <em>list] = None</em><span class="sig-paren">)</span> &#x2192; &lt;built-in function array&gt;<a class="reference internal" href="_modules/dpipe/medim/preprocessing.html#pad"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.preprocessing.pad" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dpipe.medim.preprocessing.</code><code class="descname">pad</code><span class="sig-paren">(</span><em>image: &lt;built-in function array&gt;</em>, <em>spacial_shape: typing.Sequence</em>, <em>axes: typing.Sequence = None</em><span class="sig-paren">)</span> &#x2192; &lt;built-in function array&gt;<a class="reference internal" href="_modules/dpipe/medim/preprocessing.html#pad"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.preprocessing.pad" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pad image to <cite>spacial_shape</cite> along the <cite>axes</cite>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>image</strong> (<em>image to pad</em>) &#8211; </li>
-<li><strong>spacial_shape</strong> (<em>final image shape</em>) &#8211; </li>
-<li><strong>axes</strong> (<em>axes along which the image will be padded.</em>) &#8211; If None - the last <cite>len(spacial_shape)</cite> axes are used.</li>
+<li><strong>image</strong> (<em>np.array</em>) &#8211; image to pad</li>
+<li><strong>spacial_shape</strong> (<em>Sequence</em>) &#8211; final image shape</li>
+<li><strong>axes</strong> (<em>Sequence</em><em>, </em><em>optional</em>) &#8211; axes along which the image will be padded.
+If None - the last <cite>len(spacial_shape)</cite> axes are used.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>np.array</strong></p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>padded_image</strong></p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">padded image</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">np.array</p>
 </td>
 </tr>
 </tbody>
@@ -639,17 +666,18 @@ Supports robust estimation with drop_percentile.</p>
 
 <dl class="function">
 <dt id="dpipe.medim.preprocessing.scale">
-<code class="descclassname">dpipe.medim.preprocessing.</code><code class="descname">scale</code><span class="sig-paren">(</span><em>image: &lt;built-in function array&gt;</em>, <em>spacial_shape: list</em>, <em>order: int = 3</em>, <em>axes: typing.Union[NoneType</em>, <em>list] = None</em><span class="sig-paren">)</span> &#x2192; &lt;built-in function array&gt;<a class="reference internal" href="_modules/dpipe/medim/preprocessing.html#scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.preprocessing.scale" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dpipe.medim.preprocessing.</code><code class="descname">scale</code><span class="sig-paren">(</span><em>image: &lt;built-in function array&gt;</em>, <em>spacial_shape: list</em>, <em>order: int = 3</em>, <em>axes: list = None</em><span class="sig-paren">)</span> &#x2192; &lt;built-in function array&gt;<a class="reference internal" href="_modules/dpipe/medim/preprocessing.html#scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.preprocessing.scale" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rescale image to <cite>spacial_shape</cite> along the <cite>axes</cite>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>image</strong> (<em>image to rescale</em>) &#8211; </li>
-<li><strong>spacial_shape</strong> (<em>final image shape</em>) &#8211; </li>
-<li><strong>order</strong> (<em>order of interpolation</em>) &#8211; </li>
-<li><strong>axes</strong> (<em>axes along which the image will be reshaped.</em>) &#8211; If None - the last <cite>len(spacial_shape)</cite> axes are used.</li>
+<li><strong>image</strong> (<em>np.array</em>) &#8211; image to rescale</li>
+<li><strong>spacial_shape</strong> (<em>Sequence</em>) &#8211; final image shape</li>
+<li><strong>order</strong> (<em>int</em><em>, </em><em>optional</em>) &#8211; order of interpolation</li>
+<li><strong>axes</strong> (<em>Sequence</em><em>, </em><em>optional</em>) &#8211; axes along which the image will be scaled.
+If None - the last <cite>len(spacial_shape)</cite> axes are used.</li>
 </ul>
 </td>
 </tr>
@@ -705,183 +733,6 @@ slices: int, List[int], optional</p>
 <dt id="dpipe.medim.slices.join_result">
 <code class="descclassname">dpipe.medim.slices.</code><code class="descname">join_result</code><span class="sig-paren">(</span><em>stacks</em>, <em>axis</em>, <em>concatenate</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/slices.html#join_result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.slices.join_result" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-</div>
-<div class="section" id="module-dpipe.medim.test_features">
-<span id="dpipe-medim-test-features-module"></span><h2>dpipe.medim.test_features module<a class="headerlink" href="#module-dpipe.medim.test_features" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="dpipe.medim.test_features.TestCoordinateFeatures">
-<em class="property">class </em><code class="descclassname">dpipe.medim.test_features.</code><code class="descname">TestCoordinateFeatures</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_features.html#TestCoordinateFeatures"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_features.TestCoordinateFeatures" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
-<dl class="method">
-<dt id="dpipe.medim.test_features.TestCoordinateFeatures.setUp">
-<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_features.html#TestCoordinateFeatures.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_features.TestCoordinateFeatures.setUp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dpipe.medim.test_features.TestCoordinateFeatures.test_big">
-<code class="descname">test_big</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_features.html#TestCoordinateFeatures.test_big"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_features.TestCoordinateFeatures.test_big" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dpipe.medim.test_features.TestCoordinateFeatures.test_small">
-<code class="descname">test_small</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_features.html#TestCoordinateFeatures.test_small"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_features.TestCoordinateFeatures.test_small" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-dpipe.medim.test_patch">
-<span id="dpipe-medim-test-patch-module"></span><h2>dpipe.medim.test_patch module<a class="headerlink" href="#module-dpipe.medim.test_patch" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="dpipe.medim.test_patch.TestPatch">
-<em class="property">class </em><code class="descclassname">dpipe.medim.test_patch.</code><code class="descname">TestPatch</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_patch.html#TestPatch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_patch.TestPatch" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
-<dl class="method">
-<dt id="dpipe.medim.test_patch.TestPatch.setUp">
-<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_patch.html#TestPatch.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_patch.TestPatch.setUp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dpipe.medim.test_patch.TestPatch.test_extract_padding">
-<code class="descname">test_extract_padding</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_patch.html#TestPatch.test_extract_padding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_patch.TestPatch.test_extract_padding" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dpipe.medim.test_patch.TestPatch.test_extract_patch_no_padding">
-<code class="descname">test_extract_patch_no_padding</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_patch.html#TestPatch.test_extract_patch_no_padding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_patch.TestPatch.test_extract_patch_no_padding" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dpipe.medim.test_patch.TestPatch.test_find_patch_start_end_padding">
-<code class="descname">test_find_patch_start_end_padding</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_patch.html#TestPatch.test_find_patch_start_end_padding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_patch.TestPatch.test_find_patch_start_end_padding" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dpipe.medim.test_patch.TestPatch.test_get_conditional_center_indices">
-<code class="descname">test_get_conditional_center_indices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_patch.html#TestPatch.test_get_conditional_center_indices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_patch.TestPatch.test_get_conditional_center_indices" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dpipe.medim.test_patch.TestPatch.test_get_uniform_center_index">
-<code class="descname">test_get_uniform_center_index</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_patch.html#TestPatch.test_get_uniform_center_index"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_patch.TestPatch.test_get_uniform_center_index" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-dpipe.medim.test_shape_utils">
-<span id="dpipe-medim-test-shape-utils-module"></span><h2>dpipe.medim.test_shape_utils module<a class="headerlink" href="#module-dpipe.medim.test_shape_utils" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="dpipe.medim.test_shape_utils.TestBroadcastShape">
-<em class="property">class </em><code class="descclassname">dpipe.medim.test_shape_utils.</code><code class="descname">TestBroadcastShape</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_shape_utils.html#TestBroadcastShape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_shape_utils.TestBroadcastShape" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
-<dl class="method">
-<dt id="dpipe.medim.test_shape_utils.TestBroadcastShape.test_broadcast_shape">
-<code class="descname">test_broadcast_shape</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_shape_utils.html#TestBroadcastShape.test_broadcast_shape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_shape_utils.TestBroadcastShape.test_broadcast_shape" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dpipe.medim.test_shape_utils.TestBroadcastShape.test_broadcast_shape_value_error">
-<code class="descname">test_broadcast_shape_value_error</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_shape_utils.html#TestBroadcastShape.test_broadcast_shape_value_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_shape_utils.TestBroadcastShape.test_broadcast_shape_value_error" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="dpipe.medim.test_shape_utils.TestBroadcastShapeND">
-<em class="property">class </em><code class="descclassname">dpipe.medim.test_shape_utils.</code><code class="descname">TestBroadcastShapeND</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_shape_utils.html#TestBroadcastShapeND"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_shape_utils.TestBroadcastShapeND" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
-<dl class="method">
-<dt id="dpipe.medim.test_shape_utils.TestBroadcastShapeND.setUp">
-<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_shape_utils.html#TestBroadcastShapeND.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_shape_utils.TestBroadcastShapeND.setUp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dpipe.medim.test_shape_utils.TestBroadcastShapeND.test_broadcast_shape_nd">
-<code class="descname">test_broadcast_shape_nd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_shape_utils.html#TestBroadcastShapeND.test_broadcast_shape_nd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_shape_utils.TestBroadcastShapeND.test_broadcast_shape_nd" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dpipe.medim.test_shape_utils.TestBroadcastShapeND.test_broadcast_shape_nd_same">
-<code class="descname">test_broadcast_shape_nd_same</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_shape_utils.html#TestBroadcastShapeND.test_broadcast_shape_nd_same"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_shape_utils.TestBroadcastShapeND.test_broadcast_shape_nd_same" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dpipe.medim.test_shape_utils.TestBroadcastShapeND.test_broadcast_shape_nd_value_error">
-<code class="descname">test_broadcast_shape_nd_value_error</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_shape_utils.html#TestBroadcastShapeND.test_broadcast_shape_nd_value_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_shape_utils.TestBroadcastShapeND.test_broadcast_shape_nd_value_error" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="dpipe.medim.test_shape_utils.TestComputeShapeFromSpatial">
-<em class="property">class </em><code class="descclassname">dpipe.medim.test_shape_utils.</code><code class="descname">TestComputeShapeFromSpatial</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_shape_utils.html#TestComputeShapeFromSpatial"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_shape_utils.TestComputeShapeFromSpatial" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
-<dl class="method">
-<dt id="dpipe.medim.test_shape_utils.TestComputeShapeFromSpatial.test_compute_shape_from_spatial">
-<code class="descname">test_compute_shape_from_spatial</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_shape_utils.html#TestComputeShapeFromSpatial.test_compute_shape_from_spatial"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_shape_utils.TestComputeShapeFromSpatial.test_compute_shape_from_spatial" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-dpipe.medim.test_split">
-<span id="dpipe-medim-test-split-module"></span><h2>dpipe.medim.test_split module<a class="headerlink" href="#module-dpipe.medim.test_split" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="dpipe.medim.test_split.TestSplit">
-<em class="property">class </em><code class="descclassname">dpipe.medim.test_split.</code><code class="descname">TestSplit</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_split.html#TestSplit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_split.TestSplit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
-<dl class="method">
-<dt id="dpipe.medim.test_split.TestSplit.setUp">
-<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_split.html#TestSplit.setUp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_split.TestSplit.setUp" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dpipe.medim.test_split.TestSplit.test_compute_n_parts_per_axis">
-<code class="descname">test_compute_n_parts_per_axis</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_split.html#TestSplit.test_compute_n_parts_per_axis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_split.TestSplit.test_compute_n_parts_per_axis" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dpipe.medim.test_split.TestSplit.test_divide">
-<code class="descname">test_divide</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_split.html#TestSplit.test_divide"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_split.TestSplit.test_divide" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dpipe.medim.test_split.TestSplit.test_divide_combine">
-<code class="descname">test_divide_combine</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_split.html#TestSplit.test_divide_combine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_split.TestSplit.test_divide_combine" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dpipe.medim.test_split.TestSplit.test_divide_no_padding_combine">
-<code class="descname">test_divide_no_padding_combine</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_split.html#TestSplit.test_divide_no_padding_combine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_split.TestSplit.test_divide_no_padding_combine" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dpipe.medim.test_split.TestSplit.test_divide_no_padding_n_parts">
-<code class="descname">test_divide_no_padding_n_parts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_split.html#TestSplit.test_divide_no_padding_n_parts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_split.TestSplit.test_divide_no_padding_n_parts" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dpipe.medim.test_split.TestSplit.test_divide_spatial_combine">
-<code class="descname">test_divide_spatial_combine</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_split.html#TestSplit.test_divide_spatial_combine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_split.TestSplit.test_divide_spatial_combine" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-dpipe.medim.test_utils">
-<span id="dpipe-medim-test-utils-module"></span><h2>dpipe.medim.test_utils module<a class="headerlink" href="#module-dpipe.medim.test_utils" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="dpipe.medim.test_utils.TestDivide">
-<em class="property">class </em><code class="descclassname">dpipe.medim.test_utils.</code><code class="descname">TestDivide</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_utils.html#TestDivide"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_utils.TestDivide" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">unittest.case.TestCase</span></code></p>
-<dl class="method">
-<dt id="dpipe.medim.test_utils.TestDivide.test_pad">
-<code class="descname">test_pad</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/test_utils.html#TestDivide.test_pad"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.test_utils.TestDivide.test_pad" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
 
 </div>
 <div class="section" id="module-dpipe.medim.utils">
