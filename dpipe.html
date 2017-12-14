@@ -95,12 +95,12 @@
 <li class="toctree-l3"><a class="reference internal" href="dpipe.config.html">dpipe.config package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.dataset.html">Datasets</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.experiment.html">dpipe.experiment package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dpipe.medim.html">dpipe.medim package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.medim.html">Medim</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.model_core.html">Model Core</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.split.html">dpipe.split package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.tf.html">dpipe.tf package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.torch.html">dpipe.torch package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dpipe.train.html">dpipe.train package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.train.html">Training</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-dpipe.commands">Commands</a></li>
@@ -222,8 +222,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="dpipe.medim.html">dpipe.medim package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.medim.html#submodules">Submodules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dpipe.medim.html">Medim</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.medim.html#module-dpipe.medim.augmentation">dpipe.medim.augmentation module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.medim.html#module-dpipe.medim.bounding_box">dpipe.medim.bounding_box module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.medim.html#module-dpipe.medim.coregister">dpipe.medim.coregister module</a></li>
@@ -236,7 +235,6 @@
 <li class="toctree-l2"><a class="reference internal" href="dpipe.medim.html#module-dpipe.medim.slices">dpipe.medim.slices module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.medim.html#module-dpipe.medim.utils">dpipe.medim.utils module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.medim.html#module-dpipe.medim.visualize">dpipe.medim.visualize module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.medim.html#module-dpipe.medim">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="dpipe.model_core.html">Model Core</a><ul>
@@ -295,12 +293,11 @@
 <li class="toctree-l2"><a class="reference internal" href="dpipe.torch.html#module-dpipe.torch">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="dpipe.train.html">dpipe.train package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.train.html#submodules">Submodules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dpipe.train.html">Training</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dpipe.train.html#module-dpipe.train.train">Basic model training</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.train.html#module-dpipe.train.logging">dpipe.train.logging module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.train.html#module-dpipe.train.lr_base">dpipe.train.lr_base module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.train.html#module-dpipe.train.lr_policy">dpipe.train.lr_policy module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.train.html#module-dpipe.train.train">dpipe.train.train module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.train.html#module-dpipe.train.utils">dpipe.train.utils module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.train.html#module-dpipe.train.validator">dpipe.train.validator module</a></li>
 </ul>
@@ -507,7 +504,7 @@ and used to calculate the loss.</td>
 
 <dl class="method">
 <dt id="dpipe.model.Model.load">
-<code class="descname">load</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/model.html#Model.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.model.Model.load" title="Permalink to this definition">¶</a></dt>
+<code class="descname">load</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/model.html#Model.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.model.Model.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Load the network parameters from <cite>path</cite></p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />

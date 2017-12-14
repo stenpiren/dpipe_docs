@@ -37,7 +37,7 @@
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="dpipe  documentation" href="index.html"/>
         <link rel="up" title="dpipe package" href="dpipe.html"/>
-        <link rel="next" title="dpipe.train package" href="dpipe.train.html"/>
+        <link rel="next" title="Training" href="dpipe.train.html"/>
         <link rel="prev" title="dpipe.tf package" href="dpipe.tf.html"/> 
 
   
@@ -96,7 +96,7 @@
 <li class="toctree-l3"><a class="reference internal" href="dpipe.config.html">dpipe.config package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.dataset.html">Datasets</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.experiment.html">dpipe.experiment package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dpipe.medim.html">dpipe.medim package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.medim.html">Medim</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.model_core.html">Model Core</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.split.html">dpipe.split package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.tf.html">dpipe.tf package</a></li>
@@ -107,7 +107,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.torch">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="dpipe.train.html">dpipe.train package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.train.html">Training</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.commands">Commands</a></li>
@@ -191,7 +191,7 @@
 <span id="dpipe-torch-model-module"></span><h2>dpipe.torch.model module<a class="headerlink" href="#module-dpipe.torch.model" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="dpipe.torch.model.TorchFrozenModel">
-<em class="property">class </em><code class="descclassname">dpipe.torch.model.</code><code class="descname">TorchFrozenModel</code><span class="sig-paren">(</span><em>model_core: torch.nn.modules.module.Module</em>, <em>logits2pred: &lt;built-in function callable&gt;</em>, <em>restore_model_path</em>, <em>cuda=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/torch/model.html#TorchFrozenModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.torch.model.TorchFrozenModel" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dpipe.torch.model.</code><code class="descname">TorchFrozenModel</code><span class="sig-paren">(</span><em>model_core: torch.nn.modules.module.Module</em>, <em>logits2pred: &lt;built-in function callable&gt;</em>, <em>restore_model_path: str</em>, <em>cuda=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/torch/model.html#TorchFrozenModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.torch.model.TorchFrozenModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="dpipe.html#dpipe.model.FrozenModel" title="dpipe.model.FrozenModel"><code class="xref py py-class docutils literal"><span class="pre">dpipe.model.FrozenModel</span></code></a></p>
 <dl class="method">
 <dt id="dpipe.torch.model.TorchFrozenModel.do_inf_step">
@@ -202,8 +202,9 @@
 
 <dl class="class">
 <dt id="dpipe.torch.model.TorchModel">
-<em class="property">class </em><code class="descclassname">dpipe.torch.model.</code><code class="descname">TorchModel</code><span class="sig-paren">(</span><em>model_core: torch.nn.modules.module.Module</em>, <em>logits2pred: &lt;built-in function callable&gt;</em>, <em>logits2loss: &lt;built-in function callable&gt;</em>, <em>optimize</em>, <em>cuda=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/torch/model.html#TorchModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.torch.model.TorchModel" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">dpipe.torch.model.</code><code class="descname">TorchModel</code><span class="sig-paren">(</span><em>model_core: torch.nn.modules.module.Module</em>, <em>logits2pred: &lt;built-in function callable&gt;</em>, <em>logits2loss: &lt;built-in function callable&gt;</em>, <em>optimize: torch.optim.optimizer.Optimizer</em>, <em>cuda: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/torch/model.html#TorchModel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.torch.model.TorchModel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="dpipe.html#dpipe.model.Model" title="dpipe.model.Model"><code class="xref py py-class docutils literal"><span class="pre">dpipe.model.Model</span></code></a></p>
+<p><cite>Model</cite> interface implementation for the PyTorch framework.</p>
 <dl class="method">
 <dt id="dpipe.torch.model.TorchModel.do_inf_step">
 <code class="descname">do_inf_step</code><span class="sig-paren">(</span><em>*inputs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/torch/model.html#TorchModel.do_inf_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.torch.model.TorchModel.do_inf_step" title="Permalink to this definition">¶</a></dt>
@@ -221,20 +222,39 @@
 
 <dl class="method">
 <dt id="dpipe.torch.model.TorchModel.load">
-<code class="descname">load</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/torch/model.html#TorchModel.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.torch.model.TorchModel.load" title="Permalink to this definition">¶</a></dt>
+<code class="descname">load</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/torch/model.html#TorchModel.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.torch.model.TorchModel.load" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
 <dt id="dpipe.torch.model.TorchModel.save">
-<code class="descname">save</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/torch/model.html#TorchModel.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.torch.model.TorchModel.save" title="Permalink to this definition">¶</a></dt>
+<code class="descname">save</code><span class="sig-paren">(</span><em>path: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/torch/model.html#TorchModel.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.torch.model.TorchModel.save" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="function">
 <dt id="dpipe.torch.model.set_lr">
-<code class="descclassname">dpipe.torch.model.</code><code class="descname">set_lr</code><span class="sig-paren">(</span><em>optimizer: torch.optim.optimizer.Optimizer</em>, <em>lr</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/torch/model.html#set_lr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.torch.model.set_lr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">dpipe.torch.model.</code><code class="descname">set_lr</code><span class="sig-paren">(</span><em>optimizer: torch.optim.optimizer.Optimizer</em>, <em>lr: float</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/torch/model.html#set_lr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.torch.model.set_lr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change an optimizer&#8217;s learning rate.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>optimizer</strong> (<em>torch.optim.Optimizer</em>) &#8211; </li>
+<li><strong>lr</strong> (<em>float</em>) &#8211; </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>optimizer</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">torch.optim.Optimizer</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="dpipe.torch.model.to_np">
@@ -320,7 +340,7 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="dpipe.train.html" class="btn btn-neutral float-right" title="dpipe.train package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="dpipe.train.html" class="btn btn-neutral float-right" title="Training" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="dpipe.tf.html" class="btn btn-neutral" title="dpipe.tf package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

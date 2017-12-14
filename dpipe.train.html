@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>dpipe.train package &mdash; dpipe  documentation</title>
+  <title>Training &mdash; dpipe  documentation</title>
   
 
   
@@ -95,17 +95,16 @@
 <li class="toctree-l3"><a class="reference internal" href="dpipe.config.html">dpipe.config package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.dataset.html">Datasets</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.experiment.html">dpipe.experiment package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dpipe.medim.html">dpipe.medim package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.medim.html">Medim</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.model_core.html">Model Core</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.split.html">dpipe.split package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.tf.html">dpipe.tf package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.torch.html">dpipe.torch package</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">dpipe.train package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Training</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.train.train">Basic model training</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.train.logging">dpipe.train.logging module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.train.lr_base">dpipe.train.lr_base module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.train.lr_policy">dpipe.train.lr_policy module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.train.train">dpipe.train.train module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.train.utils">dpipe.train.utils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.train.validator">dpipe.train.validator module</a></li>
 </ul>
@@ -165,7 +164,7 @@
         
           <li><a href="dpipe.html">dpipe package</a> &raquo;</li>
         
-      <li>dpipe.train package</li>
+      <li>Training</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -184,10 +183,32 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="dpipe-train-package">
-<h1>dpipe.train package<a class="headerlink" href="#dpipe-train-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="training">
+<h1>Training<a class="headerlink" href="#training" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-dpipe.train.train">
+<span id="basic-model-training"></span><h2>Basic model training<a class="headerlink" href="#module-dpipe.train.train" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="dpipe.train.train.train_base">
+<code class="descclassname">dpipe.train.train.</code><code class="descname">train_base</code><span class="sig-paren">(</span><em>model: dpipe.model.Model</em>, <em>batch_iter_factory: dpipe.batch_iter_factory.BatchIterFactory</em>, <em>n_epochs: int</em>, <em>lr_policy: dpipe.train.lr_base.LearningRate</em>, <em>log_path: str</em>, <em>validator: &lt;built-in function callable&gt; = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/train.html#train_base"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.train.train_base" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train a given model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>model</strong> (<a class="reference internal" href="dpipe.html#dpipe.model.Model" title="dpipe.model.Model"><em>Model</em></a>) &#8211; the model to train</li>
+<li><strong>batch_iter_factory</strong> (<a class="reference internal" href="dpipe.html#dpipe.batch_iter_factory.BatchIterFactory" title="dpipe.batch_iter_factory.BatchIterFactory"><em>BatchIterFactory</em></a>) &#8211; a factory of train batch iterators</li>
+<li><strong>n_epochs</strong> (<em>int</em>) &#8211; number of epochs to train</li>
+<li><strong>lr_policy</strong> (<a class="reference internal" href="#dpipe.train.lr_base.LearningRate" title="dpipe.train.lr_base.LearningRate"><em>LearningRate</em></a>) &#8211; the learning rate policy</li>
+<li><strong>log_path</strong> (<em>str</em>) &#8211; the path where the logs will be stored</li>
+<li><strong>validator</strong> (<em>callable</em><em>, </em><em>optional</em>) &#8211; a validator that calculates the loss and metrics on the validation set</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 <div class="section" id="module-dpipe.train.logging">
 <span id="dpipe-train-logging-module"></span><h2>dpipe.train.logging module<a class="headerlink" href="#module-dpipe.train.logging" title="Permalink to this headline">¶</a></h2>
@@ -272,31 +293,6 @@
 <code class="descname">next_lr</code><span class="sig-paren">(</span><em>val_losses</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/lr_policy.html#Decreasing.next_lr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.lr_policy.Decreasing.next_lr" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</dd></dl>
-
-</div>
-<div class="section" id="module-dpipe.train.train">
-<span id="dpipe-train-train-module"></span><h2>dpipe.train.train module<a class="headerlink" href="#module-dpipe.train.train" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="dpipe.train.train.train_base">
-<code class="descclassname">dpipe.train.train.</code><code class="descname">train_base</code><span class="sig-paren">(</span><em>model: dpipe.model.Model</em>, <em>batch_iter_factory: dpipe.batch_iter_factory.BatchIterFactory</em>, <em>n_epochs: int</em>, <em>lr_policy: dpipe.train.lr_base.LearningRate</em>, <em>log_path: str</em>, <em>validator: &lt;built-in function callable&gt; = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/train.html#train_base"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.train.train_base" title="Permalink to this definition">¶</a></dt>
-<dd><p>Train a model with a decreasing learning rate.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>model</strong> (<a class="reference internal" href="dpipe.html#dpipe.model.Model" title="dpipe.model.Model"><em>Model</em></a>) &#8211; the model to train</li>
-<li><strong>batch_iter_factory</strong> (<a class="reference internal" href="dpipe.html#dpipe.batch_iter_factory.BatchIterFactory" title="dpipe.batch_iter_factory.BatchIterFactory"><em>BatchIterFactory</em></a>) &#8211; a factory of train batch iterators</li>
-<li><strong>n_epochs</strong> (<em>int</em>) &#8211; number of epochs to train</li>
-<li><strong>lr_policy</strong> (<a class="reference internal" href="#dpipe.train.lr_base.LearningRate" title="dpipe.train.lr_base.LearningRate"><em>LearningRate</em></a>) &#8211; the learning rate policy</li>
-<li><strong>log_path</strong> (<em>str</em>) &#8211; the path where the logs will be stored</li>
-<li><strong>validator</strong> (<em>callable</em><em>, </em><em>optional</em>) &#8211; a validator that calculates the loss and metrics on the validation set</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 </div>

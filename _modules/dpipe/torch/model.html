@@ -162,7 +162,24 @@
 
 
 <div class="viewcode-block" id="TorchModel"><a class="viewcode-back" href="../../../dpipe.torch.html#dpipe.torch.model.TorchModel">[docs]</a><span class="k">class</span> <span class="nc">TorchModel</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_core</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">logits2pred</span><span class="p">:</span> <span class="n">callable</span><span class="p">,</span> <span class="n">logits2loss</span><span class="p">:</span> <span class="n">callable</span><span class="p">,</span> <span class="n">optimize</span><span class="p">,</span> <span class="n">cuda</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;`Model` interface implementation for the PyTorch framework.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_core</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">logits2pred</span><span class="p">:</span> <span class="n">callable</span><span class="p">,</span> <span class="n">logits2loss</span><span class="p">:</span> <span class="n">callable</span><span class="p">,</span>
+                 <span class="n">optimize</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Optimizer</span><span class="p">,</span> <span class="n">cuda</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        model_core: torch.nn.Module</span>
+<span class="sd">            torch model structure</span>
+<span class="sd">        logits2pred: callable(logits) -&gt; prediction</span>
+<span class="sd">            last layer nonlinearity that maps logits to predictions</span>
+<span class="sd">        logits2loss: callable(logits) -&gt; loss</span>
+<span class="sd">            the loss function</span>
+<span class="sd">        optimize: torch.optim.Optimizer</span>
+<span class="sd">            the optimizer</span>
+<span class="sd">        cuda: bool, optional</span>
+<span class="sd">            whether to move the model&#39;s parameters to CUDA</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">cuda</span><span class="p">:</span>
             <span class="n">model_core</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">logits2loss</span><span class="p">,</span> <span class="s1">&#39;cuda&#39;</span><span class="p">):</span>
@@ -209,19 +226,31 @@
 
         <span class="k">return</span> <span class="n">to_np</span><span class="p">(</span><span class="n">y_pred</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="TorchModel.save"><a class="viewcode-back" href="../../../dpipe.torch.html#dpipe.torch.model.TorchModel.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+<div class="viewcode-block" id="TorchModel.save"><a class="viewcode-back" href="../../../dpipe.torch.html#dpipe.torch.model.TorchModel.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">path</span> <span class="o">=</span> <span class="n">get_model_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
         <span class="n">state_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_core</span><span class="o">.</span><span class="n">state_dict</span><span class="p">()</span>
         <span class="n">torch</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">state_dict</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="TorchModel.load"><a class="viewcode-back" href="../../../dpipe.torch.html#dpipe.torch.model.TorchModel.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+<div class="viewcode-block" id="TorchModel.load"><a class="viewcode-back" href="../../../dpipe.torch.html#dpipe.torch.model.TorchModel.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">path</span> <span class="o">=</span> <span class="n">get_model_path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model_core</span><span class="o">.</span><span class="n">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">))</span></div></div>
 
 
 <div class="viewcode-block" id="TorchFrozenModel"><a class="viewcode-back" href="../../../dpipe.torch.html#dpipe.torch.model.TorchFrozenModel">[docs]</a><span class="k">class</span> <span class="nc">TorchFrozenModel</span><span class="p">(</span><span class="n">FrozenModel</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_core</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">logits2pred</span><span class="p">:</span> <span class="n">callable</span><span class="p">,</span> <span class="n">restore_model_path</span><span class="p">,</span> <span class="n">cuda</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_core</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">logits2pred</span><span class="p">:</span> <span class="n">callable</span><span class="p">,</span> <span class="n">restore_model_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cuda</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        model_core: torch.nn.Module</span>
+<span class="sd">            torch model structure</span>
+<span class="sd">        logits2pred: callable(logits) -&gt; prediction</span>
+<span class="sd">            last layer nonlinearity that maps logits to predictions</span>
+<span class="sd">        restore_model_path: str</span>
+<span class="sd">            the path to the trained model</span>
+<span class="sd">        cuda: bool, optional</span>
+<span class="sd">            whether to move the model&#39;s parameters to CUDA</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">cuda</span><span class="p">:</span>
             <span class="n">model_core</span><span class="o">.</span><span class="n">cuda</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">cuda</span> <span class="o">=</span> <span class="n">cuda</span>
@@ -281,7 +310,19 @@
     <span class="k">return</span> <span class="n">x</span></div>
 
 
-<div class="viewcode-block" id="set_lr"><a class="viewcode-back" href="../../../dpipe.torch.html#dpipe.torch.model.set_lr">[docs]</a><span class="k">def</span> <span class="nf">set_lr</span><span class="p">(</span><span class="n">optimizer</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Optimizer</span><span class="p">,</span> <span class="n">lr</span><span class="p">):</span>
+<div class="viewcode-block" id="set_lr"><a class="viewcode-back" href="../../../dpipe.torch.html#dpipe.torch.model.set_lr">[docs]</a><span class="k">def</span> <span class="nf">set_lr</span><span class="p">(</span><span class="n">optimizer</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Optimizer</span><span class="p">,</span> <span class="n">lr</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Change an optimizer&#39;s learning rate.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    optimizer: torch.optim.Optimizer</span>
+<span class="sd">    lr: float</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    optimizer: torch.optim.Optimizer</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">param_group</span> <span class="ow">in</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">param_groups</span><span class="p">:</span>
         <span class="n">param_group</span><span class="p">[</span><span class="s1">&#39;lr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lr</span>
     <span class="k">return</span> <span class="n">optimizer</span></div>

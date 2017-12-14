@@ -164,7 +164,7 @@
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">metric</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">)</span> <span class="k">for</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="soft_weighted_dice_score"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.metrics.soft_weighted_dice_score">[docs]</a><span class="k">def</span> <span class="nf">soft_weighted_dice_score</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">empty_val</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+<div class="viewcode-block" id="soft_weighted_dice_score"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.metrics.soft_weighted_dice_score">[docs]</a><span class="k">def</span> <span class="nf">soft_weighted_dice_score</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">empty_val</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Realization of dice metric proposed in https://arxiv.org/pdf/1707.01992.pdf</span>
 
@@ -174,8 +174,9 @@
 <span class="sd">        Predicted probability maps</span>
 <span class="sd">    b: ndarray of np.bool</span>
 <span class="sd">        Ground truth</span>
-<span class="sd">    empty_val: int</span>
-<span class="sd">        Default value to avoid division by zero</span>
+<span class="sd">    empty_val: int, optional</span>
+<span class="sd">        Default value, which is returned if the dice score</span>
+<span class="sd">        is undefined (i.e. division by zero).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">assert</span> <span class="n">b</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">bool</span>
     <span class="k">assert</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">b</span><span class="o">.</span><span class="n">shape</span>
@@ -193,14 +194,14 @@
     <span class="k">return</span> <span class="n">swds</span></div>
 
 
-<div class="viewcode-block" id="dice_score"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.metrics.dice_score">[docs]</a><span class="k">def</span> <span class="nf">dice_score</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">empty_val</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="dice_score"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.metrics.dice_score">[docs]</a><span class="k">def</span> <span class="nf">dice_score</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">empty_val</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Dice score between two binary masks.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    x,y : binary tensor</span>
-<span class="sd">    empty_val</span>
+<span class="sd">    empty_val: float, optional</span>
 <span class="sd">        Default value, which is returned if the dice score</span>
 <span class="sd">        is undefined (i.e. division by zero).</span>
 
@@ -217,7 +218,7 @@
     <span class="k">return</span> <span class="n">empty_val</span> <span class="k">if</span> <span class="n">den</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">num</span> <span class="o">/</span> <span class="n">den</span></div>
 
 
-<div class="viewcode-block" id="multichannel_dice_score"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.metrics.multichannel_dice_score">[docs]</a><span class="k">def</span> <span class="nf">multichannel_dice_score</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">empty_val</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+<div class="viewcode-block" id="multichannel_dice_score"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.metrics.multichannel_dice_score">[docs]</a><span class="k">def</span> <span class="nf">multichannel_dice_score</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">empty_val</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Channelwise dice score between two binary masks.</span>
 <span class="sd">    The first dimension of the tensors is assumed to be the channels.</span>
@@ -225,7 +226,7 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    a,b : binary tensor</span>
-<span class="sd">    empty_val</span>
+<span class="sd">    empty_val: float, optional</span>
 <span class="sd">        Default value, which is returned if the dice score</span>
 <span class="sd">        is undefined (i.e. division by zero).</span>
 
@@ -237,7 +238,7 @@
     <span class="k">return</span> <span class="n">dices</span></div>
 
 
-<div class="viewcode-block" id="dice_scores"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.metrics.dice_scores">[docs]</a><span class="k">def</span> <span class="nf">dice_scores</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">empty_val</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+<div class="viewcode-block" id="dice_scores"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.metrics.dice_scores">[docs]</a><span class="k">def</span> <span class="nf">dice_scores</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">empty_val</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Channelwise dice score between arrays of binary masks.</span>
 <span class="sd">    The first dimension of the tensors is assumed to be the channels.</span>
@@ -245,7 +246,7 @@
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    x, y : binary tensor</span>
-<span class="sd">    empty_val</span>
+<span class="sd">    empty_val: float, optional</span>
 <span class="sd">        Default value, which is returned if the dice score</span>
 <span class="sd">        is undefined (i.e. division by zero).</span>
 

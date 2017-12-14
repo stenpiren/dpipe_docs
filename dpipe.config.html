@@ -102,12 +102,12 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.dataset.html">Datasets</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.experiment.html">dpipe.experiment package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dpipe.medim.html">dpipe.medim package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.medim.html">Medim</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.model_core.html">Model Core</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.split.html">dpipe.split package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.tf.html">dpipe.tf package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.torch.html">dpipe.torch package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dpipe.train.html">dpipe.train package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.train.html">Training</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.commands">Commands</a></li>
@@ -196,8 +196,21 @@
 
 <dl class="function">
 <dt id="dpipe.config.base.get_resource_manager">
-<code class="descclassname">dpipe.config.base.</code><code class="descname">get_resource_manager</code><span class="sig-paren">(</span><em>config_path</em><span class="sig-paren">)</span> &#x2192; resource_manager.resource_manager.ResourceManager<a class="reference internal" href="_modules/dpipe/config/base.html#get_resource_manager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.config.base.get_resource_manager" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">dpipe.config.base.</code><code class="descname">get_resource_manager</code><span class="sig-paren">(</span><em>config_path: str</em><span class="sig-paren">)</span> &#x2192; resource_manager.resource_manager.ResourceManager<a class="reference internal" href="_modules/dpipe/config/base.html#get_resource_manager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.config.base.get_resource_manager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the ResourceManager corresponding to the config from <cite>config_path</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>config_path</strong> (<em>str</em>) &#8211; path to the config to parse</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>resource_manager</strong></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">ResourceManager</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="dpipe.config.base.link_externals">

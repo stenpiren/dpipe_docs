@@ -1,8 +1,13 @@
-dpipe\.train package
-====================
+Training
+========
 
-Submodules
-----------
+Basic model training
+--------------------
+
+.. automodule:: dpipe.train.train
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 dpipe\.train\.logging module
 ----------------------------
@@ -27,15 +32,6 @@ dpipe\.train\.lr\_policy module
     :members:
     :undoc-members:
     :show-inheritance:
-
-dpipe\.train\.train module
---------------------------
-
-.. automodule:: dpipe.train.train
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 
 dpipe\.train\.utils module
 --------------------------

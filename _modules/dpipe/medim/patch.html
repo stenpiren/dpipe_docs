@@ -152,8 +152,10 @@
            <div itemprop="articleBody">
             
   <h1>Source code for dpipe.medim.patch</h1><div class="highlight"><pre>
-<span></span><span class="c1"># Tools for patch extraction and generation</span>
-<span class="c1"># For even patch sizes, center is always considered to be close to the right border</span>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Tools for patch extraction and generation</span>
+<span class="sd">For even patch sizes, center is always considered to be close to the right border</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">build_slices</span><span class="p">,</span> <span class="n">pad</span>
@@ -272,6 +274,101 @@
     <span class="c1"># Remove centers that are too left and too right</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">((</span><span class="n">l_bound</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">r_bound</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mask</span><span class="o">.</span><span class="n">shape</span><span class="p">)),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)]</span>
     <span class="k">return</span> <span class="n">c</span></div>
+
+
+<div class="viewcode-block" id="shape_after_convolution"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.patch.shape_after_convolution">[docs]</a><span class="k">def</span> <span class="nf">shape_after_convolution</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the shape of a tensor after applying a the convolution with</span>
+<span class="sd">    corresponding parameters.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    shape</span>
+<span class="sd">        input shape</span>
+<span class="sd">    kernel_size</span>
+<span class="sd">        convolution kernel size</span>
+<span class="sd">    padding</span>
+<span class="sd">        padding sizes</span>
+<span class="sd">    stride</span>
+<span class="sd">        stride of the convolution</span>
+<span class="sd">    dilation</span>
+<span class="sd">        dilation of the convolution kernel</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">padding</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">dilation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">dilation</span><span class="p">)</span>
+    <span class="n">kernel_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">shape</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">padding</span> <span class="o">-</span> <span class="n">dilation</span> <span class="o">*</span> <span class="p">(</span><span class="n">kernel_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">stride</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="slices_conv"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.patch.slices_conv">[docs]</a><span class="k">def</span> <span class="nf">slices_conv</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">spatial_dims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A convolution-like approach to generating slices from a tensor.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    shape</span>
+<span class="sd">        the input tensor&#39;s shape</span>
+<span class="sd">    kernel_size</span>
+<span class="sd">    spatial_dims</span>
+<span class="sd">        dimensions along which the slices will be taken</span>
+<span class="sd">    stride</span>
+<span class="sd">        the stride (step-size) of the slice</span>
+
+<span class="sd">    Yields</span>
+<span class="sd">    ------</span>
+<span class="sd">    start,stop: np.array</span>
+<span class="sd">        coordinates of a slice&#39;s start and stop</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">spatial_dims</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">spatial_dims</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">),</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">stride</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">stride</span> <span class="o">=</span> <span class="n">kernel_size</span>
+
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">spatial_shape</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="n">spatial_dims</span><span class="p">]</span>
+    <span class="n">shape</span><span class="p">[:]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">shape</span><span class="p">[</span><span class="n">spatial_dims</span><span class="p">]</span> <span class="o">=</span> <span class="n">shape_after_convolution</span><span class="p">(</span><span class="n">spatial_shape</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="n">stride</span><span class="p">)</span>
+
+    <span class="n">whole_patch</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">whole_patch</span><span class="p">[</span><span class="n">spatial_dims</span><span class="p">]</span> <span class="o">=</span> <span class="n">kernel_size</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">ndindex</span><span class="p">(</span><span class="o">*</span><span class="n">shape</span><span class="p">):</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">stride</span>
+        <span class="k">yield</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="n">whole_patch</span></div>
+
+
+<div class="viewcode-block" id="patch_conv"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.patch.patch_conv">[docs]</a><span class="k">def</span> <span class="nf">patch_conv</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">patch_size</span><span class="p">,</span> <span class="n">spatial_dims</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A convolution-like approach to generating patches from a tensor.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x: np.array</span>
+<span class="sd">        the input tensor</span>
+<span class="sd">    patch_size</span>
+<span class="sd">    spatial_dims</span>
+<span class="sd">        dimensions along which the slices will be taken</span>
+<span class="sd">    stride</span>
+<span class="sd">        the stride (step-size) of the slice</span>
+<span class="sd">    padding</span>
+<span class="sd">        padding sizes of the input tensor</span>
+
+<span class="sd">    Yields</span>
+<span class="sd">    ------</span>
+<span class="sd">    x_patch: np.array</span>
+<span class="sd">        patches from the input tensor</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">padding</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pad_width</span><span class="o">=</span><span class="n">padding</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;constant&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">start</span><span class="p">,</span> <span class="n">stop</span> <span class="ow">in</span> <span class="n">slices_conv</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">patch_size</span><span class="p">,</span> <span class="n">spatial_dims</span><span class="p">,</span> <span class="n">stride</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="n">x</span><span class="p">[</span><span class="n">build_slices</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)]</span></div>
 </pre></div>
 
            </div>
