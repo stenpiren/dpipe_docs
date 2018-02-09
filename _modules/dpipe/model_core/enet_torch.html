@@ -155,9 +155,6 @@
 <span></span><span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.optim</span>
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
-<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
-
-<span class="kn">from</span> <span class="nn">dpipe.config</span> <span class="k">import</span> <span class="n">register</span>
 
 
 <div class="viewcode-block" id="InitialBlock"><a class="viewcode-back" href="../../../dpipe.model_core.html#dpipe.model_core.enet_torch.InitialBlock">[docs]</a><span class="k">class</span> <span class="nc">InitialBlock</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
@@ -176,7 +173,7 @@
 <div class="viewcode-block" id="InitialBlock.forward"><a class="viewcode-back" href="../../../dpipe.model_core.html#dpipe.model_core.enet_torch.InitialBlock.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
         <span class="n">output</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">convolution</span><span class="p">(</span><span class="nb">input</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_pool</span><span class="p">(</span><span class="nb">input</span><span class="p">)],</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">output</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_norm</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">output</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">output</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="ResBlock"><a class="viewcode-back" href="../../../dpipe.model_core.html#dpipe.model_core.enet_torch.ResBlock">[docs]</a><span class="k">class</span> <span class="nc">ResBlock</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
@@ -255,7 +252,7 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">upsample</span><span class="p">:</span>
             <span class="n">main_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">unpool</span><span class="p">(</span><span class="n">main_path</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">conv_path</span> <span class="o">+</span> <span class="n">main_path</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">conv_path</span> <span class="o">+</span> <span class="n">main_path</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="Stage"><a class="viewcode-back" href="../../../dpipe.model_core.html#dpipe.model_core.enet_torch.Stage">[docs]</a><span class="k">class</span> <span class="nc">Stage</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>

@@ -1,7 +1,8 @@
 Medim
 =====
 
-This module contains utils for medical imaging pipelines.
+Submodules
+----------
 
 dpipe\.medim\.augmentation module
 ---------------------------------
@@ -83,6 +84,7 @@ dpipe\.medim\.slices module
     :undoc-members:
     :show-inheritance:
 
+
 dpipe\.medim\.utils module
 --------------------------
 
@@ -98,4 +100,3 @@ dpipe\.medim\.visualize module
     :members:
     :undoc-members:
     :show-inheritance:
-

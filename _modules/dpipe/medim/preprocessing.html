@@ -157,6 +157,8 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">ndimage</span>
 
+<span class="kn">from</span> <span class="nn">dpipe.medim.utils</span> <span class="k">import</span> <span class="n">get_axes</span><span class="p">,</span> <span class="n">build_slices</span>
+
 
 <div class="viewcode-block" id="normalize_scan"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.preprocessing.normalize_scan">[docs]</a><span class="k">def</span> <span class="nf">normalize_scan</span><span class="p">(</span><span class="n">scan</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">drop_percentile</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Normalize scan to make mean and std equal to (0, 1) if stated.</span>
@@ -182,7 +184,7 @@
 
 
 <div class="viewcode-block" id="normalize_mscan"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.preprocessing.normalize_mscan">[docs]</a><span class="k">def</span> <span class="nf">normalize_mscan</span><span class="p">(</span><span class="n">mscan</span><span class="p">,</span> <span class="n">mean</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">std</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">drop_percentile</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Normalize mscan to make mean and std equal to (0, 1) if stated.</span>
+    <span class="sd">&quot;&quot;&quot;Normalize multimodal scan (each modality independently) to make mean and std equal to (0, 1) if stated.</span>
 <span class="sd">    Supports robust estimation with drop_percentile.&quot;&quot;&quot;</span>
     <span class="n">new_mscan</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">mscan</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mscan</span><span class="p">)):</span>
@@ -191,8 +193,35 @@
     <span class="k">return</span> <span class="n">new_mscan</span></div>
 
 
-<div class="viewcode-block" id="scale"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.preprocessing.scale">[docs]</a><span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">spacial_shape</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
-          <span class="n">axes</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+<div class="viewcode-block" id="rotate_image"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.preprocessing.rotate_image">[docs]</a><span class="k">def</span> <span class="nf">rotate_image</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">angles</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">reshape</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Rotate an image along the given axes.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    image: np.ndarray</span>
+<span class="sd">        image to rotate</span>
+<span class="sd">    angles: Sequence</span>
+<span class="sd">    axes: Sequence</span>
+<span class="sd">        axes along which the image will be rotated. The length must be equal to len(angles) + 1</span>
+<span class="sd">    order: int, optional</span>
+<span class="sd">        interpolation order</span>
+<span class="sd">    reshape: bool, optional</span>
+<span class="sd">        whether to reshape the resulting image</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    rotated_image: np.ndarray</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">get_axes</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">angles</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">angles</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">angle</span><span class="p">,</span> <span class="o">*</span><span class="n">axis</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">angles</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">ndimage</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">reshape</span><span class="o">=</span><span class="n">reshape</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="scale"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.preprocessing.scale">[docs]</a><span class="k">def</span> <span class="nf">scale</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">spatial_shape</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Rescale image to `spacial_shape` along the `axes`.</span>
 
@@ -200,7 +229,7 @@
 <span class="sd">    ----------</span>
 <span class="sd">    image: np.array</span>
 <span class="sd">        image to rescale</span>
-<span class="sd">    spacial_shape: Sequence</span>
+<span class="sd">    spatial_shape: Sequence</span>
 <span class="sd">        final image shape</span>
 <span class="sd">    order: int, optional</span>
 <span class="sd">        order of interpolation</span>
@@ -210,14 +239,11 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    reshaped image: np.array</span>
+<span class="sd">    reshaped image: np.ndarray</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">axes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">axes</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">spacial_shape</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">axes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">axes</span><span class="p">))</span>
-
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">get_axes</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">spatial_shape</span><span class="p">))</span>
     <span class="n">old_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">)[</span><span class="n">axes</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
-    <span class="n">new_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">spacial_shape</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+    <span class="n">new_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">spatial_shape</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
 
     <span class="n">scale_factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s1">&#39;float64&#39;</span><span class="p">)</span>
     <span class="n">scale_factor</span><span class="p">[</span><span class="n">axes</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_shape</span> <span class="o">/</span> <span class="n">old_shape</span>
@@ -225,41 +251,76 @@
     <span class="k">return</span> <span class="n">ndimage</span><span class="o">.</span><span class="n">zoom</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">scale_factor</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="pad"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.preprocessing.pad">[docs]</a><span class="k">def</span> <span class="nf">pad</span><span class="p">(</span><span class="n">image</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">spacial_shape</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span>
-        <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">:</span>
+<div class="viewcode-block" id="pad_to_shape"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.preprocessing.pad_to_shape">[docs]</a><span class="k">def</span> <span class="nf">pad_to_shape</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">spatial_shape</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">strict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Pad image to `spacial_shape` along the `axes`.</span>
+<span class="sd">    Pad a tensor to `spacial_shape` along the `axes`.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    image: np.array</span>
-<span class="sd">        image to pad</span>
-<span class="sd">    spacial_shape: Sequence</span>
+<span class="sd">    x: np.array</span>
+<span class="sd">        tensor to pad</span>
+<span class="sd">    spatial_shape: Sequence</span>
 <span class="sd">        final image shape</span>
 <span class="sd">    axes: Sequence, optional</span>
 <span class="sd">        axes along which the image will be padded.</span>
 <span class="sd">        If None - the last `len(spacial_shape)` axes are used.</span>
+<span class="sd">    strict: bool, optional</span>
+<span class="sd">        If True, the output shape cannot be smaller than the input shape.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    padded_image: np.array</span>
+<span class="sd">    padded_tensor: np.ndarray</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">axes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">axes</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="n">spacial_shape</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">axes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">axes</span><span class="p">))</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">get_axes</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">spatial_shape</span><span class="p">))</span>
+    <span class="n">old_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)[</span><span class="n">axes</span><span class="p">]</span>
+    <span class="n">new_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">spatial_shape</span><span class="p">)</span>
 
-    <span class="n">old_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">)[</span><span class="n">axes</span><span class="p">]</span>
-    <span class="n">new_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">spacial_shape</span><span class="p">)</span>
-
-    <span class="k">assert</span> <span class="p">(</span><span class="n">old_shape</span> <span class="o">&lt;=</span> <span class="n">new_shape</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">strict</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="n">old_shape</span> <span class="o">&lt;=</span> <span class="n">new_shape</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
 
     <span class="n">delta</span> <span class="o">=</span> <span class="n">new_shape</span> <span class="o">-</span> <span class="n">old_shape</span>
-    <span class="n">pad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">delta</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">delta</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span>
+    <span class="n">padding_width</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">delta</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="p">(</span><span class="n">delta</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
 
-    <span class="n">padding</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">image</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="nb">int</span><span class="p">)</span>
-    <span class="n">padding</span><span class="p">[</span><span class="n">axes</span><span class="p">]</span> <span class="o">=</span> <span class="n">pad</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">padding</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="nb">int</span><span class="p">)</span>
+    <span class="n">padding</span><span class="p">[</span><span class="n">axes</span><span class="p">]</span> <span class="o">=</span> <span class="n">padding_width</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">padding</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;constant&#39;</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">padding</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;constant&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="slice_to_shape"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.preprocessing.slice_to_shape">[docs]</a><span class="k">def</span> <span class="nf">slice_to_shape</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">spatial_shape</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">axes</span><span class="p">:</span> <span class="n">Sequence</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">strict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Slice a tensor to `spacial_shape` along the `axes`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x: np.array</span>
+<span class="sd">        tensor to pad</span>
+<span class="sd">    spatial_shape: Sequence</span>
+<span class="sd">        final image shape</span>
+<span class="sd">    axes: Sequence, optional</span>
+<span class="sd">        axes along which the image will be padded.</span>
+<span class="sd">        If None - the last `len(spacial_shape)` axes are used.</span>
+<span class="sd">    strict: bool, optional</span>
+<span class="sd">        If True, the output shape cannot be smaller than the input shape.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    tensor_slice: np.ndarray</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">get_axes</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">spatial_shape</span><span class="p">))</span>
+    <span class="n">old_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)[</span><span class="n">axes</span><span class="p">]</span>
+    <span class="n">new_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">spatial_shape</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">strict</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="n">old_shape</span> <span class="o">&gt;=</span> <span class="n">new_shape</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+    <span class="n">delta</span> <span class="o">=</span> <span class="n">old_shape</span> <span class="o">-</span> <span class="n">new_shape</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">delta</span><span class="p">)</span>
+    <span class="n">start</span><span class="p">,</span> <span class="n">stop</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">ndim</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">start</span><span class="p">[</span><span class="n">axes</span><span class="p">],</span> <span class="n">stop</span><span class="p">[</span><span class="n">axes</span><span class="p">]</span> <span class="o">=</span> <span class="n">delta</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">old_shape</span> <span class="o">-</span> <span class="p">(</span><span class="n">delta</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">2</span>
+
+    <span class="k">return</span> <span class="n">x</span><span class="p">[</span><span class="n">build_slices</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)]</span></div>
 </pre></div>
 
            </div>

@@ -93,18 +93,16 @@
 <li class="toctree-l2 current"><a class="reference internal" href="dpipe.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="dpipe.batch_iter.html">Batch iterators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.batch_predict.html">Batch predictors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dpipe.config.html">dpipe.config package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.dataset.html">Datasets</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.experiment.html">dpipe.experiment package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.medim.html">Medim</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.model_core.html">Model Core</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dpipe.split.html">dpipe.split package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.split.html">Split</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.tf.html">dpipe.tf package</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">dpipe.torch package</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.torch.model">dpipe.torch.model module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.torch.utils">dpipe.torch.utils module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.torch">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.train.html">Training</a></li>
@@ -114,7 +112,6 @@
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.io">Input/Output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.model">NN model interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.transformers">dpipe.transformers module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.batch_iter_factory">dpipe.batch_iter_factory module</a></li>
 </ul>
 </li>
 </ul>
@@ -293,40 +290,44 @@
 <div class="section" id="module-dpipe.torch.utils">
 <span id="dpipe-torch-utils-module"></span><h2>dpipe.torch.utils module<a class="headerlink" href="#module-dpipe.torch.utils" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="dpipe.torch.utils.NormalizedSoftmaxCrossEntropy">
-<em class="property">class </em><code class="descclassname">dpipe.torch.utils.</code><code class="descname">NormalizedSoftmaxCrossEntropy</code><span class="sig-paren">(</span><em>n_classes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/torch/utils.html#NormalizedSoftmaxCrossEntropy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.torch.utils.NormalizedSoftmaxCrossEntropy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#dpipe.torch.utils.SoftmaxCrossEntropy" title="dpipe.torch.utils.SoftmaxCrossEntropy"><code class="xref py py-class docutils literal"><span class="pre">dpipe.torch.utils.SoftmaxCrossEntropy</span></code></a></p>
+<dt id="dpipe.torch.utils.Eye">
+<em class="property">class </em><code class="descclassname">dpipe.torch.utils.</code><code class="descname">Eye</code><span class="sig-paren">(</span><em>n_classes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/torch/utils.html#Eye"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.torch.utils.Eye" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">torch.nn.modules.module.Module</span></code></p>
 </dd></dl>
 
 <dl class="class">
-<dt id="dpipe.torch.utils.SoftmaxCrossEntropy">
-<em class="property">class </em><code class="descclassname">dpipe.torch.utils.</code><code class="descname">SoftmaxCrossEntropy</code><span class="sig-paren">(</span><em>n_classes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/torch/utils.html#SoftmaxCrossEntropy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.torch.utils.SoftmaxCrossEntropy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dt id="dpipe.torch.utils.NormalizedSoftmaxCrossEntropy">
+<em class="property">class </em><code class="descclassname">dpipe.torch.utils.</code><code class="descname">NormalizedSoftmaxCrossEntropy</code><span class="sig-paren">(</span><em>n_classes</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/torch/utils.html#NormalizedSoftmaxCrossEntropy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.torch.utils.NormalizedSoftmaxCrossEntropy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dpipe.torch.utils.Eye" title="dpipe.torch.utils.Eye"><code class="xref py py-class docutils literal"><span class="pre">dpipe.torch.utils.Eye</span></code></a></p>
 <dl class="method">
-<dt id="dpipe.torch.utils.SoftmaxCrossEntropy.cpu">
-<code class="descname">cpu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/torch/utils.html#SoftmaxCrossEntropy.cpu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.torch.utils.SoftmaxCrossEntropy.cpu" title="Permalink to this definition">¶</a></dt>
+<dt id="dpipe.torch.utils.NormalizedSoftmaxCrossEntropy.forward">
+<code class="descname">forward</code><span class="sig-paren">(</span><em>logits</em>, <em>target</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/torch/utils.html#NormalizedSoftmaxCrossEntropy.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.torch.utils.NormalizedSoftmaxCrossEntropy.forward" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
+</dd></dl>
+
+<dl class="class">
+<dt id="dpipe.torch.utils.PyramidPooling">
+<em class="property">class </em><code class="descclassname">dpipe.torch.utils.</code><code class="descname">PyramidPooling</code><span class="sig-paren">(</span><em>convolution</em>, <em>levels: int = 1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/torch/utils.html#PyramidPooling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.torch.utils.PyramidPooling" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">torch.nn.modules.module.Module</span></code></p>
 <dl class="method">
-<dt id="dpipe.torch.utils.SoftmaxCrossEntropy.cuda">
-<code class="descname">cuda</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/torch/utils.html#SoftmaxCrossEntropy.cuda"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.torch.utils.SoftmaxCrossEntropy.cuda" title="Permalink to this definition">¶</a></dt>
+<dt id="dpipe.torch.utils.PyramidPooling.forward">
+<code class="descname">forward</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/torch/utils.html#PyramidPooling.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.torch.utils.PyramidPooling.forward" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="function">
-<dt id="dpipe.torch.utils.softmax">
-<code class="descclassname">dpipe.torch.utils.</code><code class="descname">softmax</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/torch/utils.html#softmax"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.torch.utils.softmax" title="Permalink to this definition">¶</a></dt>
+<dt id="dpipe.torch.utils.compress_3d_to_2d">
+<code class="descclassname">dpipe.torch.utils.</code><code class="descname">compress_3d_to_2d</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/torch/utils.html#compress_3d_to_2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.torch.utils.compress_3d_to_2d" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="dpipe.torch.utils.swap_channels">
-<code class="descclassname">dpipe.torch.utils.</code><code class="descname">swap_channels</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/torch/utils.html#swap_channels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.torch.utils.swap_channels" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="dpipe.torch.utils.softmax_cross_entropy">
+<code class="descclassname">dpipe.torch.utils.</code><code class="descname">softmax_cross_entropy</code><span class="sig-paren">(</span><em>logits</em>, <em>target</em>, <em>weight=None</em>, <em>reduce=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/torch/utils.html#softmax_cross_entropy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.torch.utils.softmax_cross_entropy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Softmax cross entropy loss for Nd data.</p>
+</dd></dl>
 
-</div>
-<div class="section" id="module-dpipe.torch">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-dpipe.torch" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 

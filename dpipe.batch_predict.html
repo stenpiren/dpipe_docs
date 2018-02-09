@@ -37,7 +37,7 @@
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="dpipe  documentation" href="index.html"/>
         <link rel="up" title="dpipe package" href="dpipe.html"/>
-        <link rel="next" title="dpipe.config package" href="dpipe.config.html"/>
+        <link rel="next" title="Datasets" href="dpipe.dataset.html"/>
         <link rel="prev" title="Batch iterators" href="dpipe.batch_iter.html"/> 
 
   
@@ -101,12 +101,11 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.batch_predict.utils">dpipe.batch_predict.utils module</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="dpipe.config.html">dpipe.config package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.dataset.html">Datasets</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.experiment.html">dpipe.experiment package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.medim.html">Medim</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.model_core.html">Model Core</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dpipe.split.html">dpipe.split package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.split.html">Split</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.tf.html">dpipe.tf package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.torch.html">dpipe.torch package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.train.html">Training</a></li>
@@ -116,7 +115,6 @@
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.io">Input/Output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.model">NN model interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.transformers">dpipe.transformers module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.batch_iter_factory">dpipe.batch_iter_factory module</a></li>
 </ul>
 </li>
 </ul>
@@ -336,33 +334,6 @@ and returns the prediction batch and the loss</li>
 
 </dd></dl>
 
-<dl class="class">
-<dt id="dpipe.batch_predict.patch_3d_fixed.Patch3DFixedQuantilesPredictor">
-<em class="property">class </em><code class="descclassname">dpipe.batch_predict.patch_3d_fixed.</code><code class="descname">Patch3DFixedQuantilesPredictor</code><span class="sig-paren">(</span><em>x_patch_sizes: list</em>, <em>y_patch_size: list</em>, <em>n_quantiles: int</em>, <em>padding_mode: str</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_predict/patch_3d_fixed.html#Patch3DFixedQuantilesPredictor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_predict.patch_3d_fixed.Patch3DFixedQuantilesPredictor" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#dpipe.batch_predict.patch_3d_fixed.Patch3DFixedQuantilesPredictor" title="dpipe.batch_predict.patch_3d_fixed.Patch3DFixedQuantilesPredictor"><code class="xref py py-class docutils literal"><span class="pre">dpipe.batch_predict.patch_3d_fixed.Patch3DFixedQuantilesPredictor</span></code></a></p>
-<dl class="method">
-<dt id="dpipe.batch_predict.patch_3d_fixed.Patch3DFixedQuantilesPredictor.divide_x">
-<code class="descname">divide_x</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_predict/patch_3d_fixed.html#Patch3DFixedQuantilesPredictor.divide_x"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_predict.patch_3d_fixed.Patch3DFixedQuantilesPredictor.divide_x" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="dpipe.batch_predict.patch_3d_fixed.Patch3DVolume">
-<em class="property">class </em><code class="descclassname">dpipe.batch_predict.patch_3d_fixed.</code><code class="descname">Patch3DVolume</code><span class="sig-paren">(</span><em>x_patch_sizes: list</em>, <em>y_patch_size: list</em>, <em>padding_mode: str = 'min'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_predict/patch_3d_fixed.html#Patch3DVolume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_predict.patch_3d_fixed.Patch3DVolume" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#dpipe.batch_predict.patch_3d_fixed.Patch3DFixedPredictor" title="dpipe.batch_predict.patch_3d_fixed.Patch3DFixedPredictor"><code class="xref py py-class docutils literal"><span class="pre">dpipe.batch_predict.patch_3d_fixed.Patch3DFixedPredictor</span></code></a></p>
-<dl class="method">
-<dt id="dpipe.batch_predict.patch_3d_fixed.Patch3DVolume.combine_y">
-<code class="descname">combine_y</code><span class="sig-paren">(</span><em>y_parts</em>, <em>x_shape</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_predict/patch_3d_fixed.html#Patch3DVolume.combine_y"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_predict.patch_3d_fixed.Patch3DVolume.combine_y" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="dpipe.batch_predict.patch_3d_fixed.Patch3DVolume.divide_y">
-<code class="descname">divide_y</code><span class="sig-paren">(</span><em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_predict/patch_3d_fixed.html#Patch3DVolume.divide_y"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_predict.patch_3d_fixed.Patch3DVolume.divide_y" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 <dl class="function">
 <dt id="dpipe.batch_predict.patch_3d_fixed.find_fixed_spatial_size">
 <code class="descclassname">dpipe.batch_predict.patch_3d_fixed.</code><code class="descname">find_fixed_spatial_size</code><span class="sig-paren">(</span><em>spatial_size</em>, <em>spatial_patch_size</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/batch_predict/patch_3d_fixed.html#find_fixed_spatial_size"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.batch_predict.patch_3d_fixed.find_fixed_spatial_size" title="Permalink to this definition">¶</a></dt>
@@ -460,7 +431,7 @@ and feeds them into the network.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="dpipe.config.html" class="btn btn-neutral float-right" title="dpipe.config package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="dpipe.dataset.html" class="btn btn-neutral float-right" title="Datasets" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="dpipe.batch_iter.html" class="btn btn-neutral" title="Batch iterators" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

@@ -92,12 +92,11 @@
 <li class="toctree-l2 current"><a class="reference internal" href="dpipe.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="dpipe.batch_iter.html">Batch iterators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.batch_predict.html">Batch predictors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dpipe.config.html">dpipe.config package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.dataset.html">Datasets</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.experiment.html">dpipe.experiment package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.medim.html">Medim</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.model_core.html">Model Core</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dpipe.split.html">dpipe.split package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.split.html">Split</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.tf.html">dpipe.tf package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.torch.html">dpipe.torch package</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Training</a><ul>
@@ -105,7 +104,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.train.logging">dpipe.train.logging module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.train.lr_base">dpipe.train.lr_base module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.train.lr_policy">dpipe.train.lr_policy module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.train.utils">dpipe.train.utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dpipe-train-utils-module">dpipe.train.utils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.train.validator">dpipe.train.validator module</a></li>
 </ul>
 </li>
@@ -115,7 +114,6 @@
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.io">Input/Output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.model">NN model interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.transformers">dpipe.transformers module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.batch_iter_factory">dpipe.batch_iter_factory module</a></li>
 </ul>
 </li>
 </ul>
@@ -189,7 +187,7 @@
 <span id="basic-model-training"></span><h2>Basic model training<a class="headerlink" href="#module-dpipe.train.train" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="dpipe.train.train.train_base">
-<code class="descclassname">dpipe.train.train.</code><code class="descname">train_base</code><span class="sig-paren">(</span><em>model: dpipe.model.Model</em>, <em>batch_iter_factory: dpipe.batch_iter_factory.BatchIterFactory</em>, <em>n_epochs: int</em>, <em>lr_policy: dpipe.train.lr_base.LearningRate</em>, <em>log_path: str</em>, <em>validator: &lt;built-in function callable&gt; = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/train.html#train_base"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.train.train_base" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dpipe.train.train.</code><code class="descname">train_base</code><span class="sig-paren">(</span><em>model: dpipe.model.Model</em>, <em>batch_iter: dpipe.train.batch_iter.BatchIter</em>, <em>n_epochs: int</em>, <em>lr_policy: dpipe.train.lr_base.LearningRatePolicy</em>, <em>log_path: str</em>, <em>validate: typing.Callable = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/train.html#train_base"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.train.train_base" title="Permalink to this definition">¶</a></dt>
 <dd><p>Train a given model.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -197,11 +195,11 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>model</strong> (<a class="reference internal" href="dpipe.html#dpipe.model.Model" title="dpipe.model.Model"><em>Model</em></a>) &#8211; the model to train</li>
-<li><strong>batch_iter_factory</strong> (<a class="reference internal" href="dpipe.html#dpipe.batch_iter_factory.BatchIterFactory" title="dpipe.batch_iter_factory.BatchIterFactory"><em>BatchIterFactory</em></a>) &#8211; a factory of train batch iterators</li>
+<li><strong>batch_iter</strong> (<em>BatchIter</em>) &#8211; batch iterator</li>
 <li><strong>n_epochs</strong> (<em>int</em>) &#8211; number of epochs to train</li>
-<li><strong>lr_policy</strong> (<a class="reference internal" href="#dpipe.train.lr_base.LearningRate" title="dpipe.train.lr_base.LearningRate"><em>LearningRate</em></a>) &#8211; the learning rate policy</li>
+<li><strong>lr_policy</strong> (<em>LearningRate</em>) &#8211; the learning rate policy</li>
 <li><strong>log_path</strong> (<em>str</em>) &#8211; the path where the logs will be stored</li>
-<li><strong>validator</strong> (<em>callable</em><em>, </em><em>optional</em>) &#8211; a validator that calculates the loss and metrics on the validation set</li>
+<li><strong>validate</strong> (<em>callable</em><em>, </em><em>optional</em>) &#8211; a function that calculates the loss and metrics on the validation set</li>
 </ul>
 </td>
 </tr>
@@ -227,45 +225,30 @@
 <div class="section" id="module-dpipe.train.lr_base">
 <span id="dpipe-train-lr-base-module"></span><h2>dpipe.train.lr_base module<a class="headerlink" href="#module-dpipe.train.lr_base" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="dpipe.train.lr_base.LearningRate">
-<em class="property">class </em><code class="descclassname">dpipe.train.lr_base.</code><code class="descname">LearningRate</code><a class="reference internal" href="_modules/dpipe/train/lr_base.html#LearningRate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.lr_base.LearningRate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">abc.ABC</span></code></p>
-<p>Interface for learning rate policies</p>
+<dt id="dpipe.train.lr_base.LearningRatePolicy">
+<em class="property">class </em><code class="descclassname">dpipe.train.lr_base.</code><code class="descname">LearningRatePolicy</code><span class="sig-paren">(</span><em>lr_init</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/lr_base.html#LearningRatePolicy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.lr_base.LearningRatePolicy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Interface for learning rate policies. lr attribute is a current learning rate.</p>
 <dl class="method">
-<dt id="dpipe.train.lr_base.LearningRate.next_epoch">
-<code class="descname">next_epoch</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/lr_base.html#LearningRate.next_epoch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.lr_base.LearningRate.next_epoch" title="Permalink to this definition">¶</a></dt>
-<dd><p>Indicate that a new epoch has begun</p>
+<dt id="dpipe.train.lr_base.LearningRatePolicy.epoch_finished">
+<code class="descname">epoch_finished</code><span class="sig-paren">(</span><em>*</em>, <em>train_losses: typing.Sequence[float] = None</em>, <em>val_losses: typing.Sequence[float] = None</em>, <em>metrics: dict = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/lr_base.html#LearningRatePolicy.epoch_finished"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.lr_base.LearningRatePolicy.epoch_finished" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicate that an epoch has finished, with corresponding losses and metrics.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="dpipe.train.lr_base.LearningRate.next_lr">
-<code class="descname">next_lr</code><span class="sig-paren">(</span><em>train_losses: typing.Sequence</em>, <em>val_losses: typing.Sequence</em>, <em>metrics: dict</em><span class="sig-paren">)</span> &#x2192; float<a class="reference internal" href="_modules/dpipe/train/lr_base.html#LearningRate.next_lr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.lr_base.LearningRate.next_lr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the next learning rate.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>train_losses</strong> (<em>Sequence</em>) &#8211; </li>
-<li><strong>val_losses</strong> (<em>Sequence</em>) &#8211; </li>
-<li><strong>metrics</strong> (<em>dict</em>) &#8211; a dict containing the metrics calculated on the validation set</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>learning_rate</strong></p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
+<dt id="dpipe.train.lr_base.LearningRatePolicy.on_epoch_finished">
+<code class="descname">on_epoch_finished</code><span class="sig-paren">(</span><em>*</em>, <em>train_losses: typing.Sequence[float] = None</em>, <em>val_losses: typing.Sequence[float] = None</em>, <em>metrics: dict = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/lr_base.html#LearningRatePolicy.on_epoch_finished"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.lr_base.LearningRatePolicy.on_epoch_finished" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="method">
-<dt id="dpipe.train.lr_base.LearningRate.next_step">
-<code class="descname">next_step</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/lr_base.html#LearningRate.next_step"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.lr_base.LearningRate.next_step" title="Permalink to this definition">¶</a></dt>
-<dd><p>Indicate that a new training step in the current epoch has begun</p>
+<dt id="dpipe.train.lr_base.LearningRatePolicy.on_step_finished">
+<code class="descname">on_step_finished</code><span class="sig-paren">(</span><em>train_loss: float</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/lr_base.html#LearningRatePolicy.on_step_finished"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.lr_base.LearningRatePolicy.on_step_finished" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dpipe.train.lr_base.LearningRatePolicy.step_finished">
+<code class="descname">step_finished</code><span class="sig-paren">(</span><em>train_loss: float</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/lr_base.html#LearningRatePolicy.step_finished"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.lr_base.LearningRatePolicy.step_finished" title="Permalink to this definition">¶</a></dt>
+<dd><p>Indicate that a new training step in the current epoch has finished.</p>
 </dd></dl>
 
 </dd></dl>
@@ -274,40 +257,32 @@
 <div class="section" id="module-dpipe.train.lr_policy">
 <span id="dpipe-train-lr-policy-module"></span><h2>dpipe.train.lr_policy module<a class="headerlink" href="#module-dpipe.train.lr_policy" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="dpipe.train.lr_policy.Constant">
-<em class="property">class </em><code class="descclassname">dpipe.train.lr_policy.</code><code class="descname">Constant</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/lr_policy.html#Constant"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.lr_policy.Constant" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#dpipe.train.lr_base.LearningRate" title="dpipe.train.lr_base.LearningRate"><code class="xref py py-class docutils literal"><span class="pre">dpipe.train.lr_base.LearningRate</span></code></a></p>
+<dt id="dpipe.train.lr_policy.Decreasing">
+<em class="property">class </em><code class="descclassname">dpipe.train.lr_policy.</code><code class="descname">Decreasing</code><span class="sig-paren">(</span><em>*</em>, <em>lr_init: float</em>, <em>lr_dec_mul: float</em>, <em>patience: int</em>, <em>trace_train=False</em>, <em>trace_val=False</em>, <em>rtol</em>, <em>atol</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/lr_policy.html#Decreasing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.lr_policy.Decreasing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dpipe.train.lr_base.LearningRatePolicy" title="dpipe.train.lr_base.LearningRatePolicy"><code class="xref py py-class docutils literal"><span class="pre">dpipe.train.lr_base.LearningRatePolicy</span></code></a></p>
+<p>Learning rate policy that traces average train loss or val loss (trace_train or trace_val parameter) and if
+it didn&#8217;t decrease according to atol or rtol for patience epochs, multiply lr by lr_dec_mul.</p>
 <dl class="method">
-<dt id="dpipe.train.lr_policy.Constant.next_lr">
-<code class="descname">next_lr</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/lr_policy.html#Constant.next_lr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.lr_policy.Constant.next_lr" title="Permalink to this definition">¶</a></dt>
+<dt id="dpipe.train.lr_policy.Decreasing.on_epoch_finished">
+<code class="descname">on_epoch_finished</code><span class="sig-paren">(</span><em>*</em>, <em>train_losses: typing.Sequence[float] = None</em>, <em>val_losses: typing.Sequence[float] = None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/lr_policy.html#Decreasing.on_epoch_finished"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.lr_policy.Decreasing.on_epoch_finished" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
-<dt id="dpipe.train.lr_policy.Decreasing">
-<em class="property">class </em><code class="descclassname">dpipe.train.lr_policy.</code><code class="descname">Decreasing</code><span class="sig-paren">(</span><em>lr_init: float</em>, <em>lr_dec_mul: float</em>, <em>patience: int</em>, <em>rtol</em>, <em>atol</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/lr_policy.html#Decreasing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.lr_policy.Decreasing" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#dpipe.train.lr_base.LearningRate" title="dpipe.train.lr_base.LearningRate"><code class="xref py py-class docutils literal"><span class="pre">dpipe.train.lr_base.LearningRate</span></code></a></p>
+<dt id="dpipe.train.lr_policy.Exponential">
+<em class="property">class </em><code class="descclassname">dpipe.train.lr_policy.</code><code class="descname">Exponential</code><span class="sig-paren">(</span><em>initial</em>, <em>multiplier</em>, <em>step_length=1</em>, <em>floordiv=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/lr_policy.html#Exponential"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.lr_policy.Exponential" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#dpipe.train.lr_base.LearningRatePolicy" title="dpipe.train.lr_base.LearningRatePolicy"><code class="xref py py-class docutils literal"><span class="pre">dpipe.train.lr_base.LearningRatePolicy</span></code></a></p>
 <dl class="method">
-<dt id="dpipe.train.lr_policy.Decreasing.next_lr">
-<code class="descname">next_lr</code><span class="sig-paren">(</span><em>val_losses</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/lr_policy.html#Decreasing.next_lr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.lr_policy.Decreasing.next_lr" title="Permalink to this definition">¶</a></dt>
+<dt id="dpipe.train.lr_policy.Exponential.on_epoch_finished">
+<code class="descname">on_epoch_finished</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/lr_policy.html#Exponential.on_epoch_finished"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.lr_policy.Exponential.on_epoch_finished" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 </div>
-<div class="section" id="module-dpipe.train.utils">
-<span id="dpipe-train-utils-module"></span><h2>dpipe.train.utils module<a class="headerlink" href="#module-dpipe.train.utils" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="dpipe.train.utils.make_check_loss_decrease">
-<code class="descclassname">dpipe.train.utils.</code><code class="descname">make_check_loss_decrease</code><span class="sig-paren">(</span><em>patience: int</em>, <em>rtol: float</em>, <em>atol: float</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/utils.html#make_check_loss_decrease"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.utils.make_check_loss_decrease" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="dpipe.train.utils.make_find_next_lr">
-<code class="descclassname">dpipe.train.utils.</code><code class="descname">make_find_next_lr</code><span class="sig-paren">(</span><em>lr</em>, <em>decrease_lr: &lt;built-in function callable&gt;</em>, <em>get_check: &lt;built-in function callable&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/train/utils.html#make_find_next_lr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.train.utils.make_find_next_lr" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+<div class="section" id="dpipe-train-utils-module">
+<h2>dpipe.train.utils module<a class="headerlink" href="#dpipe-train-utils-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-dpipe.train.validator">
 <span id="dpipe-train-validator-module"></span><h2>dpipe.train.validator module<a class="headerlink" href="#module-dpipe.train.validator" title="Permalink to this headline">¶</a></h2>

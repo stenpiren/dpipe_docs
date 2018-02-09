@@ -181,6 +181,38 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;shapes are not broadcastable:</span><span class="se">\n</span><span class="s1">&#39;</span>
                              <span class="n">f</span><span class="s1">&#39;</span><span class="si">{x_shape}</span><span class="s1">;</span><span class="si">{y_shape}</span><span class="s1">&#39;</span><span class="p">)</span>
     <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">shape</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="shape_after_convolution"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.shape_utils.shape_after_convolution">[docs]</a><span class="k">def</span> <span class="nf">shape_after_convolution</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">kernel_size</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dilation</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the shape of a tensor after applying a the convolution with</span>
+<span class="sd">    corresponding parameters.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    shape</span>
+<span class="sd">        input shape</span>
+<span class="sd">    kernel_size</span>
+<span class="sd">        convolution kernel size</span>
+<span class="sd">    padding</span>
+<span class="sd">        padding sizes</span>
+<span class="sd">    stride</span>
+<span class="sd">        stride of the convolution</span>
+<span class="sd">    dilation</span>
+<span class="sd">        dilation of the convolution kernel</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    output_shape: tuple</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">padding</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">dilation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">dilation</span><span class="p">)</span>
+    <span class="n">kernel_size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">kernel_size</span><span class="p">)</span>
+
+    <span class="c1"># TODO: raise if division is not even</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">((</span><span class="n">shape</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">padding</span> <span class="o">-</span> <span class="n">dilation</span> <span class="o">*</span> <span class="p">(</span><span class="n">kernel_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">stride</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

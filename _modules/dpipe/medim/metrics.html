@@ -153,45 +153,8 @@
             
   <h1>Source code for dpipe.medim.metrics</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Union</span>
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">product</span>
-<span class="kn">import</span> <span class="nn">functools</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-
-<div class="viewcode-block" id="array_metric"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.metrics.array_metric">[docs]</a><span class="k">def</span> <span class="nf">array_metric</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;General function compute metric for array of objects from metric on couple of objects.&quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">([</span><span class="n">metric</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">yi</span><span class="p">)</span> <span class="k">for</span> <span class="n">xi</span><span class="p">,</span> <span class="n">yi</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="soft_weighted_dice_score"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.metrics.soft_weighted_dice_score">[docs]</a><span class="k">def</span> <span class="nf">soft_weighted_dice_score</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">empty_val</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Realization of dice metric proposed in https://arxiv.org/pdf/1707.01992.pdf</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    a: ndarray</span>
-<span class="sd">        Predicted probability maps</span>
-<span class="sd">    b: ndarray of np.bool</span>
-<span class="sd">        Ground truth</span>
-<span class="sd">    empty_val: int, optional</span>
-<span class="sd">        Default value, which is returned if the dice score</span>
-<span class="sd">        is undefined (i.e. division by zero).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">assert</span> <span class="n">b</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">bool</span>
-    <span class="k">assert</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">b</span><span class="o">.</span><span class="n">shape</span>
-
-    <span class="n">swds</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">num_classes</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-    <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-        <span class="n">num</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span>
-        <span class="n">den</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
-
-        <span class="n">swds</span> <span class="o">+=</span> <span class="n">empty_val</span> <span class="k">if</span> <span class="n">den</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">num</span> <span class="o">/</span> <span class="n">den</span>
-
-    <span class="n">swds</span> <span class="o">=</span> <span class="n">swds</span> <span class="o">/</span> <span class="n">num_classes</span>
-    <span class="k">return</span> <span class="n">swds</span></div>
 
 
 <div class="viewcode-block" id="dice_score"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.metrics.dice_score">[docs]</a><span class="k">def</span> <span class="nf">dice_score</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">empty_val</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
@@ -234,90 +197,9 @@
 <span class="sd">    -------</span>
 <span class="sd">    dice_score: [float]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">),</span> <span class="n">f</span><span class="s1">&#39;number of channels is different: {len(a)} != {len(b)}&#39;</span>
     <span class="n">dices</span> <span class="o">=</span> <span class="p">[</span><span class="n">dice_score</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">empty_val</span><span class="o">=</span><span class="n">empty_val</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)]</span>
     <span class="k">return</span> <span class="n">dices</span></div>
-
-
-<div class="viewcode-block" id="dice_scores"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.metrics.dice_scores">[docs]</a><span class="k">def</span> <span class="nf">dice_scores</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">empty_val</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Channelwise dice score between arrays of binary masks.</span>
-<span class="sd">    The first dimension of the tensors is assumed to be the channels.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    x, y : binary tensor</span>
-<span class="sd">    empty_val: float, optional</span>
-<span class="sd">        Default value, which is returned if the dice score</span>
-<span class="sd">        is undefined (i.e. division by zero).</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    dice_scores: [[float]]</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">array_metric</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="n">multichannel_dice_score</span><span class="p">,</span> <span class="n">empty_val</span><span class="o">=</span><span class="n">empty_val</span><span class="p">))</span></div>
-
-
-<div class="viewcode-block" id="check_neighborhood"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.metrics.check_neighborhood">[docs]</a><span class="k">def</span> <span class="nf">check_neighborhood</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">voxel_index</span><span class="p">,</span> <span class="n">interested_value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">y</span><span class="p">[</span><span class="n">voxel_index</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">return</span> <span class="kc">False</span>
-    <span class="n">voxel_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">voxel_index</span><span class="p">)</span>
-    <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">ndim</span>
-
-    <span class="k">for</span> <span class="n">delta</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="n">n</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">delta</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">continue</span>
-        <span class="k">if</span> <span class="n">y</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">voxel_index</span> <span class="o">+</span> <span class="n">delta</span><span class="p">)]</span> <span class="o">==</span> <span class="n">interested_value</span><span class="p">:</span>
-            <span class="k">return</span> <span class="kc">True</span>
-
-    <span class="k">return</span> <span class="kc">False</span></div>
-
-
-<div class="viewcode-block" id="get_next_bound"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.metrics.get_next_bound">[docs]</a><span class="k">def</span> <span class="nf">get_next_bound</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">bound_indexes</span><span class="p">,</span> <span class="n">next_bound_value</span><span class="p">,</span> <span class="n">default_value</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="n">new_bound</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-    <span class="n">n</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">ndim</span>
-
-    <span class="k">for</span> <span class="n">bv</span> <span class="ow">in</span> <span class="n">bound_indexes</span><span class="p">:</span>
-        <span class="k">for</span> <span class="n">delta</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="n">n</span><span class="p">):</span>
-            <span class="k">if</span> <span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">delta</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="k">continue</span>
-            <span class="k">if</span> <span class="n">y</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">bv</span> <span class="o">+</span> <span class="n">delta</span><span class="p">)]</span> <span class="o">==</span> <span class="n">default_value</span><span class="p">:</span>
-                <span class="n">y</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">bv</span> <span class="o">+</span> <span class="n">delta</span><span class="p">)]</span> <span class="o">=</span> <span class="n">next_bound_value</span>
-                <span class="n">new_bound</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bv</span> <span class="o">+</span> <span class="n">delta</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">new_bound</span></div>
-
-
-<div class="viewcode-block" id="get_weighted_mask"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.metrics.get_weighted_mask">[docs]</a><span class="k">def</span> <span class="nf">get_weighted_mask</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">thickness</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    y: ndarray of type np.bool</span>
-<span class="sd">        Binary mask (all dimensions must be spatial)</span>
-<span class="sd">    thickness: int</span>
-<span class="sd">        The thickness of the boundary</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">assert</span> <span class="n">y</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">bool</span>
-
-    <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
-    <span class="n">bound_weight</span> <span class="o">=</span> <span class="n">thickness</span>
-    <span class="n">bw</span> <span class="o">=</span> <span class="n">bound_weight</span> <span class="o">+</span> <span class="mi">1</span>
-    <span class="n">bound_indexes</span> <span class="o">=</span> <span class="p">[]</span>
-
-    <span class="c1">#   firstly let&#39;s find the first bound</span>
-    <span class="c1">#   bound arrays must contain np.arrays, not tuples</span>
-    <span class="k">for</span> <span class="n">voxel_index</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">ndindex</span><span class="p">(</span><span class="o">*</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">check_neighborhood</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">voxel_index</span><span class="p">,</span> <span class="n">interested_value</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-            <span class="n">y</span><span class="p">[</span><span class="n">voxel_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">bw</span>
-            <span class="n">bound_indexes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">voxel_index</span><span class="p">))</span>
-
-            <span class="c1">#   other bounds</span>
-    <span class="k">for</span> <span class="n">bw</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">bound_weight</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-        <span class="n">bound_indexes</span> <span class="o">=</span> <span class="n">get_next_bound</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">bound_indexes</span><span class="p">,</span> <span class="n">bw</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">y</span></div>
 
 
 <div class="viewcode-block" id="hausdorff"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.metrics.hausdorff">[docs]</a><span class="k">def</span> <span class="nf">hausdorff</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">weights</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
@@ -387,6 +269,25 @@
         <span class="n">dices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
     <span class="n">dices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">dices</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">dices</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="aggregate_metric"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.metrics.aggregate_metric">[docs]</a><span class="k">def</span> <span class="nf">aggregate_metric</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">,</span> <span class="n">metric</span><span class="p">,</span> <span class="n">aggregate_fn</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Compute metric for array of objects from metric on couple of objects.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">aggregate_fn</span><span class="p">([</span><span class="n">metric</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">xs</span><span class="p">,</span> <span class="n">ys</span><span class="p">)])</span></div>
+
+
+<div class="viewcode-block" id="compute_dices_from_segm_prob"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.metrics.compute_dices_from_segm_prob">[docs]</a><span class="k">def</span> <span class="nf">compute_dices_from_segm_prob</span><span class="p">(</span><span class="n">segm_true</span><span class="p">,</span> <span class="n">segm_prob</span><span class="p">,</span> <span class="n">segm2msegm</span><span class="p">,</span> <span class="n">empty_val</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Channelwise dice score between msegms for predicted segmentation and true segmentation.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">multichannel_dice_score</span><span class="p">(</span><span class="n">segm2msegm</span><span class="p">(</span><span class="n">segm_true</span><span class="p">),</span> <span class="n">segm2msegm</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">segm_prob</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)),</span> <span class="n">empty_val</span><span class="o">=</span><span class="n">empty_val</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="compute_dices_from_msegm_prob"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.metrics.compute_dices_from_msegm_prob">[docs]</a><span class="k">def</span> <span class="nf">compute_dices_from_msegm_prob</span><span class="p">(</span><span class="n">msegm_true</span><span class="p">,</span> <span class="n">msegm_prob</span><span class="p">,</span> <span class="n">empty_val</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Channelwise dice score between msegms for predicted msegm and true msegm.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">multichannel_dice_score</span><span class="p">(</span><span class="n">msegm_true</span><span class="p">,</span> <span class="n">msegm_prob</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">empty_val</span><span class="o">=</span><span class="n">empty_val</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

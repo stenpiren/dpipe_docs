@@ -181,24 +181,6 @@
 <span class="sd">     mask.&quot;&quot;&quot;</span>
     <span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span> <span class="o">+</span> <span class="n">get_slice</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">s</span><span class="p">])</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">arrays</span><span class="p">]</span></div>
-
-
-<div class="viewcode-block" id="extract_fixed"><a class="viewcode-back" href="../../../dpipe.medim.html#dpipe.medim.bounding_box.extract_fixed">[docs]</a><span class="k">def</span> <span class="nf">extract_fixed</span><span class="p">(</span><span class="o">*</span><span class="n">arrays</span><span class="p">,</span> <span class="n">mask</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">,</span> <span class="n">size</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Extract bounding boxes of size=size from the last dims of all arrays</span>
-<span class="sd">    according to the mask.&quot;&quot;&quot;</span>
-    <span class="n">size</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
-    <span class="n">limits</span> <span class="o">=</span> <span class="n">get_idx</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
-
-    <span class="n">s</span> <span class="o">=</span> <span class="n">limits</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">limits</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
-
-    <span class="n">dif</span> <span class="o">=</span> <span class="n">size</span> <span class="o">-</span> <span class="n">s</span>
-    <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">dif</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">limits</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">limits</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">dif</span>
-    <span class="n">limits</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">limits</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="o">-</span><span class="n">limits</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">limits</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">limits</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
-
-    <span class="n">slices</span> <span class="o">=</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">limits</span><span class="p">]</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">slices</span><span class="p">])</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">arrays</span><span class="p">]</span></div>
 </pre></div>
 
            </div>

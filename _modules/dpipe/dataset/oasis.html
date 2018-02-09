@@ -153,11 +153,9 @@
             
   <h1>Source code for dpipe.dataset.oasis</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">.from_csv</span> <span class="k">import</span> <span class="n">FromCSVInt</span>
-<span class="kn">from</span> <span class="nn">dpipe.config</span> <span class="k">import</span> <span class="n">register</span>
+<span class="kn">from</span> <span class="nn">.segmentation</span> <span class="k">import</span> <span class="n">FromCSVInt</span>
 
 
-<span class="nd">@register</span><span class="p">(</span><span class="s1">&#39;oasis&#39;</span><span class="p">)</span>
 <div class="viewcode-block" id="Oasis"><a class="viewcode-back" href="../../../dpipe.dataset.html#dpipe.dataset.oasis.Oasis">[docs]</a><span class="k">class</span> <span class="nc">Oasis</span><span class="p">(</span><span class="n">FromCSVInt</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data_path</span><span class="p">,</span> <span class="n">metadata_rpath</span><span class="o">=</span><span class="s1">&#39;metadata.csv&#39;</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
@@ -176,7 +174,7 @@
 
 <div class="viewcode-block" id="Oasis.load_image"><a class="viewcode-back" href="../../../dpipe.dataset.html#dpipe.dataset.oasis.Oasis.load_image">[docs]</a>    <span class="k">def</span> <span class="nf">load_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">patient_id</span><span class="p">):</span>
         <span class="n">mscan</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="n">patient_id</span><span class="p">)</span>
-        <span class="k">assert</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mscan</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mscan</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
         <span class="n">scan</span> <span class="o">=</span> <span class="n">mscan</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">scan</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">scan</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
         <span class="c1"># Though resizing happens in place, for some reason resizing mscan[0], it&#39;s shape claims that it is unchanged.</span>

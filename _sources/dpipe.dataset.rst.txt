@@ -12,7 +12,15 @@ Interfaces
 CSV-wrappers
 ------------
 
-.. automodule:: dpipe.dataset.from_csv
+.. automodule:: dpipe.dataset.csv
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Datasets for segmentation
+-------------------------
+.. automodule:: dpipe.dataset.segmentation
     :members:
     :undoc-members:
     :show-inheritance:

@@ -93,10 +93,10 @@
 <li class="toctree-l2 current"><a class="reference internal" href="dpipe.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="dpipe.batch_iter.html">Batch iterators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.batch_predict.html">Batch predictors</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dpipe.config.html">dpipe.config package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.dataset.html">Datasets</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.experiment.html">dpipe.experiment package</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Medim</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.medim.augmentation">dpipe.medim.augmentation module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.medim.bounding_box">dpipe.medim.bounding_box module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-dpipe.medim.coregister">dpipe.medim.coregister module</a></li>
@@ -112,7 +112,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.model_core.html">Model Core</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dpipe.split.html">dpipe.split package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.split.html">Split</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.tf.html">dpipe.tf package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.torch.html">dpipe.torch package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.train.html">Training</a></li>
@@ -122,7 +122,6 @@
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.io">Input/Output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.model">NN model interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.transformers">dpipe.transformers module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.batch_iter_factory">dpipe.batch_iter_factory module</a></li>
 </ul>
 </li>
 </ul>
@@ -192,7 +191,9 @@
             
   <div class="section" id="medim">
 <h1>Medim<a class="headerlink" href="#medim" title="Permalink to this headline">¶</a></h1>
-<p>This module contains utils for medical imaging pipelines.</p>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
 <div class="section" id="module-dpipe.medim.augmentation">
 <span id="dpipe-medim-augmentation-module"></span><h2>dpipe.medim.augmentation module<a class="headerlink" href="#module-dpipe.medim.augmentation" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
@@ -229,13 +230,6 @@
 <code class="descclassname">dpipe.medim.bounding_box.</code><code class="descname">extract</code><span class="sig-paren">(</span><em>arrays</em>, <em>mask: numpy.ndarray</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/bounding_box.html#extract"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.bounding_box.extract" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract bounding boxes from the last dims of all arrays according to the
 mask.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="dpipe.medim.bounding_box.extract_fixed">
-<code class="descclassname">dpipe.medim.bounding_box.</code><code class="descname">extract_fixed</code><span class="sig-paren">(</span><em>*arrays</em>, <em>mask: &lt;built-in function array&gt;</em>, <em>size</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/bounding_box.html#extract_fixed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.bounding_box.extract_fixed" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extract bounding boxes of size=size from the last dims of all arrays
-according to the mask.</p>
 </dd></dl>
 
 <dl class="function">
@@ -338,6 +332,30 @@ values from padding_values, which has to be broadcastable to x shape.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="dpipe.medim.divide.divide_grid_patch">
+<code class="descclassname">dpipe.medim.divide.</code><code class="descname">divide_grid_patch</code><span class="sig-paren">(</span><em>x</em>, <em>patch_size</em>, <em>spatial_dims=None</em>, <em>stride=None</em>, <em>padding=0</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="_modules/dpipe/medim/divide.html#divide_grid_patch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.divide.divide_grid_patch" title="Permalink to this definition">¶</a></dt>
+<dd><p>A convolution-like approach to generating patches from a tensor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>np.array</em>) &#8211; the input tensor</li>
+<li><strong>patch_size</strong> &#8211; </li>
+<li><strong>spatial_dims</strong> &#8211; dimensions along which the slices will be taken</li>
+<li><strong>stride</strong> &#8211; the stride (step-size) of the slice</li>
+<li><strong>padding</strong> &#8211; padding sizes of the input tensor</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Yields:</th><td class="field-body"><p class="first last"><strong>x_patch</strong> (<em>np.ndarray</em>) &#8211; patches from the input tensor</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="dpipe.medim.divide.divide_no_padding">
 <code class="descclassname">dpipe.medim.divide.</code><code class="descname">divide_no_padding</code><span class="sig-paren">(</span><em>x: numpy.ndarray</em>, <em>patch_size</em>, <em>intersection_size</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/divide.html#divide_no_padding"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.divide.divide_no_padding" title="Permalink to this definition">¶</a></dt>
 <dd><p>Divides padded x (should be padded beforehand) into multiple patches of
@@ -348,6 +366,30 @@ patch_size shape with intersections of size intersection_size.</p>
 <dt id="dpipe.medim.divide.divide_spatial">
 <code class="descclassname">dpipe.medim.divide.</code><code class="descname">divide_spatial</code><span class="sig-paren">(</span><em>x: numpy.ndarray</em>, <em>*</em>, <em>spatial_patch_size</em>, <em>spatial_intersection_size</em>, <em>padding_values=None</em>, <em>spatial_dims: list</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/divide.html#divide_spatial"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.divide.divide_spatial" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="function">
+<dt id="dpipe.medim.divide.get_grid_patch_start_stop">
+<code class="descclassname">dpipe.medim.divide.</code><code class="descname">get_grid_patch_start_stop</code><span class="sig-paren">(</span><em>shape</em>, <em>kernel_size</em>, <em>spatial_dims=None</em>, <em>stride=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/divide.html#get_grid_patch_start_stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.divide.get_grid_patch_start_stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>A convolution-like approach to generating slices from a tensor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>shape</strong> &#8211; the input tensor&#8217;s shape</li>
+<li><strong>kernel_size</strong> &#8211; </li>
+<li><strong>spatial_dims</strong> &#8211; dimensions along which the slices will be taken</li>
+<li><strong>stride</strong> &#8211; the stride (step-size) of the slice. If None, the stride is assumed
+to be equal to kernel_size.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Yields:</th><td class="field-body"><p class="first last"><strong>start,stop</strong> (<em>tuple</em>) &#8211; coordinates of a slice&#8217;s start and stop</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </div>
 <div class="section" id="module-dpipe.medim.features">
@@ -361,9 +403,9 @@ patch_size shape with intersections of size intersection_size.</p>
 <div class="section" id="module-dpipe.medim.metrics">
 <span id="dpipe-medim-metrics-module"></span><h2>dpipe.medim.metrics module<a class="headerlink" href="#module-dpipe.medim.metrics" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="dpipe.medim.metrics.array_metric">
-<code class="descclassname">dpipe.medim.metrics.</code><code class="descname">array_metric</code><span class="sig-paren">(</span><em>metric</em>, <em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/metrics.html#array_metric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.metrics.array_metric" title="Permalink to this definition">¶</a></dt>
-<dd><p>General function compute metric for array of objects from metric on couple of objects.</p>
+<dt id="dpipe.medim.metrics.aggregate_metric">
+<code class="descclassname">dpipe.medim.metrics.</code><code class="descname">aggregate_metric</code><span class="sig-paren">(</span><em>xs</em>, <em>ys</em>, <em>metric</em>, <em>aggregate_fn=&lt;function mean&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/metrics.html#aggregate_metric"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.metrics.aggregate_metric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute metric for array of objects from metric on couple of objects.</p>
 </dd></dl>
 
 <dl class="function">
@@ -392,9 +434,16 @@ The threshold is selected to maximize the mean dice.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="dpipe.medim.metrics.check_neighborhood">
-<code class="descclassname">dpipe.medim.metrics.</code><code class="descname">check_neighborhood</code><span class="sig-paren">(</span><em>y</em>, <em>voxel_index</em>, <em>interested_value: int</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/metrics.html#check_neighborhood"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.metrics.check_neighborhood" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="dpipe.medim.metrics.compute_dices_from_msegm_prob">
+<code class="descclassname">dpipe.medim.metrics.</code><code class="descname">compute_dices_from_msegm_prob</code><span class="sig-paren">(</span><em>msegm_true</em>, <em>msegm_prob</em>, <em>empty_val: float = 1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/metrics.html#compute_dices_from_msegm_prob"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.metrics.compute_dices_from_msegm_prob" title="Permalink to this definition">¶</a></dt>
+<dd><p>Channelwise dice score between msegms for predicted msegm and true msegm.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="dpipe.medim.metrics.compute_dices_from_segm_prob">
+<code class="descclassname">dpipe.medim.metrics.</code><code class="descname">compute_dices_from_segm_prob</code><span class="sig-paren">(</span><em>segm_true</em>, <em>segm_prob</em>, <em>segm2msegm</em>, <em>empty_val: float = 1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/metrics.html#compute_dices_from_segm_prob"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.metrics.compute_dices_from_segm_prob" title="Permalink to this definition">¶</a></dt>
+<dd><p>Channelwise dice score between msegms for predicted segmentation and true segmentation.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="dpipe.medim.metrics.dice_score">
@@ -415,54 +464,6 @@ is undefined (i.e. division by zero).</li>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">float</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="dpipe.medim.metrics.dice_scores">
-<code class="descclassname">dpipe.medim.metrics.</code><code class="descname">dice_scores</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>empty_val: float = 1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/metrics.html#dice_scores"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.metrics.dice_scores" title="Permalink to this definition">¶</a></dt>
-<dd><p>Channelwise dice score between arrays of binary masks.
-The first dimension of the tensors is assumed to be the channels.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>y</strong> (<em>x</em><em>,</em>) &#8211; </li>
-<li><strong>empty_val</strong> (<em>float</em><em>, </em><em>optional</em>) &#8211; Default value, which is returned if the dice score
-is undefined (i.e. division by zero).</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>dice_scores</strong></p>
-</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">[[float]]</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="dpipe.medim.metrics.get_next_bound">
-<code class="descclassname">dpipe.medim.metrics.</code><code class="descname">get_next_bound</code><span class="sig-paren">(</span><em>y</em>, <em>bound_indexes</em>, <em>next_bound_value</em>, <em>default_value=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/metrics.html#get_next_bound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.metrics.get_next_bound" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="dpipe.medim.metrics.get_weighted_mask">
-<code class="descclassname">dpipe.medim.metrics.</code><code class="descname">get_weighted_mask</code><span class="sig-paren">(</span><em>y</em>, <em>thickness=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/metrics.html#get_weighted_mask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.metrics.get_weighted_mask" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>y</strong> (<em>ndarray of type np.bool</em>) &#8211; Binary mask (all dimensions must be spatial)</li>
-<li><strong>thickness</strong> (<em>int</em>) &#8211; The thickness of the boundary</li>
-</ul>
 </td>
 </tr>
 </tbody>
@@ -527,26 +528,6 @@ is undefined (i.e. division by zero).</li>
 </table>
 </dd></dl>
 
-<dl class="function">
-<dt id="dpipe.medim.metrics.soft_weighted_dice_score">
-<code class="descclassname">dpipe.medim.metrics.</code><code class="descname">soft_weighted_dice_score</code><span class="sig-paren">(</span><em>a</em>, <em>b</em>, <em>empty_val: float = 1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/metrics.html#soft_weighted_dice_score"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.metrics.soft_weighted_dice_score" title="Permalink to this definition">¶</a></dt>
-<dd><p>Realization of dice metric proposed in <a class="reference external" href="https://arxiv.org/pdf/1707.01992.pdf">https://arxiv.org/pdf/1707.01992.pdf</a></p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>a</strong> (<em>ndarray</em>) &#8211; Predicted probability maps</li>
-<li><strong>b</strong> (<em>ndarray of np.bool</em>) &#8211; Ground truth</li>
-<li><strong>empty_val</strong> (<em>int</em><em>, </em><em>optional</em>) &#8211; Default value, which is returned if the dice score
-is undefined (i.e. division by zero).</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 </div>
 <div class="section" id="module-dpipe.medim.patch">
 <span id="dpipe-medim-patch-module"></span><h2>dpipe.medim.patch module<a class="headerlink" href="#module-dpipe.medim.patch" title="Permalink to this headline">¶</a></h2>
@@ -597,28 +578,19 @@ belong to spatial_mask and spatial voxel mask is activated.</p>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="dpipe.medim.patch.patch_conv">
-<code class="descclassname">dpipe.medim.patch.</code><code class="descname">patch_conv</code><span class="sig-paren">(</span><em>x</em>, <em>patch_size</em>, <em>spatial_dims=None</em>, <em>stride=None</em>, <em>padding=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/patch.html#patch_conv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.patch.patch_conv" title="Permalink to this definition">¶</a></dt>
-<dd><p>A convolution-like approach to generating patches from a tensor.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>x</strong> (<em>np.array</em>) &#8211; the input tensor</li>
-<li><strong>patch_size</strong> &#8211; </li>
-<li><strong>spatial_dims</strong> &#8211; dimensions along which the slices will be taken</li>
-<li><strong>stride</strong> &#8211; the stride (step-size) of the slice</li>
-<li><strong>padding</strong> &#8211; padding sizes of the input tensor</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Yields:</th><td class="field-body"><p class="first last"><strong>x_patch</strong> (<em>np.array</em>) &#8211; patches from the input tensor</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
+<dt id="dpipe.medim.patch.get_random_patch">
+<code class="descclassname">dpipe.medim.patch.</code><code class="descname">get_random_patch</code><span class="sig-paren">(</span><em>x: numpy.ndarray</em>, <em>patch_size</em>, <em>spatial_dims=None</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="_modules/dpipe/medim/patch.html#get_random_patch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.patch.get_random_patch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dpipe.medim.patch.get_random_patch_start_stop">
+<code class="descclassname">dpipe.medim.patch.</code><code class="descname">get_random_patch_start_stop</code><span class="sig-paren">(</span><em>shape</em>, <em>patch_size</em>, <em>spatial_dims=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/patch.html#get_random_patch_start_stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.patch.get_random_patch_start_stop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dpipe.medim.patch.pad">
+<code class="descclassname">dpipe.medim.patch.</code><code class="descname">pad</code><span class="sig-paren">(</span><em>x</em>, <em>padding</em>, <em>padding_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/patch.html#pad"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.patch.pad" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="function">
 <dt id="dpipe.medim.patch.sample_uniform_center_index">
@@ -644,58 +616,13 @@ is shifted to the right.</p>
 </table>
 </dd></dl>
 
-<dl class="function">
-<dt id="dpipe.medim.patch.shape_after_convolution">
-<code class="descclassname">dpipe.medim.patch.</code><code class="descname">shape_after_convolution</code><span class="sig-paren">(</span><em>shape</em>, <em>kernel_size</em>, <em>padding=0</em>, <em>stride=1</em>, <em>dilation=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/patch.html#shape_after_convolution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.patch.shape_after_convolution" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the shape of a tensor after applying a the convolution with
-corresponding parameters.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>shape</strong> &#8211; input shape</li>
-<li><strong>kernel_size</strong> &#8211; convolution kernel size</li>
-<li><strong>padding</strong> &#8211; padding sizes</li>
-<li><strong>stride</strong> &#8211; stride of the convolution</li>
-<li><strong>dilation</strong> &#8211; dilation of the convolution kernel</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="dpipe.medim.patch.slices_conv">
-<code class="descclassname">dpipe.medim.patch.</code><code class="descname">slices_conv</code><span class="sig-paren">(</span><em>shape</em>, <em>kernel_size</em>, <em>spatial_dims=None</em>, <em>stride=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/patch.html#slices_conv"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.patch.slices_conv" title="Permalink to this definition">¶</a></dt>
-<dd><p>A convolution-like approach to generating slices from a tensor.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>shape</strong> &#8211; the input tensor&#8217;s shape</li>
-<li><strong>kernel_size</strong> &#8211; </li>
-<li><strong>spatial_dims</strong> &#8211; dimensions along which the slices will be taken</li>
-<li><strong>stride</strong> &#8211; the stride (step-size) of the slice</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Yields:</th><td class="field-body"><p class="first last"><strong>start,stop</strong> (<em>np.array</em>) &#8211; coordinates of a slice&#8217;s start and stop</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
 </div>
 <div class="section" id="module-dpipe.medim.preprocessing">
 <span id="dpipe-medim-preprocessing-module"></span><h2>dpipe.medim.preprocessing module<a class="headerlink" href="#module-dpipe.medim.preprocessing" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="dpipe.medim.preprocessing.normalize_mscan">
 <code class="descclassname">dpipe.medim.preprocessing.</code><code class="descname">normalize_mscan</code><span class="sig-paren">(</span><em>mscan</em>, <em>mean=True</em>, <em>std=True</em>, <em>drop_percentile: int = None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/preprocessing.html#normalize_mscan"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.preprocessing.normalize_mscan" title="Permalink to this definition">¶</a></dt>
-<dd><p>Normalize mscan to make mean and std equal to (0, 1) if stated.
+<dd><p>Normalize multimodal scan (each modality independently) to make mean and std equal to (0, 1) if stated.
 Supports robust estimation with drop_percentile.</p>
 </dd></dl>
 
@@ -707,25 +634,53 @@ Supports robust estimation with drop_percentile.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="dpipe.medim.preprocessing.pad">
-<code class="descclassname">dpipe.medim.preprocessing.</code><code class="descname">pad</code><span class="sig-paren">(</span><em>image: &lt;built-in function array&gt;</em>, <em>spacial_shape: typing.Sequence</em>, <em>axes: typing.Sequence = None</em><span class="sig-paren">)</span> &#x2192; &lt;built-in function array&gt;<a class="reference internal" href="_modules/dpipe/medim/preprocessing.html#pad"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.preprocessing.pad" title="Permalink to this definition">¶</a></dt>
-<dd><p>Pad image to <cite>spacial_shape</cite> along the <cite>axes</cite>.</p>
+<dt id="dpipe.medim.preprocessing.pad_to_shape">
+<code class="descclassname">dpipe.medim.preprocessing.</code><code class="descname">pad_to_shape</code><span class="sig-paren">(</span><em>x: &lt;built-in function array&gt;</em>, <em>spatial_shape: typing.Sequence</em>, <em>axes: typing.Sequence = None</em>, <em>strict: bool = True</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="_modules/dpipe/medim/preprocessing.html#pad_to_shape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.preprocessing.pad_to_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pad a tensor to <cite>spacial_shape</cite> along the <cite>axes</cite>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>image</strong> (<em>np.array</em>) &#8211; image to pad</li>
-<li><strong>spacial_shape</strong> (<em>Sequence</em>) &#8211; final image shape</li>
+<li><strong>x</strong> (<em>np.array</em>) &#8211; tensor to pad</li>
+<li><strong>spatial_shape</strong> (<em>Sequence</em>) &#8211; final image shape</li>
 <li><strong>axes</strong> (<em>Sequence</em><em>, </em><em>optional</em>) &#8211; axes along which the image will be padded.
 If None - the last <cite>len(spacial_shape)</cite> axes are used.</li>
+<li><strong>strict</strong> (<em>bool</em><em>, </em><em>optional</em>) &#8211; If True, the output shape cannot be smaller than the input shape.</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>padded_image</strong></p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>padded_tensor</strong></p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">np.array</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">np.ndarray</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="dpipe.medim.preprocessing.rotate_image">
+<code class="descclassname">dpipe.medim.preprocessing.</code><code class="descname">rotate_image</code><span class="sig-paren">(</span><em>image: numpy.ndarray</em>, <em>angles: typing.Sequence</em>, <em>axes: typing.Sequence = None</em>, <em>order: int = 1</em>, <em>reshape=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/preprocessing.html#rotate_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.preprocessing.rotate_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rotate an image along the given axes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>image</strong> (<em>np.ndarray</em>) &#8211; image to rotate</li>
+<li><strong>angles</strong> (<em>Sequence</em>) &#8211; </li>
+<li><strong>axes</strong> (<em>Sequence</em>) &#8211; axes along which the image will be rotated. The length must be equal to len(angles) + 1</li>
+<li><strong>order</strong> (<em>int</em><em>, </em><em>optional</em>) &#8211; interpolation order</li>
+<li><strong>reshape</strong> (<em>bool</em><em>, </em><em>optional</em>) &#8211; whether to reshape the resulting image</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>rotated_image</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">np.ndarray</p>
 </td>
 </tr>
 </tbody>
@@ -734,7 +689,7 @@ If None - the last <cite>len(spacial_shape)</cite> axes are used.</li>
 
 <dl class="function">
 <dt id="dpipe.medim.preprocessing.scale">
-<code class="descclassname">dpipe.medim.preprocessing.</code><code class="descname">scale</code><span class="sig-paren">(</span><em>image: &lt;built-in function array&gt;</em>, <em>spacial_shape: list</em>, <em>order: int = 3</em>, <em>axes: list = None</em><span class="sig-paren">)</span> &#x2192; &lt;built-in function array&gt;<a class="reference internal" href="_modules/dpipe/medim/preprocessing.html#scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.preprocessing.scale" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dpipe.medim.preprocessing.</code><code class="descname">scale</code><span class="sig-paren">(</span><em>image: &lt;built-in function array&gt;</em>, <em>spatial_shape: list</em>, <em>order: int = 3</em>, <em>axes: list = None</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="_modules/dpipe/medim/preprocessing.html#scale"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.preprocessing.scale" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rescale image to <cite>spacial_shape</cite> along the <cite>axes</cite>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -742,7 +697,7 @@ If None - the last <cite>len(spacial_shape)</cite> axes are used.</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>image</strong> (<em>np.array</em>) &#8211; image to rescale</li>
-<li><strong>spacial_shape</strong> (<em>Sequence</em>) &#8211; final image shape</li>
+<li><strong>spatial_shape</strong> (<em>Sequence</em>) &#8211; final image shape</li>
 <li><strong>order</strong> (<em>int</em><em>, </em><em>optional</em>) &#8211; order of interpolation</li>
 <li><strong>axes</strong> (<em>Sequence</em><em>, </em><em>optional</em>) &#8211; axes along which the image will be scaled.
 If None - the last <cite>len(spacial_shape)</cite> axes are used.</li>
@@ -752,7 +707,34 @@ If None - the last <cite>len(spacial_shape)</cite> axes are used.</li>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>reshaped image</strong></p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">np.array</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">np.ndarray</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="dpipe.medim.preprocessing.slice_to_shape">
+<code class="descclassname">dpipe.medim.preprocessing.</code><code class="descname">slice_to_shape</code><span class="sig-paren">(</span><em>x: &lt;built-in function array&gt;</em>, <em>spatial_shape: typing.Sequence</em>, <em>axes: typing.Sequence = None</em>, <em>strict: bool = True</em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="reference internal" href="_modules/dpipe/medim/preprocessing.html#slice_to_shape"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.preprocessing.slice_to_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Slice a tensor to <cite>spacial_shape</cite> along the <cite>axes</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>np.array</em>) &#8211; tensor to pad</li>
+<li><strong>spatial_shape</strong> (<em>Sequence</em>) &#8211; final image shape</li>
+<li><strong>axes</strong> (<em>Sequence</em><em>, </em><em>optional</em>) &#8211; axes along which the image will be padded.
+If None - the last <cite>len(spacial_shape)</cite> axes are used.</li>
+<li><strong>strict</strong> (<em>bool</em><em>, </em><em>optional</em>) &#8211; If True, the output shape cannot be smaller than the input shape.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>tensor_slice</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">np.ndarray</p>
 </td>
 </tr>
 </tbody>
@@ -776,6 +758,34 @@ If None - the last <cite>len(spacial_shape)</cite> axes are used.</li>
 <dt id="dpipe.medim.shape_utils.compute_shape_from_spatial">
 <code class="descclassname">dpipe.medim.shape_utils.</code><code class="descname">compute_shape_from_spatial</code><span class="sig-paren">(</span><em>complete_shape</em>, <em>spatial_shape</em>, <em>spatial_dims</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/shape_utils.html#compute_shape_from_spatial"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.shape_utils.compute_shape_from_spatial" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="function">
+<dt id="dpipe.medim.shape_utils.shape_after_convolution">
+<code class="descclassname">dpipe.medim.shape_utils.</code><code class="descname">shape_after_convolution</code><span class="sig-paren">(</span><em>shape</em>, <em>kernel_size</em>, <em>padding=0</em>, <em>stride=1</em>, <em>dilation=1</em><span class="sig-paren">)</span> &#x2192; tuple<a class="reference internal" href="_modules/dpipe/medim/shape_utils.html#shape_after_convolution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.shape_utils.shape_after_convolution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the shape of a tensor after applying a the convolution with
+corresponding parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>shape</strong> &#8211; input shape</li>
+<li><strong>kernel_size</strong> &#8211; convolution kernel size</li>
+<li><strong>padding</strong> &#8211; padding sizes</li>
+<li><strong>stride</strong> &#8211; stride of the convolution</li>
+<li><strong>dilation</strong> &#8211; dilation of the convolution kernel</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>output_shape</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </div>
 <div class="section" id="module-dpipe.medim.slices">
@@ -811,20 +821,20 @@ slices: int, List[int], optional</p>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="dpipe.medim.utils.extract">
-<code class="descclassname">dpipe.medim.utils.</code><code class="descname">extract</code><span class="sig-paren">(</span><em>l</em>, <em>idx</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/utils.html#extract"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.utils.extract" title="Permalink to this definition">¶</a></dt>
+<dt id="dpipe.medim.utils.get_axes">
+<code class="descclassname">dpipe.medim.utils.</code><code class="descname">get_axes</code><span class="sig-paren">(</span><em>axes</em>, <em>ndim</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/utils.html#get_axes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.utils.get_axes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="dpipe.medim.utils.load_by_ids">
-<code class="descclassname">dpipe.medim.utils.</code><code class="descname">load_by_ids</code><span class="sig-paren">(</span><em>load_x: &lt;built-in function callable&gt;</em>, <em>load_y: &lt;built-in function callable&gt;</em>, <em>ids: typing.Sequence</em>, <em>shuffle: bool = False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/utils.html#load_by_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.utils.load_by_ids" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">dpipe.medim.utils.</code><code class="descname">load_by_ids</code><span class="sig-paren">(</span><em>*loaders</em>, <em>ids: typing.Sequence</em>, <em>shuffle: bool = False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/utils.html#load_by_ids"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.utils.load_by_ids" title="Permalink to this definition">¶</a></dt>
 <dd><p>Yields pairs of objects given their loaders and ids</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>load_x</strong><strong>,</strong><strong>load_y</strong> (<em>callable</em><em>(</em><em>id</em><em>)</em>) &#8211; Loaders for x and y</li>
+<li><strong>loaders</strong> (<em>List</em><em>[</em><em>callable</em><em>(</em><em>id</em><em>)</em><em>]</em>) &#8211; Loaders for x and y</li>
 <li><strong>ids</strong> (<em>Sequence</em>) &#8211; a sequence of ids to load</li>
 <li><strong>shuffle</strong> (<em>bool</em><em>, </em><em>optional</em>) &#8211; whether to shuffle the ids before yielding</li>
 </ul>
@@ -851,14 +861,40 @@ The following extensions are supported:</p>
 </table>
 </dd></dl>
 
-<dl class="function">
-<dt id="dpipe.medim.utils.pad">
-<code class="descclassname">dpipe.medim.utils.</code><code class="descname">pad</code><span class="sig-paren">(</span><em>x</em>, <em>padding</em>, <em>padding_values</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/utils.html#pad"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.utils.pad" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </div>
 <div class="section" id="module-dpipe.medim.visualize">
 <span id="dpipe-medim-visualize-module"></span><h2>dpipe.medim.visualize module<a class="headerlink" href="#module-dpipe.medim.visualize" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="dpipe.medim.visualize.gray_image_bright_colored_mask">
+<code class="descclassname">dpipe.medim.visualize.</code><code class="descname">gray_image_bright_colored_mask</code><span class="sig-paren">(</span><em>gray_image</em>, <em>mask</em>, <em>hue</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/visualize.html#gray_image_bright_colored_mask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.visualize.gray_image_bright_colored_mask" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates gray image with colored mask. Changes mask intensities,
+so dark areas on gray image will be easy to see after colorization.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="dpipe.medim.visualize.gray_image_colored_mask">
+<code class="descclassname">dpipe.medim.visualize.</code><code class="descname">gray_image_colored_mask</code><span class="sig-paren">(</span><em>gray_image</em>, <em>mask</em>, <em>hue</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/visualize.html#gray_image_colored_mask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.visualize.gray_image_colored_mask" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates gray image with colored mask. Keeps intensities intact,
+so dark areas on gray image will be hard to see even after colorization.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="dpipe.medim.visualize.hsv_image">
+<code class="descclassname">dpipe.medim.visualize.</code><code class="descname">hsv_image</code><span class="sig-paren">(</span><em>hue</em>, <em>saturation</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/visualize.html#hsv_image"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.visualize.hsv_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates image in HSV format from HSV data.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="dpipe.medim.visualize.rgb_from_hsv_data">
+<code class="descclassname">dpipe.medim.visualize.</code><code class="descname">rgb_from_hsv_data</code><span class="sig-paren">(</span><em>hue</em>, <em>saturation</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/visualize.html#rgb_from_hsv_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.visualize.rgb_from_hsv_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates image in RGB format from HSV data.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="dpipe.medim.visualize.segmentation_probabilities">
+<code class="descclassname">dpipe.medim.visualize.</code><code class="descname">segmentation_probabilities</code><span class="sig-paren">(</span><em>image</em>, <em>probabilities</em>, <em>hue</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/visualize.html#segmentation_probabilities"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.visualize.segmentation_probabilities" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="function">
 <dt id="dpipe.medim.visualize.slice3d">
 <code class="descclassname">dpipe.medim.visualize.</code><code class="descname">slice3d</code><span class="sig-paren">(</span><em>*data</em>, <em>axis: int = -1</em>, <em>fig_size: int = 5</em>, <em>max_columns: int = None</em>, <em>colorbar: bool = False</em>, <em>cmap: str = None</em>, <em>vlim=(None</em>, <em>None)</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/medim/visualize.html#slice3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.medim.visualize.slice3d" title="Permalink to this definition">¶</a></dt>
@@ -874,7 +910,7 @@ axis for all the passed images.</p>
 <li><strong>fig_size</strong> (<em>the size of the image of a single slice</em>) &#8211; </li>
 <li><strong>max_columns</strong> (<em>the maximal number of figures in a row.</em>) &#8211; None - all figures will be in the same row.</li>
 <li><strong>colorbar</strong> (<em>Whether to display a colorbar.</em>) &#8211; </li>
-<li><strong>cmap</strong> (<em>matplotlib cmap</em>) &#8211; </li>
+<li><strong>cmap</strong><strong>,</strong><strong>vlim</strong> (<em>parameters passed to matplotlib.pyplot.imshow</em>) &#8211; </li>
 </ul>
 </td>
 </tr>

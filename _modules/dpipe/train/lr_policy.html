@@ -152,39 +152,59 @@
            <div itemprop="articleBody">
             
   <h1>Source code for dpipe.train.lr_policy</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="k">import</span> <span class="n">partial</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Sequence</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">.lr_base</span> <span class="k">import</span> <span class="n">LearningRate</span>
-<span class="kn">from</span> <span class="nn">.utils</span> <span class="k">import</span> <span class="n">make_find_next_lr</span><span class="p">,</span> <span class="n">make_check_loss_decrease</span>
+<span class="kn">from</span> <span class="nn">.lr_base</span> <span class="k">import</span> <span class="n">LearningRatePolicy</span>
 
 
-<div class="viewcode-block" id="Constant"><a class="viewcode-back" href="../../../dpipe.train.html#dpipe.train.lr_policy.Constant">[docs]</a><span class="k">class</span> <span class="nc">Constant</span><span class="p">(</span><span class="n">LearningRate</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+<div class="viewcode-block" id="Decreasing"><a class="viewcode-back" href="../../../dpipe.train.html#dpipe.train.lr_policy.Decreasing">[docs]</a><span class="k">class</span> <span class="nc">Decreasing</span><span class="p">(</span><span class="n">LearningRatePolicy</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Learning rate policy that traces average train loss or val loss (trace_train or trace_val parameter) and if</span>
+<span class="sd">    it didn&#39;t decrease according to atol or rtol for patience epochs, multiply lr by lr_dec_mul.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Constant.next_lr"><a class="viewcode-back" href="../../../dpipe.train.html#dpipe.train.lr_policy.Constant.next_lr">[docs]</a>    <span class="k">def</span> <span class="nf">next_lr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span></div></div>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">lr_init</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">lr_dec_mul</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">patience</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">trace_train</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">trace_val</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">rtol</span><span class="p">,</span> <span class="n">atol</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">lr_init</span><span class="p">)</span>
+
+        <span class="k">assert</span> <span class="p">(</span><span class="n">trace_train</span> <span class="o">^</span> <span class="n">trace_val</span><span class="p">),</span> <span class="s1">&#39;either trace_train or trace_val should be activated&#39;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">lr_dec_mul</span> <span class="o">=</span> <span class="n">lr_dec_mul</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">patience</span> <span class="o">=</span> <span class="n">patience</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epochs_waited</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">trace_train</span> <span class="o">=</span> <span class="n">trace_train</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_margin_loss</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">loss</span><span class="p">:</span> <span class="nb">max</span><span class="p">([</span><span class="n">loss</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">rtol</span><span class="p">),</span> <span class="n">loss</span> <span class="o">-</span> <span class="n">atol</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">margin_loss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+
+<div class="viewcode-block" id="Decreasing.on_epoch_finished"><a class="viewcode-back" href="../../../dpipe.train.html#dpipe.train.lr_policy.Decreasing.on_epoch_finished">[docs]</a>    <span class="k">def</span> <span class="nf">on_epoch_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">train_losses</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">val_losses</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">train_losses</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">trace_train</span> <span class="k">else</span> <span class="n">val_losses</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">loss</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">margin_loss</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">margin_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_margin_loss</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">epochs_waited</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">epochs_waited</span> <span class="o">+=</span> <span class="mi">1</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">epochs_waited</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">patience</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lr_dec_mul</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">epochs_waited</span> <span class="o">=</span> <span class="mi">0</span></div></div>
 
 
-<div class="viewcode-block" id="Decreasing"><a class="viewcode-back" href="../../../dpipe.train.html#dpipe.train.lr_policy.Decreasing">[docs]</a><span class="k">class</span> <span class="nc">Decreasing</span><span class="p">(</span><span class="n">LearningRate</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lr_init</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">lr_dec_mul</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">patience</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">rtol</span><span class="p">,</span> <span class="n">atol</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+<div class="viewcode-block" id="Exponential"><a class="viewcode-back" href="../../../dpipe.train.html#dpipe.train.lr_policy.Exponential">[docs]</a><span class="k">class</span> <span class="nc">Exponential</span><span class="p">(</span><span class="n">LearningRatePolicy</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial</span><span class="p">,</span> <span class="n">multiplier</span><span class="p">,</span> <span class="n">step_length</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">floordiv</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">initial</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">multiplier</span> <span class="o">=</span> <span class="n">multiplier</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">initial</span> <span class="o">=</span> <span class="n">initial</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">step_length</span> <span class="o">=</span> <span class="n">step_length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">floordiv</span> <span class="o">=</span> <span class="n">floordiv</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">last_lr</span> <span class="o">=</span> <span class="n">lr_init</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">find_next_lr</span> <span class="o">=</span> <span class="n">make_find_next_lr</span><span class="p">(</span><span class="n">lr_init</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">lr</span><span class="p">:</span> <span class="n">lr</span> <span class="o">*</span> <span class="n">lr_dec_mul</span><span class="p">,</span>
-                                              <span class="n">partial</span><span class="p">(</span><span class="n">make_check_loss_decrease</span><span class="p">,</span> <span class="n">patience</span><span class="o">=</span><span class="n">patience</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="n">rtol</span><span class="p">,</span>
-                                                      <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">))</span>
-
-<div class="viewcode-block" id="Decreasing.next_lr"><a class="viewcode-back" href="../../../dpipe.train.html#dpipe.train.lr_policy.Decreasing.next_lr">[docs]</a>    <span class="k">def</span> <span class="nf">next_lr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val_losses</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">epoch</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_lr</span>
-
-        <span class="k">assert</span> <span class="n">val_losses</span><span class="p">,</span> <span class="s1">&#39;This policy requires validation losses&#39;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">last_lr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_next_lr</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">val_losses</span><span class="p">))</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">last_lr</span></div></div>
+<div class="viewcode-block" id="Exponential.on_epoch_finished"><a class="viewcode-back" href="../../../dpipe.train.html#dpipe.train.lr_policy.Exponential.on_epoch_finished">[docs]</a>    <span class="k">def</span> <span class="nf">on_epoch_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">floordiv</span><span class="p">:</span>
+            <span class="n">power</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">epoch</span> <span class="o">//</span> <span class="bp">self</span><span class="o">.</span><span class="n">step_length</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">power</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">epoch</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">step_length</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">initial</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">multiplier</span> <span class="o">**</span> <span class="n">power</span></div></div>
 </pre></div>
 
            </div>

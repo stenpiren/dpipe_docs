@@ -204,7 +204,7 @@
                 <span class="k">pass</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="n">arg</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
 
-    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="ConsoleArguments.__getattr__"><a class="viewcode-back" href="../../dpipe.html#dpipe.io.ConsoleArguments.__getattr__">[docs]</a>    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the console argument with the corresponding name</span>
 
@@ -224,9 +224,9 @@
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Console argument </span><span class="si">{name}</span><span class="s1"> not provided&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">None</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;Console argument </span><span class="si">{name}</span><span class="s1"> not provided&#39;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">None</span></div>
 
-<div class="viewcode-block" id="ConsoleArguments.get"><a class="viewcode-back" href="../../dpipe.html#dpipe.io.ConsoleArguments.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="ConsoleArguments.__call__"><a class="viewcode-back" href="../../dpipe.html#dpipe.io.ConsoleArguments.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get a corresponding console argument, or return `default` if not provided.</span>
 
@@ -240,7 +240,7 @@
 <span class="sd">        --------</span>
 <span class="sd">        &gt;&gt;&gt; console = ConsoleArguments()</span>
 <span class="sd">        &gt;&gt;&gt; # return `data_path` or &#39;/some/default/path&#39;, if not provided</span>
-<span class="sd">        &gt;&gt;&gt; x = console.get(data_path=&#39;/some/default/path&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; x = console(data_path=&#39;/some/default/path&#39;)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;This method takes exactly one argument, &#39;</span>

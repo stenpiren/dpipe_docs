@@ -157,8 +157,8 @@
 <span class="sd">that are usually accessed via the `do.py` script.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">json</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">tqdm</span> <span class="k">import</span> <span class="n">tqdm</span>
@@ -172,7 +172,7 @@
 
 
 <div class="viewcode-block" id="train_model"><a class="viewcode-back" href="../../dpipe.html#dpipe.commands.train_model">[docs]</a><span class="k">def</span> <span class="nf">train_model</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">save_model_path</span><span class="p">,</span> <span class="n">restore_model_path</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">restore_model_path</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">restore_model_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">model</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">restore_model_path</span><span class="p">)</span>
 
     <span class="n">train</span><span class="p">()</span>
@@ -198,14 +198,18 @@
         <span class="k">del</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span></div>
 
 
+<span class="c1"># TODO change signature and possibly, structure</span>
 <div class="viewcode-block" id="evaluate"><a class="viewcode-back" href="../../dpipe.html#dpipe.commands.evaluate">[docs]</a><span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="n">load_y</span><span class="p">,</span> <span class="n">input_path</span><span class="p">,</span> <span class="n">output_path</span><span class="p">,</span> <span class="n">ids</span><span class="p">,</span> <span class="n">metrics</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">metrics</span><span class="p">:</span>
+        <span class="k">return</span>
+
     <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_path</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">load_prediction</span><span class="p">(</span><span class="n">identifier</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_path</span><span class="p">,</span> <span class="n">f</span><span class="s1">&#39;</span><span class="si">{identifier}</span><span class="s1">.npy&#39;</span><span class="p">))</span>
 
     <span class="n">ys</span><span class="p">,</span> <span class="n">predictions</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">y</span><span class="p">,</span> <span class="n">prediction</span> <span class="ow">in</span> <span class="n">load_by_ids</span><span class="p">(</span><span class="n">load_y</span><span class="p">,</span> <span class="n">load_prediction</span><span class="p">,</span> <span class="n">ids</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">y</span><span class="p">,</span> <span class="n">prediction</span> <span class="ow">in</span> <span class="n">load_by_ids</span><span class="p">(</span><span class="n">load_y</span><span class="p">,</span> <span class="n">load_prediction</span><span class="p">,</span> <span class="n">ids</span><span class="o">=</span><span class="n">ids</span><span class="p">):</span>
         <span class="n">ys</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
         <span class="n">predictions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">prediction</span><span class="p">)</span>
 
@@ -213,10 +217,35 @@
 
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">result</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="n">metric</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></div>
 
 
+<div class="viewcode-block" id="evaluate_individual_metrics"><a class="viewcode-back" href="../../dpipe.html#dpipe.commands.evaluate_individual_metrics">[docs]</a><span class="k">def</span> <span class="nf">evaluate_individual_metrics</span><span class="p">(</span><span class="n">load_y_true</span><span class="p">,</span> <span class="n">metrics</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">predictions_path</span><span class="p">,</span> <span class="n">results_path</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">metrics</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;No metric provided&#39;</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">results_path</span><span class="p">)</span>
+
+    <span class="n">results</span> <span class="o">=</span> <span class="p">{</span><span class="n">metric_name</span><span class="p">:</span> <span class="p">{}</span> <span class="k">for</span> <span class="n">metric_name</span> <span class="ow">in</span> <span class="n">metrics</span><span class="p">}</span>
+
+    <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">predictions_path</span><span class="p">))):</span>
+        <span class="n">identifier</span> <span class="o">=</span> <span class="n">filename</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;.npy&#39;</span><span class="p">)</span>
+
+        <span class="n">y_prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">predictions_path</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span>
+        <span class="n">y_true</span> <span class="o">=</span> <span class="n">load_y_true</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">metric_name</span><span class="p">,</span> <span class="n">metric</span> <span class="ow">in</span> <span class="n">metrics</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">results</span><span class="p">[</span><span class="n">metric_name</span><span class="p">][</span><span class="n">identifier</span><span class="p">]</span> <span class="o">=</span> <span class="n">metric</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_prob</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">metric_name</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">results_path</span><span class="p">,</span> <span class="n">metric_name</span> <span class="o">+</span> <span class="s1">&#39;.json&#39;</span><span class="p">),</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
+
+
+<span class="c1"># TODO move to more general function</span>
 <div class="viewcode-block" id="compute_dices"><a class="viewcode-back" href="../../dpipe.html#dpipe.commands.compute_dices">[docs]</a><span class="k">def</span> <span class="nf">compute_dices</span><span class="p">(</span><span class="n">load_msegm</span><span class="p">,</span> <span class="n">predictions_path</span><span class="p">,</span> <span class="n">dices_path</span><span class="p">):</span>
     <span class="n">dices</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">predictions_path</span><span class="p">)):</span>

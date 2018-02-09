@@ -154,7 +154,7 @@
   <h1>Source code for dpipe.dataset.brats</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">.from_csv</span> <span class="k">import</span> <span class="n">FromCSVInt</span>
+<span class="kn">from</span> <span class="nn">.segmentation</span> <span class="k">import</span> <span class="n">FromCSVInt</span>
 
 
 <span class="c1"># We need this class because in the original data segm values are [0, 1, 2, 4]</span>
@@ -176,7 +176,7 @@
 <div class="viewcode-block" id="Brats2017.load_segm"><a class="viewcode-back" href="../../../dpipe.dataset.html#dpipe.dataset.brats.Brats2017.load_segm">[docs]</a>    <span class="k">def</span> <span class="nf">load_segm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">identifier</span><span class="p">):</span>
         <span class="n">segm</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">load_segm</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span>
         <span class="n">segm</span><span class="p">[</span><span class="n">segm</span> <span class="o">==</span> <span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
-        <span class="k">return</span> <span class="n">segm</span></div></div>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">(</span><span class="n">segm</span><span class="p">)</span></div></div>
 
 <span class="c1"># For Brats 2015</span>
 <span class="c1"># segm2msegm = np.array([</span>

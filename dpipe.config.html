@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>dpipe.config package &mdash; dpipe  documentation</title>
+  <title>Configs manager &mdash; dpipe  documentation</title>
   
 
   
@@ -93,18 +93,12 @@
 <li class="toctree-l2 current"><a class="reference internal" href="dpipe.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="dpipe.batch_iter.html">Batch iterators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.batch_predict.html">Batch predictors</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">dpipe.config package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.config.base">dpipe.config.base module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.config.paths">dpipe.config.paths module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-dpipe.config">Module contents</a></li>
-</ul>
-</li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Configs manager</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.dataset.html">Datasets</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.experiment.html">dpipe.experiment package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.medim.html">Medim</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.model_core.html">Model Core</a></li>
-<li class="toctree-l3"><a class="reference internal" href="dpipe.split.html">dpipe.split package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dpipe.split.html">Split</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.tf.html">dpipe.tf package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.torch.html">dpipe.torch package</a></li>
 <li class="toctree-l3"><a class="reference internal" href="dpipe.train.html">Training</a></li>
@@ -114,7 +108,6 @@
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.io">Input/Output</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.model">NN model interface</a></li>
 <li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.transformers">dpipe.transformers module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="dpipe.html#module-dpipe.batch_iter_factory">dpipe.batch_iter_factory module</a></li>
 </ul>
 </li>
 </ul>
@@ -163,7 +156,7 @@
         
           <li><a href="dpipe.html">dpipe package</a> &raquo;</li>
         
-      <li>dpipe.config package</li>
+      <li>Configs manager</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -182,18 +175,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="dpipe-config-package">
-<h1>dpipe.config package<a class="headerlink" href="#dpipe-config-package" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-dpipe.config.base">
-<span id="dpipe-config-base-module"></span><h2>dpipe.config.base module<a class="headerlink" href="#module-dpipe.config.base" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="dpipe.config.base.get_module">
-<code class="descclassname">dpipe.config.base.</code><code class="descname">get_module</code><span class="sig-paren">(</span><em>module_type</em>, <em>module_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/config/base.html#get_module"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.config.base.get_module" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
+  <div class="section" id="module-dpipe.config.base">
+<span id="configs-manager"></span><h1>Configs manager<a class="headerlink" href="#module-dpipe.config.base" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="dpipe.config.base.get_resource_manager">
 <code class="descclassname">dpipe.config.base.</code><code class="descname">get_resource_manager</code><span class="sig-paren">(</span><em>config_path: str</em><span class="sig-paren">)</span> &#x2192; resource_manager.resource_manager.ResourceManager<a class="reference internal" href="_modules/dpipe/config/base.html#get_resource_manager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.config.base.get_resource_manager" title="Permalink to this definition">¶</a></dt>
@@ -212,29 +195,6 @@
 </table>
 </dd></dl>
 
-<dl class="function">
-<dt id="dpipe.config.base.link_externals">
-<code class="descclassname">dpipe.config.base.</code><code class="descname">link_externals</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/config/base.html#link_externals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.config.base.link_externals" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="dpipe.config.base.load">
-<code class="descclassname">dpipe.config.base.</code><code class="descname">load</code><span class="sig-paren">(</span><em>path</em>, <em>default</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/config/base.html#load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.config.base.load" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-dpipe.config.paths">
-<span id="dpipe-config-paths-module"></span><h2>dpipe.config.paths module<a class="headerlink" href="#module-dpipe.config.paths" title="Permalink to this headline">¶</a></h2>
-<p>&#8220;File with utilities to get library paths.</p>
-<dl class="function">
-<dt id="dpipe.config.paths.get_paths">
-<code class="descclassname">dpipe.config.paths.</code><code class="descname">get_paths</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dpipe/config/paths.html#get_paths"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dpipe.config.paths.get_paths" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-dpipe.config">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-dpipe.config" title="Permalink to this headline">¶</a></h2>
-</div>
 </div>
 
 

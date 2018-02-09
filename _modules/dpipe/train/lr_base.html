@@ -152,44 +152,37 @@
            <div itemprop="articleBody">
             
   <h1>Source code for dpipe.train.lr_base</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">abc</span> <span class="k">import</span> <span class="n">abstractmethod</span><span class="p">,</span> <span class="n">ABC</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Sequence</span>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Sequence</span>
 
 
-<div class="viewcode-block" id="LearningRate"><a class="viewcode-back" href="../../../dpipe.train.html#dpipe.train.lr_base.LearningRate">[docs]</a><span class="k">class</span> <span class="nc">LearningRate</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Interface for learning rate policies&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="LearningRatePolicy"><a class="viewcode-back" href="../../../dpipe.train.html#dpipe.train.lr_base.LearningRatePolicy">[docs]</a><span class="k">class</span> <span class="nc">LearningRatePolicy</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Interface for learning rate policies. lr attribute is a current learning rate.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lr_init</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">epoch</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">total_steps</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lr</span> <span class="o">=</span> <span class="n">lr_init</span>
 
-<div class="viewcode-block" id="LearningRate.next_epoch"><a class="viewcode-back" href="../../../dpipe.train.html#dpipe.train.lr_base.LearningRate.next_epoch">[docs]</a>    <span class="k">def</span> <span class="nf">next_epoch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Indicate that a new epoch has begun&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">epoch</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">=</span> <span class="mi">0</span></div>
+<div class="viewcode-block" id="LearningRatePolicy.on_epoch_finished"><a class="viewcode-back" href="../../../dpipe.train.html#dpipe.train.lr_base.LearningRatePolicy.on_epoch_finished">[docs]</a>    <span class="k">def</span> <span class="nf">on_epoch_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">train_losses</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">val_losses</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                          <span class="n">metrics</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">pass</span></div>
 
-<div class="viewcode-block" id="LearningRate.next_step"><a class="viewcode-back" href="../../../dpipe.train.html#dpipe.train.lr_base.LearningRate.next_step">[docs]</a>    <span class="k">def</span> <span class="nf">next_step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Indicate that a new training step in the current epoch has begun&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="LearningRatePolicy.epoch_finished"><a class="viewcode-back" href="../../../dpipe.train.html#dpipe.train.lr_base.LearningRatePolicy.epoch_finished">[docs]</a>    <span class="k">def</span> <span class="nf">epoch_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">train_losses</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">val_losses</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                       <span class="n">metrics</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Indicate that an epoch has finished, with corresponding losses and metrics.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on_epoch_finished</span><span class="p">(</span><span class="n">train_losses</span><span class="o">=</span><span class="n">train_losses</span><span class="p">,</span> <span class="n">val_losses</span><span class="o">=</span><span class="n">val_losses</span><span class="p">,</span> <span class="n">metrics</span><span class="o">=</span><span class="n">metrics</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epoch</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="LearningRatePolicy.on_step_finished"><a class="viewcode-back" href="../../../dpipe.train.html#dpipe.train.lr_base.LearningRatePolicy.on_step_finished">[docs]</a>    <span class="k">def</span> <span class="nf">on_step_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_loss</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="LearningRatePolicy.step_finished"><a class="viewcode-back" href="../../../dpipe.train.html#dpipe.train.lr_base.LearningRatePolicy.step_finished">[docs]</a>    <span class="k">def</span> <span class="nf">step_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_loss</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Indicate that a new training step in the current epoch has finished.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on_step_finished</span><span class="p">(</span><span class="n">train_loss</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">step</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">total_steps</span> <span class="o">+=</span> <span class="mi">1</span></div>
-
-    <span class="nd">@abstractmethod</span>
-<div class="viewcode-block" id="LearningRate.next_lr"><a class="viewcode-back" href="../../../dpipe.train.html#dpipe.train.lr_base.LearningRate.next_lr">[docs]</a>    <span class="k">def</span> <span class="nf">next_lr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_losses</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">val_losses</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">metrics</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the next learning rate.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        train_losses: Sequence</span>
-<span class="sd">        val_losses: Sequence</span>
-<span class="sd">        metrics: dict</span>
-<span class="sd">            a dict containing the metrics calculated on the validation set</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        learning_rate: float</span>
-<span class="sd">        &quot;&quot;&quot;</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">total_steps</span> <span class="o">+=</span> <span class="mi">1</span></div></div>
 </pre></div>
 
            </div>

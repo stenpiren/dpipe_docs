@@ -154,7 +154,7 @@
   <h1>Source code for dpipe.batch_iter.pipeline</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Contains several wrappers around the `pdp` library&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Sequence</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="k">import</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Iterable</span>
 
 <span class="kn">from</span> <span class="nn">pdp</span> <span class="k">import</span> <span class="n">Pipeline</span><span class="p">,</span> <span class="n">One2One</span><span class="p">,</span> <span class="n">Many2One</span><span class="p">,</span> <span class="n">Source</span><span class="p">,</span> <span class="n">pack_args</span><span class="p">,</span> <span class="n">One2Many</span>
 <span class="kn">import</span> <span class="nn">pdp</span>
@@ -162,21 +162,39 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 
-<div class="viewcode-block" id="unravel_transformers"><a class="viewcode-back" href="../../../dpipe.batch_iter.html#dpipe.batch_iter.pipeline.unravel_transformers">[docs]</a><span class="k">def</span> <span class="nf">unravel_transformers</span><span class="p">(</span><span class="n">sequence</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">unravel_transformers</span><span class="p">(</span><span class="n">sequence</span><span class="p">):</span>
     <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">sequence</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">pdp</span><span class="o">.</span><span class="n">interface</span><span class="o">.</span><span class="n">TransformerDescription</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Source</span><span class="p">):</span>
             <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">result</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">unravel_transformers</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
-    <span class="k">return</span> <span class="n">result</span></div>
+    <span class="k">return</span> <span class="n">result</span>
 
 
-<div class="viewcode-block" id="combine_batches_"><a class="viewcode-back" href="../../../dpipe.batch_iter.html#dpipe.batch_iter.pipeline.combine_batches_">[docs]</a><span class="k">def</span> <span class="nf">combine_batches_</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">inputs</span><span class="p">)]</span></div>
+<span class="k">def</span> <span class="nf">combine_batches_</span><span class="p">(</span><span class="n">inputs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">inputs</span><span class="p">)]</span>
+
+
+<div class="viewcode-block" id="make_finite"><a class="viewcode-back" href="../../../dpipe.batch_iter.html#dpipe.batch_iter.pipeline.make_finite">[docs]</a><span class="k">def</span> <span class="nf">make_finite</span><span class="p">(</span><span class="n">iterable</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">n_iterations</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Yields n_iterations from an iterable&quot;&quot;&quot;</span>
+    <span class="n">iterable</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_iterations</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="nb">next</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="pipeline"><a class="viewcode-back" href="../../../dpipe.batch_iter.html#dpipe.batch_iter.pipeline.pipeline">[docs]</a><span class="k">def</span> <span class="nf">pipeline</span><span class="p">(</span><span class="n">transformers</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Wrapper around the `pdp` library which returns a regular generator</span>
+<span class="sd">    from transformers.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    transformers: Sequence</span>
+<span class="sd">        `pdp` transformers to create a generator from</span>
+<span class="sd">    batch_size: int, optional</span>
+<span class="sd">        if provided `pdp.Many2One` and `combine_batches` are added to transformers</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">transformers</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
 
     <span class="n">transformers</span> <span class="o">=</span> <span class="n">unravel_transformers</span><span class="p">(</span><span class="n">transformers</span><span class="p">)</span>
@@ -185,19 +203,20 @@
             <span class="n">Many2One</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">buffer_size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
             <span class="n">One2One</span><span class="p">(</span><span class="n">combine_batches_</span><span class="p">,</span> <span class="n">buffer_size</span><span class="o">=</span><span class="mi">2</span><span class="p">),</span>
         <span class="p">])</span>
-    <span class="k">return</span> <span class="n">Pipeline</span><span class="p">(</span><span class="o">*</span><span class="n">transformers</span><span class="p">)</span></div>
+    <span class="k">with</span> <span class="n">Pipeline</span><span class="p">(</span><span class="o">*</span><span class="n">transformers</span><span class="p">)</span> <span class="k">as</span> <span class="n">p</span><span class="p">:</span>
+        <span class="k">yield from</span> <span class="n">p</span></div>
 
 
-<div class="viewcode-block" id="one2one"><a class="viewcode-back" href="../../../dpipe.batch_iter.html#dpipe.batch_iter.pipeline.one2one">[docs]</a><span class="k">def</span> <span class="nf">one2one</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">pack</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_workers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">buffer_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">one2one</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">pack</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_workers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">buffer_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">pack</span><span class="p">:</span>
         <span class="n">f</span> <span class="o">=</span> <span class="n">pack_args</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">One2One</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">n_workers</span><span class="o">=</span><span class="n">n_workers</span><span class="p">,</span> <span class="n">buffer_size</span><span class="o">=</span><span class="n">buffer_size</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">One2One</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">n_workers</span><span class="o">=</span><span class="n">n_workers</span><span class="p">,</span> <span class="n">buffer_size</span><span class="o">=</span><span class="n">buffer_size</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="one2many"><a class="viewcode-back" href="../../../dpipe.batch_iter.html#dpipe.batch_iter.pipeline.one2many">[docs]</a><span class="k">def</span> <span class="nf">one2many</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">pack</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_workers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">buffer_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">one2many</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">pack</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_workers</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">buffer_size</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">pack</span><span class="p">:</span>
         <span class="n">f</span> <span class="o">=</span> <span class="n">pack_args</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">One2Many</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">n_workers</span><span class="o">=</span><span class="n">n_workers</span><span class="p">,</span> <span class="n">buffer_size</span><span class="o">=</span><span class="n">buffer_size</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">One2Many</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">n_workers</span><span class="o">=</span><span class="n">n_workers</span><span class="p">,</span> <span class="n">buffer_size</span><span class="o">=</span><span class="n">buffer_size</span><span class="p">)</span>
 </pre></div>
 
            </div>
